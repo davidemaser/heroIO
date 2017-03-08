@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/davidemaser/heroIO/issues"
   },
-  "homepage": "https://github.com/davidemaser/heroIO#readme"
+  "homepage": "https://github.com/davidemaser/heroIO#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0"
+  }
 }
