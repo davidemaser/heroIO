@@ -9,7 +9,7 @@ var app = {
     dialog:true,
     save:true,
     listener:"window",
-    version:"../assets/project/release.json",
+    version:"assets/project/release.json",
     languageRoot:"data/language/",
     methods:{
         g:"get",
