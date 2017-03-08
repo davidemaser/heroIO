@@ -1,0 +1,254 @@
+{
+  "node": {
+    "section": [
+      {
+        "actions": [
+          {
+            "id": "action1",
+            "translate": "Switch to Hello Bar Mode"
+          },
+          {
+            "id": "action2",
+            "translate": "Add Item"
+          },
+          {
+            "id": "action3",
+            "translate": "Add Multiple Items"
+          },
+          {
+            "id": "action4",
+            "translate": "Remove Last Item"
+          },
+          {
+            "id": "action5",
+            "translate": "Generate JSON"
+          },
+          {
+            "id": "action6",
+            "translate": "Translate JSON"
+          },
+          {
+            "id": "action7",
+            "translate": "Save For Later"
+          },
+          {
+            "id": "action8",
+            "translate": "Import From Save"
+          },
+          {
+            "id": "action9",
+            "translate": "Reset Errors"
+          },
+          {
+            "id": "action10",
+            "translate": "Reset Form"
+          },
+          {
+            "id": "action11",
+            "translate": "Reset Item Positions"
+          },
+          {
+            "id": "action12",
+            "translate": "Reset Local Storage"
+          },
+          {
+            "id": "action13",
+            "translate": "Dark Theme"
+          },
+          {
+            "id": "action14",
+            "translate": "Light Theme"
+          },
+          {
+            "id": "action15",
+            "translate": "About this app"
+          },
+          {
+            "id": "action16",
+            "translate": "Format For Plan B"
+          },
+          {
+            "id": "action17",
+            "translate": "Toggle Conditions"
+          },
+          {
+            "id": "action18",
+            "translate": "Hide Item"
+          },
+          {
+            "id": "action19",
+            "translate": "Translate To French"
+          },
+          {
+            "id": "preview1",
+            "translate": "English"
+          },
+          {
+            "id": "preview2",
+            "translate": "French"
+          },
+          {
+            "id": "preview3",
+            "translate": "Preview Language"
+          },
+          {
+            "id": "preview4",
+            "translate": "Preview Large"
+          },
+          {
+            "id": "preview5",
+            "translate": "Preview Small"
+          },
+          {
+            "id": "move1",
+            "translate": "Move Up"
+          },
+          {
+            "id": "move2",
+            "translate": "Move Down"
+          },
+          {
+            "id": "formElement1",
+            "translate": "Start Date"
+          },
+          {
+            "id": "formElement2",
+            "translate": "End Date"
+          },
+          {
+            "id": "formElement3",
+            "translate": "Title EN"
+          },
+          {
+            "id": "formElement4",
+            "translate": "Title FR"
+          },
+          {
+            "id": "formElement5",
+            "translate": "Title Color"
+          },
+          {
+            "id": "formElement6",
+            "translate": "Text EN"
+          },
+          {
+            "id": "formElement7",
+            "translate": "Text FR"
+          },
+          {
+            "id": "formElement8",
+            "translate": "Image Link"
+          },
+          {
+            "id": "formElement9",
+            "translate": "Validate Image"
+          },
+          {
+            "id": "formElement10",
+            "translate": "Open Shopify Explorer"
+          },
+          {
+            "id": "formElement11",
+            "translate": "Shopify CDN"
+          },
+          {
+            "id": "formElement12",
+            "translate": "Alternative Image Link"
+          },
+          {
+            "id": "formElement13",
+            "translate": "Button Label EN"
+          },
+          {
+            "id": "formElement14",
+            "translate": "Button Label FR"
+          },
+          {
+            "id": "formElement15",
+            "translate": "Button Link"
+          },
+          {
+            "id": "formElement16",
+            "translate": "Open Link In A Popup ?"
+          },
+          {
+            "id": "formElement17",
+            "translate": "Link To Which ID"
+          },
+          {
+            "id": "formElement18",
+            "translate": "Show Countdown Timer"
+          },
+          {
+            "id": "formElement19",
+            "translate": "Show Hero Title"
+          },
+          {
+            "id": "formElement20",
+            "translate": "Show Hero SubTitle"
+          },
+          {
+            "id": "formElement21",
+            "translate": "Promote Hero"
+          },
+          {
+            "id": "formElement22",
+            "translate": "Sticky Hero"
+          },
+          {
+            "id": "formElement23",
+            "translate": "Show X hours Before Active"
+          },
+          {
+            "id": "formElement24",
+            "translate": "Activate Hero"
+          },
+          {
+            "id": "formLabel1",
+            "translate": "Yes"
+          },
+          {
+            "id": "formLabel2",
+            "translate": "No"
+          },
+          {
+            "id": "formLabel3",
+            "translate": "Select"
+          },
+          {
+            "id": "help1",
+            "translate": "Help"
+          },
+          {
+            "id": "jump1",
+            "translate": "Go To"
+          }
+        ]
+      },
+      {
+        "load": [
+          {
+            "id": "load1",
+            "translate": "Load Saved Heros"
+          }
+        ]
+      },
+      {
+        "errors": [
+          {
+            "id": "errors1",
+            "translate": "Errors"
+          }
+        ]
+      },
+      {
+        "help": [
+          {
+            "id": "help1",
+            "translate": "Help"
+          }
+        ]
+      }
+    ]
+  }
+}

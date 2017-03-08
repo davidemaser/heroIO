@@ -1,0 +1,254 @@
+{
+  "node": {
+    "section": [
+      {
+        "actions": [
+          {
+            "id": "action1",
+            "translate": "Activer mode Hello Bar"
+          },
+          {
+            "id": "action2",
+            "translate": "Ajouter Element"
+          },
+          {
+            "id": "action3",
+            "translate": "Ajouter Multiples Elements"
+          },
+          {
+            "id": "action4",
+            "translate": "Supprimer Dernier Element"
+          },
+          {
+            "id": "action5",
+            "translate": "G&eacute;n&eacute;rer JSON"
+          },
+          {
+            "id": "action6",
+            "translate": "Traduire JSON"
+          },
+          {
+            "id": "action7",
+            "translate": "Sauvegarder"
+          },
+          {
+            "id": "action8",
+            "translate": "Importer Une Sauvegarde"
+          },
+          {
+            "id": "action9",
+            "translate": "R&eacute;initialiser Erreurs"
+          },
+          {
+            "id": "action10",
+            "translate": "R&eacute;initialiser Formulaire"
+          },
+          {
+            "id": "action11",
+            "translate": "R&eacute;initialiser Positionement Des Elements"
+          },
+          {
+            "id": "action12",
+            "translate": "R&eacute;initialiser Local Storage"
+          },
+          {
+            "id": "action13",
+            "translate": "Th&egrave;me Fonce"
+          },
+          {
+            "id": "action14",
+            "translate": "Th&egrave;me Claire"
+          },
+          {
+            "id": "action15",
+            "translate": "A Propos De Cette Application"
+          },
+          {
+            "id": "action16",
+            "translate": "Formater pour Plan B"
+          },
+          {
+            "id": "action17",
+            "translate": "Activer/Desactiver Conditions"
+          },
+          {
+            "id": "action18",
+            "translate": "Masquer Item"
+          },
+          {
+            "id": "action19",
+            "translate": "Traduire En Anglais"
+          },
+          {
+            "id": "preview1",
+            "translate": "Anglais"
+          },
+          {
+            "id": "preview2",
+            "translate": "Francais"
+          },
+          {
+            "id": "preview3",
+            "translate": "Langue de l'apercu"
+          },
+          {
+            "id": "preview4",
+            "translate": "Grand Apercu"
+          },
+          {
+            "id": "preview5",
+            "translate": "Petit Apercu"
+          },
+          {
+            "id": "move1",
+            "translate": "D&eacute;placer Vers le Haut"
+          },
+          {
+            "id": "move2",
+            "translate": "D&eacute;placer Vers le Bas"
+          },
+          {
+            "id": "formElement1",
+            "translate": "Date de D&eacute;but"
+          },
+          {
+            "id": "formElement2",
+            "translate": "Date de Fin"
+          },
+          {
+            "id": "formElement3",
+            "translate": "Titre EN"
+          },
+          {
+            "id": "formElement4",
+            "translate": "Titre FR"
+          },
+          {
+            "id": "formElement5",
+            "translate": "Couleur du Titre"
+          },
+          {
+            "id": "formElement6",
+            "translate": "Texte EN"
+          },
+          {
+            "id": "formElement7",
+            "translate": "Texte FR"
+          },
+          {
+            "id": "formElement8",
+            "translate": "Lien Vers l'Image"
+          },
+          {
+            "id": "formElement9",
+            "translate": "Valider Image"
+          },
+          {
+            "id": "formElement10",
+            "translate": "Ouvrir Explorateur Shopify"
+          },
+          {
+            "id": "formElement11",
+            "translate": "CDN Shopify"
+          },
+          {
+            "id": "formElement12",
+            "translate": "Lien Vers Image Alternative"
+          },
+          {
+            "id": "formElement13",
+            "translate": "Label Bouton EN"
+          },
+          {
+            "id": "formElement14",
+            "translate": "Label Bouton FR"
+          },
+          {
+            "id": "formElement15",
+            "translate": "Lien Bouton"
+          },
+          {
+            "id": "formElement16",
+            "translate": "Ouvrir Lien Dans Un Popup"
+          },
+          {
+            "id": "formElement17",
+            "translate": "Lien Vers Quel ID"
+          },
+          {
+            "id": "formElement18",
+            "translate": "Afficher D&eacute;compte"
+          },
+          {
+            "id": "formElement19",
+            "translate": "Afficher Titre Hero"
+          },
+          {
+            "id": "formElement20",
+            "translate": "Afficher Sous-Titre Hero"
+          },
+          {
+            "id": "formElement21",
+            "translate": "Promouvoir Hero"
+          },
+          {
+            "id": "formElement22",
+            "translate": "Hero Persistent"
+          },
+          {
+            "id": "formElement23",
+            "translate": "Afficher X Heures Avant Actif"
+          },
+          {
+            "id": "formElement24",
+            "translate": "Activer Hero"
+          },
+          {
+            "id": "formLabel1",
+            "translate": "Oui"
+          },
+          {
+            "id": "formLabel2",
+            "translate": "Non"
+          },
+          {
+            "id": "formLabel3",
+            "translate": "S&eacute;lectionner"
+          },
+          {
+            "id": "help1",
+            "translate": "Aide"
+          },
+          {
+            "id": "jump1",
+            "translate": "Aller A"
+          }
+        ]
+      },
+      {
+        "load": [
+          {
+            "id": "load1",
+            "translate": "Charger Hero Sauvegard&eacute;"
+          }
+        ]
+      },
+      {
+        "errors": [
+          {
+            "id": "errors1",
+            "translate": "Erreurs"
+          }
+        ]
+      },
+      {
+        "help": [
+          {
+            "id": "help1",
+            "translate": "Aide"
+          }
+        ]
+      }
+    ]
+  }
+}
