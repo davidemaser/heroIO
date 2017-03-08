@@ -1334,7 +1334,7 @@ $(function () {
             $(app.objects.he).css('display','none');
         }
     }).on('click','.about_app,.version_number',function (e){
-        window.open("../release.html", "_blank","scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
+        window.open("release.html", "_blank","scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
     }).on('click','.btnAddMulti',function (){
         $('#query-zone').toggle();
         $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min);
@@ -1710,7 +1710,7 @@ $(function () {
             e.preventDefault();
         }
         if (e.keyCode == 191 && e.ctrlKey) {
-            window.open("../release.html", "_blank","scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
+            window.open("release.html", "_blank","scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
             e.preventDefault();
         }
     }).on('scroll', function(){
