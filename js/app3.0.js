@@ -1377,7 +1377,7 @@ $(function () {
         var a = $(this).attr(app.handlers.i);
         core.traverseJSON(true,a);
     }).on('click','.copy-zone',function(){
-        core.OpenInNewTab('https://github.com/davidemaser/davidemaser.github.io');
+        core.OpenInNewTab('https://github.com/davidemaser/heroIO');
     }).on('click','.showHelp',function(){
         $(app.objects.he).toggle();
         if($(app.objects.he).css('display') == 'block'){
