@@ -79,17 +79,17 @@ var core = {
      * @constructor
      */
     languageManager: function (lng,init) {
-        lng = $('html').attr('data-language') || lng;
+        lng = $(app.dom.h).attr('data-language') || lng;
         switch (lng) {
             case "en_EN":
                 var newLang = 'fr_FR';
                 $('.app_lang_toggle').attr('data-set-lang',newLang);
-                init != true ? $('html').attr('data-language',newLang):null;
+                init != true ? $(app.dom.h).attr('data-language',newLang):null;
                 break;
             case "fr_FR":
                 newLang = 'en_EN';
                 $('.app_lang_toggle').attr('data-set-lang',newLang);
-                init != true ? $('html').attr('data-language',newLang):null;
+                init != true ? $(app.dom.h).attr('data-language',newLang):null;
                 break;
         }
         /**
@@ -140,7 +140,7 @@ var core = {
                             objTran: data.node.section[3].help[l].translate
                         });
                     }
-                    translatePageItems(lngContainer);
+                    new translatePageItems(lngContainer);
                 }
             })
         } catch (e) {
@@ -195,7 +195,7 @@ var core = {
                 for (var i = 0; i < blockLen; i++) {
                     if (blockContent[i].display !== 'custom') {
                         if (i % 2 === 0 || i === 0) {
-                            if (blockContent[i].wrap_group == true) {
+                            if (blockContent[i].wrap_group === true) {
                                 htmlBlock += '<div class="' + blockContent[i].wrap_group_class + '">';
                             }
                             htmlBlock += '<div class="form-group">';
@@ -215,13 +215,13 @@ var core = {
                             }
                             htmlBlock += '<div class="' + line + ' ' + blocker + '">';
                             htmlBlock += '<label class="label_fn control-label" for="' + blockContent[i].obj_id + '">' + blockContent[i].label + '</label>';
-                            if (blockContent[i].wrap == true) {
+                            if (blockContent[i].wrap === true) {
                                 htmlBlock += '<div class="' + blockContent[i].wrap_class + '">';
                             }
                             if (blockContent[i].inject_code !== '') {
                                 htmlBlock += blockContent[i].inject_code;
                             }
-                            if (blockContent[i].input_obj == 'text') {
+                            if (blockContent[i].input_obj === 'text') {
                                 htmlBlock += '<input';
                                 if (blockContent[i].obj_id !== '') {
                                     htmlBlock += ' id="' + blockContent[i].obj_id + '" name="' + blockContent[i].obj_id + '"';
@@ -247,7 +247,7 @@ var core = {
                                     }
                                 }
                                 htmlBlock += '>';
-                            } else if (blockContent[i].input_obj == 'radio') {
+                            } else if (blockContent[i].input_obj === 'radio') {
                                 htmlBlock += '<input';
                                 htmlBlock += ' type="radio"';
                                 if (blockContent[i].class !== '') {
@@ -275,7 +275,7 @@ var core = {
                                     }
                                 }
                                 htmlBlock += '>';
-                            } else if (blockContent[i].input_obj == 'select') {
+                            } else if (blockContent[i].input_obj === 'select') {
                                 htmlBlock += '<select';
                                 if (blockContent[i].class !== '') {
                                     htmlBlock += ' class="form-control ' + blockContent[i].class + '"';
@@ -310,14 +310,14 @@ var core = {
                             if (blockContent[i].append !== '') {
                                 htmlBlock += blockContent[i].append;
                             }
-                            if (blockContent[i].wrap == true) {
+                            if (blockContent[i].wrap === true) {
                                 htmlBlock += '</div>';
                             }
                             htmlBlock += '</div>';
                         }
                         if (i % 2 === 1) {
                             htmlBlock += '</div>';
-                            if (blockContent[i].wrap_group == true) {
+                            if (blockContent[i].wrap_group === true) {
                                 htmlBlock += '</div>';
                             }
                         }
@@ -338,7 +338,7 @@ var core = {
      * @constructor
      */
     switchModes: function (va) {
-        if (va == 'hello') {
+        if (va === 'hello') {
             $('*[data-role="hero"]').css('display', 'none');
             $('*[data-role="hello"]').css('display', 'block');
             pfExport = 'hello';
@@ -360,7 +360,7 @@ var core = {
     initializeTheme: function () {
         if (window.localStorage) {
             var tm = localStorage.getItem(app.storage.t);
-            if (tm == null || tm == undefined) {
+            if (tm === null || tm === undefined) {
                 $('html').attr(app.handlers.t, 'light');
             } else {
                 $('html').attr(app.handlers.t, tm);
@@ -526,9 +526,9 @@ var core = {
      * @constructor
      */
     doLocalSave: function (method) {
-        if (method == 'do' || method == null) {
+        if (method === 'do' || method === null) {
             $('#loadandsave-zone').attr('data-reason', 'save').css('display', 'block');
-        } else if (method == 'reset') {
+        } else if (method === 'reset') {
             localStorage.setItem('pgb_SavedNode_LS', "");
             for (var i = 0, len = localStorage.length; i < len; i++) {
                 var key = localStorage.key(i);
@@ -552,7 +552,7 @@ var core = {
             max, value;
         max = docHeight - winHeight;
         progressBar.attr('max', max);
-        if (meth == 'a') {
+        if (meth === 'a') {
             winHeight = $(window).height(),
                 docHeight = $(document).height();
 
@@ -561,7 +561,7 @@ var core = {
 
             value = $(window).scrollTop();
             progressBar.attr('value', value);
-        } else if (meth == 'b') {
+        } else if (meth === 'b') {
             value = $(window).scrollTop();
             progressBar.attr('value', value);
         }
@@ -615,7 +615,7 @@ var core = {
      */
     saveNodeToLS: function (val, name) {
         if (window.localStorage) {
-            if (localStorage.getItem('pgb_SavedNode_LS') == null || localStorage.getItem('pgb_SavedNode_LS') == undefined) {
+            if (localStorage.getItem('pgb_SavedNode_LS') === null || localStorage.getItem('pgb_SavedNode_LS') === undefined) {
                 localStorage.setItem('pgb_SavedNode_LS', "");
             }
             var getList = localStorage.getItem('pgb_SavedNode_LS'),
@@ -636,7 +636,7 @@ var core = {
      * @constructor
      */
     addItems: function () {
-        if ($(app.objects.o).css('display') == 'block') {
+        if ($(app.objects.o).css('display') === 'block') {
             $(app.objects.o).css('display', 'none');
         }
         var num = $(app.objects.cl).length, // Checks to see how many "duplicatable" input fields we currently have
@@ -698,11 +698,11 @@ var core = {
      */
     deleteItems: function (elem) {
         if ($(app.objects.cl).length > 1) {
-            if ($(app.objects.o).css('display') == 'block') {
+            if ($(app.objects.o).css('display') === 'block') {
                 $(app.objects.o).css('display', 'none');
             }
             //var num = $(app.objects.cl).length;
-            if (elem == 'last') {
+            if (elem === 'last') {
                 var a = $('.clonedInput:last').attr('id'),
                     b = a.replace('entry', '');
                 $('#' + a).slideUp('slow', function () {
@@ -760,31 +760,31 @@ var core = {
             b = a.length,
             c = 0;
         for (var i = 0; i < b; i++) {
-            if (a[i].date.start == '') {
+            if (a[i].date.start === '') {
                 errorLog.push({form: (i + 1), obj: "Start Date", prob: "No Value. FATAL", elem: "objStart", die: true});
                 c++;
             }
-            if (a[i].date.end == '') {
+            if (a[i].date.end === '') {
                 errorLog.push({form: (i + 1), obj: "End Date", prob: "No Value. FATAL", elem: "objEnd", die: true});
                 c++;
             }
-            if (a[i].title.en == '') {
+            if (a[i].title.en === '') {
                 errorLog.push({form: (i + 1), obj: "English Title", prob: "No Value", elem: "objTitleEN", die: false});
                 c++;
             }
-            if (a[i].title.fr == '') {
+            if (a[i].title.fr === '') {
                 errorLog.push({form: (i + 1), obj: "French Title", prob: "No Value", elem: "objTitleFR", die: false});
                 c++;
             }
-            if (a[i].text.en == '') {
+            if (a[i].text.en === '') {
                 errorLog.push({form: (i + 1), obj: "English Text", prob: "No Value", elem: "objTextEN", die: false});
                 c++;
             }
-            if (a[i].text.fr == '') {
+            if (a[i].text.fr === '') {
                 errorLog.push({form: (i + 1), obj: "French Text", prob: "No Value", elem: "objTextFR", die: false});
                 c++;
             }
-            if (a[i].button.label.en == '') {
+            if (a[i].button.label.en === '') {
                 errorLog.push({
                     form: (i + 1),
                     obj: "English Button Label",
@@ -794,7 +794,7 @@ var core = {
                 });
                 c++;
             }
-            if (a[i].button.label.fr == '') {
+            if (a[i].button.label.fr === '') {
                 errorLog.push({
                     form: (i + 1),
                     obj: "French Button Label",
@@ -804,11 +804,11 @@ var core = {
                 });
                 c++;
             }
-            if (a[i].button.url == '') {
+            if (a[i].button.url === '') {
                 errorLog.push({form: (i + 1), obj: "Button URL", prob: "No Value", elem: "objButtonLink", die: false});
                 c++;
             }
-            if (a[i].image.url == '') {
+            if (a[i].image.url === '') {
                 errorLog.push({form: (i + 1), obj: "Image URL", prob: "No Value", elem: "objImageMain", die: false});
                 c++;
             }
@@ -840,7 +840,7 @@ var core = {
      */
     registerErrorButtons: function (num, elem, item, prob, die) {
         $(app.objects.bo).on('click', '.errorItem[' + app.handlers.i + '="' + item + '"]', function () {
-            if (die == true) {
+            if (die === true) {
                 $(app.objects.e + num).find('.' + elem).css('background-color', 'rgba(238, 54, 54, 0.3)').css('border-color', 'red').attr('placeholder', 'Leaving this field empty will cause the hero banner function to fail');
             } else {
                 $(app.objects.e + num).find('.' + elem).css('background-color', 'rgba(238, 162, 54, 0.3)');
@@ -866,12 +866,12 @@ var core = {
      */
     traverseJSON: function (storage, nodeName) {
         if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
-            if (storage == false) {
+            if (storage === false) {
                 var ctc = $(app.objects.b + ' textarea').val();
-                if (ctc == '') {
+                if (ctc === '') {
                     core.panelAlert('Form Does Not Contain JSON Data', 'error');
                 }
-            } else if (storage == true && nodeName !== '') {
+            } else if (storage === true && nodeName !== '') {
                 if (localStorage.getItem('pgb_SavedNode_' + nodeName) !== undefined && localStorage.getItem('pgb_SavedNode_' + nodeName) !== null && localStorage.getItem('pgb_SavedNode_' + nodeName) !== '') {
                     ctc = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
                 } else {
@@ -938,8 +938,10 @@ var core = {
             $(formEl).find('.objButtonFR').val(aCode[i].button.label.fr);
             $(formEl).find('.objButtonLink').val(aCode[i].button.url);
             if (aCode[i].date.delay === true || aCode[i].date.delay === false) {
-                setTimeout("panelAlert('Some delay entries are not numerical. Make sure to set all delay entries to a numerical value manually.','error')", 2000);
-            } else if (aCode[i].date.delay == '' || aCode[i].date.delay == null || aCode[i].date.delay == undefined || aCode[i].date.delay == 'undefined') {
+                window.setTimeout(function(){
+                    core.panelAlert('Some delay entries are not numerical. Make sure to set all delay entries to a numerical value manually.','error');
+                },2000);
+            } else if (aCode[i].date.delay === '' || aCode[i].date.delay === null || aCode[i].date.delay === undefined || aCode[i].date.delay === 'undefined') {
                 $(formEl).find('.objDelay').val(0);
             } else {
                 $(formEl).find('.objDelay').val(aCode[i].date.delay);
@@ -1010,7 +1012,7 @@ var core = {
         try {
             var nodes = aCode.length;
             var lastItem = nodes - 1;
-            if (mode == 'hello') {
+            if (mode === 'hello') {
                 var page_model = '{\n    "hello": [\n';
                 for (var i = 0; i < nodes; i++) {
                     page_model += '       {\n        "helloItem": "hello' + i + '",';
@@ -1464,36 +1466,36 @@ $(function () {
         core.OpenInNewTab('https://github.com/davidemaser/heroIO');
     }).on('click','.showHelp',function(){
         $(app.objects.he).toggle();
-        if($(app.objects.he).css('display') == 'block'){
+        if($(app.objects.he).css('display') === 'block'){
             $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow','hidden');
         }else{
             $(app.objects.r).css('overflow','auto');
         }
-        if($(app.objects.o).css('display') == 'block'){
+        if($(app.objects.o).css('display') === 'block'){
             $(app.objects.o).css('display','none');
         }
-        if($(app.objects.h).css('display') == 'block'){
+        if($(app.objects.h).css('display') === 'block'){
             $(app.objects.h).css('display','none');
         }
     }).on('click','.help_close',function(){
-        if($(app.objects.he).css('display') == 'block'){
+        if($(app.objects.he).css('display') === 'block'){
             $(this).parent().parent().hide();
             $(app.objects.r).css('overflow','auto');
         }
     }).on('click','.renderer_close',function(){
-        if($(app.objects.h).css('display') == 'block'){
+        if($(app.objects.h).css('display') === 'block'){
             $(this).parent().parent().hide();
             $(app.objects.r).css('overflow','auto');
             $(app.objects.h).find('.render_output').empty();
         }
     }).on('click','.btnNmode',function () {
         var a = $(app.dom.b).attr('data-nmode');
-        if(a == 'hero'){
+        if(a === 'hero'){
             $(app.dom.b).attr('data-nmode','hello');
             $(this).attr('data-nmode','hello');
             $(this).html('Switch to Hero Banner Mode');
             core.switchModes('hello')
-        }else if(a == 'hello'){
+        }else if(a === 'hello'){
             $(app.dom.b).attr('data-nmode','hero');
             $(this).attr('data-nmode','hero');
             $(this).html('Switch to Hello Bar Mode');
@@ -1512,7 +1514,7 @@ $(function () {
         $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow','hidden');
         $(app.objects.o).attr(app.handlers.r,'translate').css('display','block').find('#output_code').val('').attr('placeholder','Paste you code here');
     }).on('click','.save_json',function (){
-        if(app.save == true) {
+        if(app.save === true) {
             core.doLocalSave();
         }else{
             confirm('The save to localstorage feature is disabled. Change the save value to true in the globals file.');
@@ -1568,10 +1570,7 @@ $(function () {
         $('.btnSwitch').removeClass('view-active');
         $('.btnSwitch[data-language="'+pfLang+'"]').addClass('view-active');
         if($(app.objects.ro).children().not('.preview_warning').length > 0){
-            var rH = pfHero,
-                rL = pfLang,
-                rM = pfMode;
-            core.previewFeature(rH, rM, rL)
+            core.previewFeature(pfHero, pfMode, pfLang)
         }
         core.panelAlert('Preview language changed','good');
         e.preventDefault();
@@ -1634,9 +1633,9 @@ $(function () {
             }
         fn.preventDefault();
     }).on('click','.batsToggle',function(){
-        if($(this).attr('data-status') == 'active') {
+        if($(this).attr('data-status') === 'active') {
             core.killBats();
-        }else if($(this).attr('data-status') == 'allGone') {
+        }else if($(this).attr('data-status') === 'allGone') {
             for(i=0;i<4;i++) {
                 core.launchBats();
             }
@@ -1656,7 +1655,7 @@ $(function () {
             }
         }else{
             if(a <= compLen){
-                if($(this).parent().attr('class')=='input_holders') {
+                if($(this).parent().attr('class')==='input_holders') {
                     $(this).parent().find('.input_alerts').remove();
                     $(this).unwrap();
                     $(this).focus();
@@ -1664,41 +1663,41 @@ $(function () {
             }
         }
     }).on('keyup','.num_select',function(e){
-        if(e.keyCode == 13){
+        if(e.keyCode === 13){
             $(this).trigger("enterKey");
             core.addMulti($(this).val());
             $(this).parent().parent().parent().parent().hide();
         }
     }).on('keyup','.lsl_select',function(e){
-        if(e.keyCode == 13){
+        if(e.keyCode === 13){
             $(this).trigger("enterKey");
             core.prepareJSON('save',$(this).val());
             $(this).parent().parent().parent().parent().hide();
             core.setHeadSec();
         }
     }).on('keyup',app.objects.o+'['+app.handlers.r+'="translate"] #output_code',function(e){
-        if(e.keyCode == 45){
+        if(e.keyCode === 45){
             $(this).trigger("enterKey");
             core.traverseJSON(false);
             e.preventDefault();
         }
     }).on('change','.objHeroSticky',function(){
         var a = $(this).val();
-        if(a == 'true'){
+        if(a === 'true'){
             $(this).parent().parent().find('.objHeroPromote option[value="true"]').attr('selected',false);
-        }else if(a == 'false'){
+        }else if(a === 'false'){
             //$(this).parent().parent().find('.objHeroPromote option[value="false"]').attr('selected',true);
         }
     }).on('change','.objButtonPopup',function(){
         var a = $(this).val();
-        if(a == 'true'){
+        if(a === 'true'){
             $(this).parent().parent().find('.objButtonPopupLink').attr('style','');
-        }else if(a == 'false'){
+        }else if(a === 'false'){
             $(this).parent().parent().find('.objButtonPopupLink').css('opacity',0.3);
         }
     }).on('change','.input_radio',function(){
         var a = $(this).parent().parent().parent().parent().parent().attr('id').replace('entry','');
-        if($(this).val()=='true'){
+        if($(this).val()==='true'){
             $(this).parent().parent().css('border-left','6px solid #68B81F');
             $(this).parent().parent().parent().parent().find('h2').find('span').removeClass('label-danger').addClass('label-default');
             $('.gotoItem['+app.handlers.i+'="'+a+'"]').removeClass('redout').attr('title','');
@@ -1729,7 +1728,7 @@ $(function () {
         }
     });
     $(window).on('scroll', function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        if($(window).scrollTop() + $(window).height() === $(document).height()) {
             $('.copy-zone').fadeIn(app.animation.d.min);
         }else{
             $('.copy-zone').fadeOut(app.animation.d.min);
@@ -1738,51 +1737,51 @@ $(function () {
         core.scrollState('a');
     });
     $(document).on('keydown', function(e) {
-        if (e.keyCode == 71 && e.ctrlKey) {
+        if (e.keyCode === 71 && e.ctrlKey) {
             var a = $('.submit_json').attr('data-nmode');
             core.prepareJSON('full',null,a);
             e.preventDefault();
         }
-        if (e.keyCode == 82 && e.ctrlKey) {
+        if (e.keyCode === 82 && e.ctrlKey) {
             core.deleteItems();
             e.preventDefault();
         }
-        if (e.keyCode == 73 && e.ctrlKey && !e.altKey) {
+        if (e.keyCode === 73 && e.ctrlKey && !e.altKey) {
             core.addItems();
             e.preventDefault();
         }
-        if (e.keyCode == 73 && e.ctrlKey && e.altKey) {
+        if (e.keyCode === 73 && e.ctrlKey && e.altKey) {
             $('#query-zone').toggle();
             $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min);
-            if($(app.objects.o).css('display') == 'block'){
+            if($(app.objects.o).css('display') === 'block'){
                 $(app.objects.o).css('display','none');
             }
-            if($(app.objects.h).css('display') == 'block'){
+            if($(app.objects.h).css('display') === 'block'){
                 $(app.objects.h).css('display','none');
             }
             $('.num_select').focus();
             e.preventDefault();
         }
-        if (e.keyCode == 83 && e.ctrlKey && e.shiftKey) {
-            if(app.save == true) {
+        if (e.keyCode === 83 && e.ctrlKey && e.shiftKey) {
+            if(app.save === true) {
                 core.doLocalSave();
             }else{
                 confirm('The save to localstorage feature is disabled. Change the save value to true in the globals file.');
             }
         }
-        if (e.keyCode == 13 && e.ctrlKey && e.altKey) {
+        if (e.keyCode === 13 && e.ctrlKey && e.altKey) {
             $('.overlay_message').html('');
             $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow','hidden');
             $(app.objects.o).attr(app.handlers.r,'translate').css('display','block').find('#output_code').val('').attr('placeholder','Paste you code here');
             e.preventDefault();
         }
-        if (e.keyCode == 45 && e.ctrlKey && e.altKey) {
+        if (e.keyCode === 45 && e.ctrlKey && e.altKey) {
             core.choseLocalSave();
         }
-        if (e.keyCode == 69 && e.ctrlKey && e.altKey) {
-            if(pfLang == app.language.e){
+        if (e.keyCode === 69 && e.ctrlKey && e.altKey) {
+            if(pfLang === app.language.e){
                 pfLang = app.language.f;
-            }else if(pfLang == app.language.f){
+            }else if(pfLang === app.language.f){
                 pfLang = app.language.e;
             }
             $('.btnSwitch').removeClass('view-active');
@@ -1793,7 +1792,7 @@ $(function () {
             core.panelAlert('Preview language changed','good');
             e.preventDefault();
         }
-        if (e.keyCode == 191 && e.ctrlKey) {
+        if (e.keyCode === 191 && e.ctrlKey) {
             window.open("release.html", "_blank","scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
             e.preventDefault();
         }
@@ -1804,7 +1803,7 @@ $(function () {
     var d = new Date();
     var dt = d.getDate(),
         dm = d.getMonth()+1;
-    if(dm == 10 && dt > 21) {
+    if(dm === 10 && dt > 21) {
         $('.main_nav').append('<li class="divider"></li><li><a href="#" class="batsToggle" data-status="active">Kill The Bats</a></li>');
         for(var i = 0;i<4;i++) {
             core.launchBats();
