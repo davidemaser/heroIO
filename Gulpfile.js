@@ -1,8 +1,9 @@
 /**
  * Created by DAVIM on 13/04/2017.
  */
-var gulp = require('gulp');
-var jsdoc = require('gulp-jsdoc3');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const jsdoc = require('gulp-jsdoc3');
 
 var paths = {
     scripts: ['js/**/*.js'],
