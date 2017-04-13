@@ -9,7 +9,7 @@ var pfLang = app.lang,
     sPos = 0;
 /**
  *
- * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, OpenInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
+ * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, openInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
  * @constructor
  */
 var core = {
@@ -17,8 +17,8 @@ var core = {
      * Panel alert function - Creates a bottom panel alert view
      * that slides into view with a
      * defined message.
-     * @param {String} mess
-     * @param {String} state
+     * @param {String} mess Defines the message that will be displayed in the alert panel
+     * @param {String} state State defines the reason for the alert. Can be 'error' or 'good'
      * @constructor
      */
     panelAlert: function (mess, state) {
@@ -42,7 +42,7 @@ var core = {
      * current version against the server json and
      * initializes and update prompt if the local
      * version is outdated.
-     * @param {Boolean} init
+     * @param {Boolean} init Define wether the function is initializing or if this is a summary execution
      * @constructor
      */
     getVersion: function (init) {
@@ -74,8 +74,8 @@ var core = {
     /**
      * Language manager that handles the switching between
      * english and french
-     * @param {String} lng
-     * @param {Boolean} init
+     * @param {String} lng Define the language to be queried. Can be en_EN or fr_FR
+     * @param {Boolean} init Define wether the language manager should be initialized or if this is a summary language translation process
      * @constructor
      */
     languageManager: function (lng,init) {
@@ -95,7 +95,7 @@ var core = {
         /**
          * Function iterates through page objects and
          * applies the translations
-         * @param {Object} obj
+         * @param {Object} obj Object contains an array of language items picked up by html data attributes. This is used by the parent function
          * @constructor
          */
         function translatePageItems(obj){
@@ -334,7 +334,7 @@ var core = {
      * switches the page builder mode from
      * Hero builder mode to Hello Bar
      * builder mode
-     * @param {String} va
+     * @param {String} va Can be 'hello' or 'hero'. If null or undefined, defaults to 'hero'
      * @constructor
      */
     switchModes: function (va) {
@@ -522,7 +522,7 @@ var core = {
     /**
      * Executes a save of the json data into a localstorage
      * object
-     * @param {String} method
+     * @param {String} method If method is 'do' or empty, object will be marked to save. If method is 'reset', localstorage object will be flushed
      * @constructor
      */
     doLocalSave: function (method) {
@@ -542,7 +542,7 @@ var core = {
      * Checks the users scroll position on the
      * window and displays a progress bar
      * below the main menu navs
-     * @param {String} meth
+     * @param {String} meth A declares the method as window height, B declares the method as window innerHeight
      * @constructor
      */
     scrollState: function (meth) {
@@ -568,7 +568,7 @@ var core = {
     },
     /**
      * Simple open url in new tab function
-     * @param {String} url
+     * @param {String} url The URL to open in the new tab
      * @constructor
      */
     OpenInNewTab: function (url) {
@@ -578,7 +578,7 @@ var core = {
     /**
      * Adds multiple hero items to the current
      * instance
-     * @param {Number} num
+     * @param {Number} num How may new objects should the script create
      * @constructor
      */
     addMulti: function (num) {
@@ -590,7 +590,7 @@ var core = {
     /**
      * Animates the help item click to bring
      * into view the correct help item
-     * @param {Number} a
+     * @param {Number} a Defines which form item the function will jump to.
      * @constructor
      */
     jumpToHelper: function (a) {
@@ -609,8 +609,8 @@ var core = {
     },
     /**
      * Saves a json node to localStorage
-     * @param {String} val
-     * @param {String} name
+     * @param {String} val Defines the object position in the localStorage object
+     * @param {String} name Defines the node name to be stored in the localStorag
      * @constructor
      */
     saveNodeToLS: function (val, name) {
@@ -692,7 +692,7 @@ var core = {
     /**
      * Delete items from the form instance and
      * removes them from the dom reference
-     * @param {String} elem
+     * @param {String} elem Defines the DOM element that is targeted for deletion
      * @returns {boolean}
      * @constructor
      */
@@ -831,11 +831,11 @@ var core = {
      * errorHandler function to a click handler
      * that animates scroll to the specific
      * error item
-     * @param {Number} num
-     * @param {String} elem
-     * @param {String} item
-     * @param {String} prob
-     * @param {Boolean} die
+     * @param {Number} num Defines which form node is being targetted by the function
+     * @param {String} elem Defines the dom element that will be highlighted when function fires
+     * @param {String} item Defines the form element that triggered the error
+     * @param {String} prob Receives a summary description of the problem that was encountered
+     * @param {Boolean} die Defines whether the button is registered to an event/error that will cause the script to fail
      * @constructor
      */
     registerErrorButtons: function (num, elem, item, prob, die) {
@@ -860,8 +860,8 @@ var core = {
      * translate JSON mode and prepares and formats
      * it to be output to the corresponding
      * form objects
-     * @param {String} storage
-     * @param {String} nodeName
+     * @param {Boolean} storage Defines whether to store the data in localStorage when the JSON is traversed
+     * @param {String} nodeName Defines the name to be used. Will be appended to the localStorage object's save name
      * @constructor
      */
     traverseJSON: function (storage, nodeName) {
@@ -903,7 +903,7 @@ var core = {
      * Takes formatted JSON sent from the TraverseJSON
      * function and outputs it to the mapped form
      * element
-     * @param {Object} aCode
+     * @param {Object} aCode Param is a JSON formatted object. Object can not be a string. Pass the string through JSON.parse first
      * @constructor
      */
     jsonToForm: function (aCode) {
