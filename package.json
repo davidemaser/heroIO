@@ -18,6 +18,8 @@
   "homepage": "https://github.com/davidemaser/heroIO#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0"
+    "grunt-cli": "^1.2.0",
+    "gulp": "^3.9.1",
+    "gulp-jsdoc3": "^1.0.1"
   }
 }

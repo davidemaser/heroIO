@@ -1,9 +1,5 @@
-/**
- * @copyright webapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
- * @type {{locale: string, user: string, callback: boolean, export: string, dialog: boolean, save: boolean, listener: string, methods: {g: string, p: string}, objects: {o: string, e: string, h: string, i: string, b: string, c: string, ca: string, he: string, hi: string, cl: string, r: string, bo: string, g: string, l: string}, handlers: {d: string, t: string, i: string, r: string, s: string}}}
- * @param mess
- * @param state
- * @require globals.js
+/*
+ * Wwebapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
  */
 //"use strict";
 var pfLang = app.lang,
@@ -11,19 +7,27 @@ var pfLang = app.lang,
     pfMode = app.params.s,
     pfExport = 'hero',
     sPos = 0;
+/**
+ *
+ * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, OpenInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
+ * @constructor
+ */
 var core = {
+    /**
+     * Panel alert function - Creates a bottom panel alert view
+     * that slides into view with a
+     * defined message.
+     * @param {String} mess
+     * @param {String} state
+     * @constructor
+     */
     panelAlert: function (mess, state) {
-        /**
-         * Creates a bottom panel alert view
-         * that slides into view with a
-         * defined message.
-         */
-        if (app.dialog == true) {
+        if (app.dialog === true) {
             var mPane = '.panel-body.bottom_level_bt';
-            if (state == app.params.e) {
+            if (state === app.params.e) {
                 $(mPane).find(app.objects.g).removeClass('allGood').removeClass('glyphicon-ok').addClass('allBad').addClass('glyphicon-remove');
                 var dispLeng = app.animation.d.max;
-            } else if (state == app.params.g) {
+            } else if (state === app.params.g) {
                 $(mPane).find(app.objects.g).removeClass('allBad').removeClass('glyphicon-remove').addClass('allGood').addClass('glyphicon-ok');
                 dispLeng = 10000;
             }
@@ -32,14 +36,16 @@ var core = {
             setTimeout("$('.panel-body.bottom_level_bt').slideUp()", dispLeng);
         }
     },
+    /**
+     * Recovers and displays the app version from
+     * the release.json file. init=false checks the
+     * current version against the server json and
+     * initializes and update prompt if the local
+     * version is outdated.
+     * @param {Boolean} init
+     * @constructor
+     */
     getVersion: function (init) {
-        /**
-         * Recovers and displays the app version from
-         * the release.json file. init=false checks the
-         * current version against the server json and
-         * initializes and update prompt if the local
-         * version is outdated.
-         */
         try {
             $.ajax({
                 type: app.methods.g,
@@ -48,12 +54,12 @@ var core = {
                     var ver = data.project.version,
                         sup = data.project.history.length - 1,
                         lup = data.project.history[sup].date;
-                    if (init == true) {
+                    if (init === true) {
                         document.title = "Page Builder " + ver;
                         $('.version_number').attr('title', 'You are using version ' + ver + ', last updated ' + lup).html(ver);
                         $('html').attr('data-version', ver);
                         core.tagNew(ver);
-                    } else if (init == false) {
+                    } else if (init === false) {
                         var cur = $('html').attr('data-version');
                         if (cur < ver || cur > ver) {
                             core.initVersionUpdate();
@@ -65,6 +71,13 @@ var core = {
             console.log(e);
         }
     },
+    /**
+     * Language manager that handles the switching between
+     * english and french
+     * @param {String} lng
+     * @param {Boolean} init
+     * @constructor
+     */
     languageManager: function (lng,init) {
         lng = $('html').attr('data-language') || lng;
         switch (lng) {
@@ -79,13 +92,19 @@ var core = {
                 init != true ? $('html').attr('data-language',newLang):null;
                 break;
         }
+        /**
+         * Function iterates through page objects and
+         * applies the translations
+         * @param {Object} obj
+         * @constructor
+         */
         function translatePageItems(obj){
-            for(o in obj){
+            for(var o in obj){
                 $('[data-lang-id="'+obj[o].objID+'"]').html(obj[o].objTran);
             }
         }
         try {
-            if(init == true){
+            if(init === true){
                 newLang = lng;
             }
             $.ajax({
@@ -128,12 +147,13 @@ var core = {
             console.log(e);
         }
     },
+    /**
+     * Prompts the user to reload the page if a
+     * newer version of the app has been detected
+     * remotely.
+     * @constructor
+     */
     initVersionUpdate: function () {
-        /**
-         * Prompts the user to reload the page if a
-         * newer version of the app has been detected
-         * remotely.
-         */
         $('.init-update').remove();
         var pageData = '<div class="init-update"><div class="blackify_overlay"><div class="prompt-update"><div class="prompt-icon"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></div><div class="prompt-message">A newer version of the PageBuilder app has been detected. Do you want to load the newer version now? <br><br>Make sure you save all your work before answering YES.</div><div class="prompt-choice"><button type="button" class="btn btn-update true" data-toggle="dropdown" aria-expanded="false">YES</button><button type="button" class="btn btn-update false" data-toggle="dropdown" aria-expanded="false">NO</button></div></div></div></div>';
         $(app.dom.b).append(pageData).on('click', '.btn-update.true', function () {
@@ -143,22 +163,25 @@ var core = {
             core.panelAlert('Version update stopped. The update prompt will reappear at the next update interval.', 'good');
         })
     },
+    /**
+     * Tags new items by comparing the current app
+     * version to the data-version attribute on
+     * main menu links
+     * @param {Number} ver
+     * @constructor
+     */
     tagNew: function (ver) {
-        /**
-         * Tags new items by comparing the current app
-         * version to the data-version attribute on
-         * main menu links
-         */
         var cssBlock = '<style>.main_nav a[data-version="' + ver + '"]:after,.bigboy a[data-version="' + ver + '"]:after {content: "new";float: right;background-color: #f0ad4e;padding: 2px 5px;font-size: 10px;color: #fff;font-weight: bold;}</style>';
         $(app.dom.b).append(cssBlock).find('a[data-version="' + ver + '"]').attr('title', 'This feature is new to the current version');
     },
+    /**
+     * creates the initial form instance by
+     * populating the parent container with
+     * elements defined in a layout.json
+     * file
+     * @constructor
+     */
     initializeForm: function () {
-        /**
-         * creates the initial form instance by
-         * populating the parent container with
-         * elements defined in a layout.json
-         * file
-         */
         $.ajax({
             type: app.methods.g,
             url: app.objects.form.l,
@@ -307,12 +330,14 @@ var core = {
             }
         })
     },
+    /**
+     * switches the page builder mode from
+     * Hero builder mode to Hello Bar
+     * builder mode
+     * @param {String} va
+     * @constructor
+     */
     switchModes: function (va) {
-        /**
-         * switches the page builder mode from
-         * Hero builder mode to Hello Bar
-         * builder mode
-         */
         if (va == 'hello') {
             $('*[data-role="hero"]').css('display', 'none');
             $('*[data-role="hello"]').css('display', 'block');
@@ -327,11 +352,12 @@ var core = {
             core.panelAlert('Switched to Hero Banner Creation mode', 'good');
         }
     },
+    /**
+     * reads and/or sets the html theme data attribute
+     * from the local storage item
+     * @constructor
+     */
     initializeTheme: function () {
-        /**
-         * reads and/or sets the html theme data attribute
-         * from the local storage item
-         */
         if (window.localStorage) {
             var tm = localStorage.getItem(app.storage.t);
             if (tm == null || tm == undefined) {
@@ -343,11 +369,12 @@ var core = {
             $('html').attr(app.handlers.t, 'light');
         }
     },
+    /**
+     * Initialize the help view by loading items
+     * from the help.json file
+     * @constructor
+     */
     initHelp: function () {
-        /**
-         * Initialize the help view by loading items
-         * from the help.json file
-         */
         $.ajax({
             type: app.methods.g,
             url: 'data/help.json',
@@ -367,12 +394,13 @@ var core = {
             }
         });
     },
+    /**
+     * sets head section items that display in a button model
+     * the locally saved hero items for rapid translation of
+     * the JSON data
+     * @constructor
+     */
     setHeadSec: function () {
-        /**
-         * sets head section items that display in a button model
-         * the locally saved hero items for rapid translation of
-         * the JSON data
-         */
         try {
             var isReady = localStorage.getItem(app.storage.n);
             if (isReady !== null) {
@@ -398,11 +426,12 @@ var core = {
             console.log(e);
         }
     },
+    /**
+     * A useless script that runs at halloween
+     * and shows flying bats on the page.
+     * @constructor
+     */
     launchBats: function () {
-        /**
-         * A useless script that runs at halloween
-         * and shows flying bats on the page.
-         */
         var r = Math.random,
             n = 0,
             d = document,
@@ -448,12 +477,13 @@ var core = {
         $('.oooobats').remove();
         $('.batsToggle').attr('data-status', 'allGone').html('Let In The Bats');
     },
+    /**
+     * Checks if page items have been moved
+     * and resets them to their original position
+     * based on the numeric value of their ID
+     * @constructor
+     */
     resetItems: function () {
-        /**
-         * Checks if page items have been moved
-         * and resets them to their original position
-         * based on the numeric value of their ID
-         */
         if ($(app.objects.re).length > 0) {
             $(app.objects.w).find(app.objects.cl).sort(function (a, b) {
                 return $(a).attr('id').replace('entry', '') - $(b).attr('id').replace('entry', '');
@@ -464,12 +494,13 @@ var core = {
             core.panelAlert('All items are in their original position', 'error');
         }
     },
+    /**
+     * Populates the load saved data from
+     * localstorage item and presents it
+     * in a dropdown modal
+     * @constructor
+     */
     choseLocalSave: function () {
-        /**
-         * Populates the load saved data from
-         * localstorage item and presents it
-         * in a dropdown modal
-         */
         try {
             $('#loadandsave-zone').attr(app.handlers.r, 'load').css('display', 'block');
             var a = localStorage.getItem(app.storage.n),
@@ -488,6 +519,12 @@ var core = {
         } catch (e) {
         }
     },
+    /**
+     * Executes a save of the json data into a localstorage
+     * object
+     * @param {String} method
+     * @constructor
+     */
     doLocalSave: function (method) {
         if (method == 'do' || method == null) {
             $('#loadandsave-zone').attr('data-reason', 'save').css('display', 'block');
@@ -501,12 +538,14 @@ var core = {
             }
         }
     },
+    /**
+     * Checks the users scroll position on the
+     * window and displays a progress bar
+     * below the main menu navs
+     * @param {String} meth
+     * @constructor
+     */
     scrollState: function (meth) {
-        /**
-         * Checks the users scroll position on the
-         * window and displays a progress bar
-         * below the main menu navs
-         */
         var winHeight = $(window).height(),
             docHeight = $(document).height(),
             progressBar = $('progress'),
@@ -527,28 +566,34 @@ var core = {
             progressBar.attr('value', value);
         }
     },
+    /**
+     * Simple open url in new tab function
+     * @param {String} url
+     * @constructor
+     */
     OpenInNewTab: function (url) {
-        /**
-         * Simple open url in new tab function
-         */
         var win = window.open(url, '_blank');
         win.focus();
     },
+    /**
+     * Adds multiple hero items to the current
+     * instance
+     * @param {Number} num
+     * @constructor
+     */
     addMulti: function (num) {
-        /**
-         * Adds multiple hero items to the current
-         * instance
-         */
         for (var i = 0; i < num; i++) {
             core.addItems();
         }
         core.panelAlert('Items Added', 'good');
     },
+    /**
+     * Animates the help item click to bring
+     * into view the correct help item
+     * @param {Number} a
+     * @constructor
+     */
     jumpToHelper: function (a) {
-        /**
-         * Animates the help item click to bring
-         * into view the correct help item
-         */
         $('.help_panel_holder').animate({
             scrollTop: $(app.objects.hi + '[data-helper="' + a + '"]').offset().top,
             duration: app.animation.d.min
@@ -562,6 +607,12 @@ var core = {
             duration: app.animation.d.min
         });
     },
+    /**
+     * Saves a json node to localStorage
+     * @param {String} val
+     * @param {String} name
+     * @constructor
+     */
     saveNodeToLS: function (val, name) {
         if (window.localStorage) {
             if (localStorage.getItem('pgb_SavedNode_LS') == null || localStorage.getItem('pgb_SavedNode_LS') == undefined) {
@@ -579,11 +630,12 @@ var core = {
             core.panelAlert('Data Saved To Local Storage', 'good');
         }
     },
+    /**
+     * Add new items to the form. Duplicates a
+     * form block
+     * @constructor
+     */
     addItems: function () {
-        /**
-         * Add new items to the form. Duplicates a
-         * form block
-         */
         if ($(app.objects.o).css('display') == 'block') {
             $(app.objects.o).css('display', 'none');
         }
@@ -624,7 +676,7 @@ var core = {
 
         $('#btnDel').attr('disabled', false);
 
-        if (newNum == 10)
+        if (newNum === 10)
             $('.btnAdd').attr('disabled', true).prop('value', "You've reached the limit"); // value here updates the text in the 'add' button when the limit is reached
         var dateNow = new Date();
         $('.date_obj').datetimepicker({format: 'MM/DD/YYYY HH:mm'});
@@ -637,11 +689,14 @@ var core = {
         core.scrollState('a');
         core.panelAlert('Item Added', 'good');
     },
+    /**
+     * Delete items from the form instance and
+     * removes them from the dom reference
+     * @param {String} elem
+     * @returns {boolean}
+     * @constructor
+     */
     deleteItems: function (elem) {
-        /**
-         * Delete items from the form instance and
-         * removes them from the dom reference
-         */
         if ($(app.objects.cl).length > 1) {
             if ($(app.objects.o).css('display') == 'block') {
                 $(app.objects.o).css('display', 'none');
@@ -676,11 +731,12 @@ var core = {
             return false; // Removes the last section you added
         }
     },
+    /**
+     * Validate the JSON that has been exported
+     * when the user clicks the button
+     * @constructor
+     */
     validateJSON: function () {
-        /**
-         * Validate the JSON that has been exported
-         * when the user clicks the button
-         */
         $("#output_code").validateJSON({
             compress: false,
             reformat: true,
@@ -692,12 +748,13 @@ var core = {
             }
         })
     },
+    /**
+     * Generic error handler that checks if certain
+     * form objects are filled and outputs a dropdown
+     * list with anchor links
+     * @constructor
+     */
     errorHandler: function () {
-        /**
-         * Generic error handler that checks if certain
-         * form objects are filled and outputs a dropdown
-         * list with anchor links
-         */
         var errorLog = [],
             a = JSON.parse($(app.objects.o + '[' + app.handlers.r + '="output"]').find('textarea').val()).hero,
             b = a.length,
@@ -769,13 +826,19 @@ var core = {
             $(app.objects.el).css('display', 'none');
         }
     },
+    /**
+     * Binds each error item created by the
+     * errorHandler function to a click handler
+     * that animates scroll to the specific
+     * error item
+     * @param {Number} num
+     * @param {String} elem
+     * @param {String} item
+     * @param {String} prob
+     * @param {Boolean} die
+     * @constructor
+     */
     registerErrorButtons: function (num, elem, item, prob, die) {
-        /**
-         * Binds each error item created by the
-         * errorHandler function to a click handler
-         * that animates scroll to the specific
-         * error item
-         */
         $(app.objects.bo).on('click', '.errorItem[' + app.handlers.i + '="' + item + '"]', function () {
             if (die == true) {
                 $(app.objects.e + num).find('.' + elem).css('background-color', 'rgba(238, 54, 54, 0.3)').css('border-color', 'red').attr('placeholder', 'Leaving this field empty will cause the hero banner function to fail');
@@ -792,13 +855,16 @@ var core = {
             }
         });
     },
+    /**
+     * Reads JSON that is pasted in the form in
+     * translate JSON mode and prepares and formats
+     * it to be output to the corresponding
+     * form objects
+     * @param {String} storage
+     * @param {String} nodeName
+     * @constructor
+     */
     traverseJSON: function (storage, nodeName) {
-        /**
-         * Reads JSON that is pasted in the form in
-         * translate JSON mode and prepares and formats
-         * it to be output to the corresponding
-         * form objects
-         */
         if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
             if (storage == false) {
                 var ctc = $(app.objects.b + ' textarea').val();
@@ -833,12 +899,14 @@ var core = {
             core.panelAlert('Please generate or paste JSON before using this function', 'error');
         }
     },
+    /**
+     * Takes formatted JSON sent from the TraverseJSON
+     * function and outputs it to the mapped form
+     * element
+     * @param {Object} aCode
+     * @constructor
+     */
     jsonToForm: function (aCode) {
-        /**
-         * Takes formatted JSON sent from the TraverseJSON
-         * function and outputs it to the mapped form
-         * element
-         */
         var jsLen = aCode.length;
         for (var i = 0; i < jsLen; i++) {
             var jsForm = 'entry' + (i + 1),
@@ -899,24 +967,28 @@ var core = {
             $(app.objects.r).css('overflow', 'auto');
         }
     },
+    /**
+     * Serializes the form data in a JSON format
+     * and passes the data to the outputJson
+     * function
+     * @param {String} meth
+     * @param {String} name
+     * @param {String} mode
+     * @constructor
+     */
     prepareJSON: function (meth, name, mode) {
-        /**
-         * Serializes the form data in a JSON format
-         * and passes the data to the outputJson
-         * function
-         */
         var c = [];
-        if (mode == 'hero' || mode == '' || mode == null || mode == undefined) {
+        if (mode === 'hero' || mode === '' || mode === null || mode === undefined) {
             $('.clonedInput form fieldset[data-role="hero"]').each(function () {
                 var a = $(this).serializeArray();
                 c.push(a);
             });
-            if (meth == 'full') {
+            if (meth === 'full') {
                 core.outputJson(c, meth, null, mode);
-            } else if (meth == 'save') {
+            } else if (meth === 'save') {
                 core.outputJson(c, meth, name, 'hero');
             }
-        } else if (mode == 'hello') {
+        } else if (mode === 'hello') {
             $('.clonedInput form fieldset[data-role="hello"]').each(function () {
                 var a = $(this).serializeArray();
                 c.push(a);
@@ -924,12 +996,17 @@ var core = {
             core.outputJson(c, 'full', null, 'hello');
         }
     },
+    /**
+     * Receives the serialized data parsed in the
+     * prepareJSON function and outputs JSON
+     * formatted code to the output view
+     * @param {Object} aCode
+     * @param {String} meth
+     * @param {String} name
+     * @param {String} mode
+     * @constructor
+     */
     outputJson: function (aCode, meth, name, mode) {
-        /**
-         * Receives the serialized data parsed in the
-         * prepareJSON function and outputs JSON
-         * formatted code to the output view
-         */
         try {
             var nodes = aCode.length;
             var lastItem = nodes - 1;
@@ -950,42 +1027,42 @@ var core = {
                     }
                 }
                 page_model += '\n      }\n   ]\n}';
-            } else if (mode == 'hero') {
+            } else if (mode === 'hero') {
                 page_model = '{\n    "hero": [\n';
                 for (i = 0; i < nodes; i++) {
                     //mapping
-                    if (aCode[i][15].value == '' || aCode[i][15].value == null || aCode[i][15].value == undefined) {
+                    if (aCode[i][15].value === '' || aCode[i][15].value === null || aCode[i][15].value === undefined) {
                         var elemAAAA = 'null';
                     } else {
                         elemAAAA = aCode[i][15].value;
                     }
-                    if (aCode[i][16].value == '' || aCode[i][16].value == null || aCode[i][16].value == undefined) {
+                    if (aCode[i][16].value === '' || aCode[i][16].value === null || aCode[i][16].value === undefined) {
                         var elemA = true;
                     } else {
                         elemA = aCode[i][16].value;
                     }
-                    if (aCode[i][17].value == '' || aCode[i][17].value == null || aCode[i][17].value == undefined) {
+                    if (aCode[i][17].value === '' || aCode[i][17].value === null || aCode[i][17].value === undefined) {
                         var elemAA = true;
                     } else {
                         elemAA = aCode[i][17].value;
                     }
-                    if (aCode[i][18].value == '' || aCode[i][18].value == null || aCode[i][18].value == undefined) {
+                    if (aCode[i][18].value === '' || aCode[i][18].value === null || aCode[i][18].value === undefined) {
                         var elemAAA = true;
                     } else {
                         elemAAA = aCode[i][18].value;
                     }
-                    if (aCode[i][14].value == '' || aCode[i][14].value == null || aCode[i][14].value == undefined) {
+                    if (aCode[i][14].value === '' || aCode[i][14].value === null || aCode[i][14].value === undefined) {
                         var elemB = false;
                     } else {
                         elemB = aCode[i][14].value;
                     }
-                    if (aCode[i][19].value == '' || aCode[i][19].value == null || aCode[i][19].value == undefined) {
+                    if (aCode[i][19].value === '' || aCode[i][19].value === null || aCode[i][19].value === undefined) {
                         var elemC = false;
                     } else {
                         elemC = aCode[i][19].value;
                     }
                     if (aCode[i][22] !== undefined) {
-                        if (aCode[i][22].value == '' || aCode[i][22].value == null || aCode[i][22].value == undefined) {
+                        if (aCode[i][22].value === '' || aCode[i][22].value === null || aCode[i][22].value === undefined) {
                             var elemD = true;
                         } else {
                             elemD = aCode[i][22].value;
@@ -994,7 +1071,7 @@ var core = {
                         elemD = true;
                     }
                     if (aCode[i][20] !== undefined) {
-                        if (aCode[i][20].value == '' || aCode[i][20].value == null || aCode[i][20].value == undefined) {
+                        if (aCode[i][20].value === '' || aCode[i][20].value === null || aCode[i][20].value === undefined) {
                             var elemDD = false;
                         } else {
                             elemDD = aCode[i][20].value;
@@ -1003,7 +1080,7 @@ var core = {
                         elemDD = false;
                     }
                     if (aCode[i][21] !== undefined) {
-                        if (aCode[i][21].value == '' || aCode[i][21].value == null || aCode[i][21].value == undefined) {
+                        if (aCode[i][21].value === '' || aCode[i][21].value === null || aCode[i][21].value === undefined) {
                             var elemE = 0;
                         } else {
                             elemE = aCode[i][21].value;
@@ -1055,21 +1132,21 @@ var core = {
                 }
                 page_model += '\n      }\n   ]\n}';
             }
-            if (meth == 'full') {
-                if ($(app.objects.he).css('display') == 'block') {
+            if (meth === 'full') {
+                if ($(app.objects.he).css('display') === 'block') {
                     $(app.objects.he).css('display', 'none');
                 }
-                if ($(app.objects.h).css('display') == 'block') {
+                if ($(app.objects.h).css('display') === 'block') {
                     $(app.objects.h).css('display', 'none');
                 }
-                if ($(app.objects.ls).css('display') == 'block') {
+                if ($(app.objects.ls).css('display') === 'block') {
                     $(app.objects.ls).css('display', 'none');
                 }
                 $(app.objects.o).attr(app.handlers.r, 'output');
                 $(app.objects.o).css('display', 'block');
                 $(app.objects.o + ' textarea').val(page_model);
                 $(app.objects.r).animate({scrollTop: 0}, app.animation.d.min).css('overflow', 'hidden');
-                if (mode == 'hero') {
+                if (mode === 'hero') {
                     core.errorHandler();
                 }
                 core.panelAlert('JSON Exported Successfuly', 'good');
@@ -1080,10 +1157,12 @@ var core = {
             core.panelAlert('An unknown error has occured. Please make sure all required fields are filled.', 'error');
         }
     },
+    /**
+     *
+     * @param {String} testUrl
+     * @constructor
+     */
     urlExists: function (testUrl) {
-        /**
-         * Check if an url exists
-         */
         var http = jQuery.ajax({
             type: "HEAD",
             url: 'https:' + testUrl,
@@ -1092,72 +1171,75 @@ var core = {
         return http.status;
         // this will return 200 on success, and 0 or negative value on error
     },
+    /**
+     * Gets the image url input by the user and runs it
+     * through the urlExists function. Depending on the
+     * value returned, the form elements will be
+     * formatted accordingly
+     * @param {string} type
+     * @param {String} handler
+     * @constructor
+     */
     validateImage: function (type, handler) {
-        /**
-         * Gets the image url input by the user and runs it
-         * through the urlExists function. Depending on the
-         * value returned, the form elements will be
-         * formatted accordingly
-         */
-        if (type == 'main') {
+        if (type === 'main') {
             var a = $(app.objects.c + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.main_image').val(),
                 aa = $(app.objects.c + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.main_image'),
                 aaa = $(app.objects.c + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.main_image').parent().attr('class');
             if (a !== '') {
                 var b = core.urlExists(a);
                 if (b !== 200) {
-                    if (aaa == 'input_holders') {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().css('background-color', '#ff3300').css('font-weight', 'bold').css('color', '#fff').html('Image does not exist');
                     } else {
                         $(aa).next().css('background-color', '#ff3300').css('font-weight', 'bold').css('color', '#fff').html('Image does not exist');
                     }
-                } else if (b == 200) {
-                    if (aaa == 'input_holders') {
+                } else if (b === 200) {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().attr('style', '').css('background-color', 'rgb(82, 197, 82)').html('Image validated');
                     } else {
                         $(aa).next().attr('style', '').css('background-color', 'rgb(82, 197, 82)').html('Image validated');
                     }
                 } else {
-                    if (aaa == 'input_holders') {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().attr('style', '').html('Shopify CDN');
                     } else {
                         $(aa).next().attr('style', '').html('Shopify CDN');
                     }
                 }
             } else {
-                if (aaa == 'input_holders') {
+                if (aaa === 'input_holders') {
                     $(aa).next().next().css('background-color', '#eee').html('Nothing to validate');
                 } else {
                     $(aa).next().css('background-color', '#eee').html('Nothing to validate');
                 }
             }
-        } else if (type == 'alt') {
+        } else if (type === 'alt') {
             a = $(app.objects.ca + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.alt_image').val(),
                 aa = $(app.objects.ca + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.alt_image'),
                 aaa = $(app.objects.ca + '[' + app.handlers.d + '="' + handler + '"]').parent().parent().parent().parent().parent().parent().parent().parent().find('.alt_image').parent().attr('class');
             if (a !== '') {
-                var b = core.urlExists(a);
+                b = core.urlExists(a);
                 if (b !== 200) {
-                    if (aaa == 'input_holders') {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().css('background-color', '#ff3300').css('font-weight', 'bold').css('color', '#fff').html('Image does not exist');
                     } else {
                         $(aa).next().css('background-color', '#ff3300').css('font-weight', 'bold').css('color', '#fff').html('Image does not exist');
                     }
-                } else if (b == 200) {
-                    if (aaa == 'input_holders') {
+                } else if (b === 200) {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().attr('style', '').css('background-color', 'rgb(82, 197, 82)').html('Image validated');
                     } else {
                         $(aa).next().attr('style', '').css('background-color', 'rgb(82, 197, 82)').html('Image validated');
                     }
                 } else {
-                    if (aaa == 'input_holders') {
+                    if (aaa === 'input_holders') {
                         $(aa).next().next().attr('style', '').html('Shopify CDN');
                     } else {
                         $(aa).next().attr('style', '').html('Shopify CDN');
                     }
                 }
             } else {
-                if (aaa == 'input_holders') {
+                if (aaa === 'input_holders') {
                     $(aa).next().next().css('background-color', '#eee').html('Nothing to validate');
                 } else {
                     $(aa).next().css('background-color', '#eee').html('Nothing to validate');
@@ -1165,23 +1247,25 @@ var core = {
             }
         }
     },
+    /**
+     *
+     * @param {String} heroItem
+     * @param {String} mode
+     * @param {String} lang
+     * @constructor
+     */
     previewFeature: function (heroItem, mode, lang) {
-        /**
-         * Generates a preview of the hero banner in large
-         * and small format by collection the forms
-         * serialized data.
-         */
         var dt = $(app.objects.e + heroItem).find('form').find('fieldset[data-role="hero"]').serializeArray(),
             start = dt[0].value,
             img = dt[9].value,
             titleColor = dt[4].value;
         console.log(dt);
-        if (lang == app.language.e) {
+        if (lang === app.language.e) {
             var titleText = dt[2].value,
                 subTitleText = dt[5].value,
                 buttonLabel = dt[11].value,
                 endsLabel = 'Ends In';
-        } else if (lang == app.language.f) {
+        } else if (lang === app.language.f) {
             titleText = dt[3].value,
                 subTitleText = dt[6].value,
                 buttonLabel = dt[12].value,
@@ -1192,7 +1276,7 @@ var core = {
             target = '.render_output',
             sub = dt[16].value,
             warningString = '<div class="preview_warning" title="The position and size of the background may display differently than on the live site.">Preview may differ from actual site render</div>';
-        if (mode == 'small') {
+        if (mode === 'small') {
             var outputString = '<div class="five columns jose pedro homepage_content event mini-spacers animated fadeIn delay-05s"><div id="event-active-today">';
         } else {
             outputString = '';
@@ -1202,23 +1286,23 @@ var core = {
         outputString += ' style="background-image: url(' + img + '); background-position: 50% -55.2631578947369px;"><div class="hsContainer"><div class="hsContent center skrollable skrollable-before" data-100-top="opacity: 1" data-25-top="opacity: 0" data-anchor-target="#slide-0 .animated" style="opacity: 1;">';
         outputString += '<div itemscope="" itemtype="http://schema.org/Event" class="animated fadeIn delay-025s hero_head"><p itemprop="startDate" content="' + start + '" class="subtitle timedown is-countdown" id="countdown0" style="opacity:0.9"><span>' + endsLabel + '  <b>11:29:39</b> </span></p>';
         outputString += '<h1 class="headline herobanner" style="color:' + titleColor + '">' + titleText + '</h1>';
-        if (sub == 'true') {
+        if (sub === 'true') {
             outputString += '<p class="subtitle herobanner">' + subTitleText + '</p>';
         }
         outputString += '<a data-bleed="" href="' + buttonLink + '" class="action_button hero"><span class="trn" data-trn-key="">' + buttonLabel + '</span></a>';
         outputString += '</div></div></div></div></div>';
-        if (mode == 'small') {
+        if (mode === 'small') {
             outputString += '</div></div><div style="clear:both"></div>';
-        } else if (mode == 'large') {
+        } else if (mode === 'large') {
             outputString += warningString;
         }
         $(container).show().css('top', sPos + 50);
         $(target).empty().append(outputString);
-        if (mode == 'small') {
+        if (mode === 'small') {
             pfHero = heroItem;
             pfMode = mode;
             $(target).addClass('renderSmall').attr('data-hero', heroItem).attr('data-language', lang).attr('data-mode', mode);
-        } else if (mode == 'large') {
+        } else if (mode === 'large') {
             pfHero = heroItem;
             pfMode = mode;
             $(target).removeClass('renderSmall').attr('data-hero', heroItem).attr('data-language', lang).attr('data-mode', mode);
