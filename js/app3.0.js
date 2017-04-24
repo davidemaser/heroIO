@@ -864,8 +864,19 @@ var core = {
      * @param {String} nodeName Defines the name to be used. Will be appended to the localStorage object's save name
      * @constructor
      */
-    traverseJSON: function (storage, nodeName) {
-        if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
+    loadFromServer:function(){
+        $.ajax({
+            url:'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json',
+            success:function(data){
+                var badString = JSON.stringify(data);
+                var goodString = badString.slice(0, -1);
+                goodString = '{'+goodString.substr(1)+'}';
+                core.traverseJSON(false,'',goodString);
+            }
+        })
+    },
+    traverseJSON: function (storage, nodeName, fromAJAX) {
+        if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '' && fromAJAX === undefined) {
             if (storage === false) {
                 var ctc = $(app.objects.b + ' textarea').val();
                 if (ctc === '') {
@@ -891,6 +902,36 @@ var core = {
                 core.addItems();
             }
             for (var i = 0; i < len; i++) {
+                formArray.push(obj[i]);
+            }
+            core.jsonToForm(formArray);
+            core.panelAlert('Data Translated To Form', 'good');
+        } else if (fromAJAX !== '') {
+            if (storage === false) {
+                ctc = fromAJAX;
+                if (ctc === '') {
+                    core.panelAlert('Form Does Not Contain JSON Data', 'error');
+                }
+            } else if (storage === true && nodeName !== '') {
+                if (localStorage.getItem('pgb_SavedNode_' + nodeName) !== undefined && localStorage.getItem('pgb_SavedNode_' + nodeName) !== null && localStorage.getItem('pgb_SavedNode_' + nodeName) !== '') {
+                    ctc = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
+                } else {
+                    core.panelAlert('No Data Found In Local Storage', 'error');
+                }
+            }
+                prs = JSON.parse(ctc),
+                obj = prs.hero,
+                len = obj.length,
+                formItems = $(app.objects.cl).length,
+                formArray = [];
+            if (formItems < len) {
+                    build = true,
+                    bItems = len - formItems;
+            }
+            for (h = 0; h < bItems; h++) {
+                core.addItems();
+            }
+            for (i = 0; i < len; i++) {
                 formArray.push(obj[i]);
             }
             core.jsonToForm(formArray);

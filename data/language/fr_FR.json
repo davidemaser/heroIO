@@ -28,6 +28,14 @@
             "translate": "Traduire JSON"
           },
           {
+            "id": "action20",
+            "translate": "Translate JSON Du Serveur TLH"
+          },
+          {
+            "id": "action21",
+            "translate": "Translate JSON Du Serveur ALTI"
+          },
+          {
             "id": "action7",
             "translate": "Sauvegarder"
           },

@@ -80,6 +80,14 @@
             "translate": "Translate To French"
           },
           {
+            "id": "action20",
+            "translate": "Translate JSON From TLH Server"
+          },
+          {
+            "id": "action21",
+            "translate": "Translate JSON From ALTI Server"
+          },
+          {
             "id": "preview1",
             "translate": "English"
           },
