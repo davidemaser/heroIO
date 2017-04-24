@@ -864,9 +864,10 @@ var core = {
      * @param {String} nodeName Defines the name to be used. Will be appended to the localStorage object's save name
      * @constructor
      */
-    loadFromServer:function(){
+    loadFromServer:function(path){
+        var xPath = path === 'tlh' ? 'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json' : 'https://cdn.shopify.com/s/files/1/1230/9376/t/2/assets/ALTI-banners.json';
         $.ajax({
-            url:'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json',
+            url:xPath,
             success:function(data){
                 var badString = JSON.stringify(data);
                 var goodString = badString.slice(0, -1);
@@ -1554,6 +1555,9 @@ $(function () {
         $('.overlay_message').html('');
         $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow','hidden');
         $(app.objects.o).attr(app.handlers.r,'translate').css('display','block').find('#output_code').val('').attr('placeholder','Paste you code here');
+    }).on('click','.translate_from_server',function(){
+        var xPath = $(this).attr('tlh');
+        core.loadFromServer(xPath);
     }).on('click','.save_json',function (){
         if(app.save === true) {
             core.doLocalSave();

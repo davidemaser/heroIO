@@ -81,11 +81,11 @@
           },
           {
             "id": "action20",
-            "translate": "Translate JSON From TLH Server"
+            "translate": "Translate JSON From TLH"
           },
           {
             "id": "action21",
-            "translate": "Translate JSON From ALTI Server"
+            "translate": "Translate JSON From ALTI"
           },
           {
             "id": "preview1",
