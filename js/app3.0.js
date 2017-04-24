@@ -872,7 +872,7 @@ var core = {
                 core.traverseJSON(false,'',data);
             }
         })
-    }
+    },
     traverseJSON: function (storage, nodeName) {
         if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
             if (storage === false) {
