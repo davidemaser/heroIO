@@ -872,7 +872,7 @@ var core = {
                 
                 var badString = JSON.stringify(data);
                 var goodString = badString.slice(0, -1);
-                goodString = goodString.substr(1);
+                goodString = '{'+goodString.substr(1)+'}';
                 console.log(data,goodString);
                 core.traverseJSON(false,'',goodString);
             }
