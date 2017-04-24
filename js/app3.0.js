@@ -9,7 +9,8 @@ var pfLang = app.lang,
     sPos = 0;
 /**
  *
- * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, openInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
+ * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, openInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, 
+ : core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
  * @constructor
  */
 var core = {
@@ -864,6 +865,14 @@ var core = {
      * @param {String} nodeName Defines the name to be used. Will be appended to the localStorage object's save name
      * @constructor
      */
+     loadFromServer:function(){
+        $.ajax({
+            url:'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json',
+            success:function(data){
+                core.traverseJSON(false,'',data);
+            }
+        })
+    }
     traverseJSON: function (storage, nodeName) {
         if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
             if (storage === false) {
