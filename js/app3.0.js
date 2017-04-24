@@ -869,7 +869,7 @@ var core = {
         $.ajax({
             url:'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json',
             success:function(data){
-                core.traverseJSON(false,'',data);
+                core.traverseJSON(false,'',JSON.stringify(data));
             }
         })
     },
