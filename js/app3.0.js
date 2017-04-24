@@ -870,7 +870,10 @@ var core = {
             url:'https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json',
             success:function(data){
                 console.log(data,JSON.stringify(data));
-                core.traverseJSON(false,'',JSON.stringify(data));
+                var badString = JSON.stringify(data);
+                var goodString = badString.myString.slice(0, -1);
+                goodString = goodString.substr(1);
+                core.traverseJSON(false,'',goodString);
             }
         })
     },
