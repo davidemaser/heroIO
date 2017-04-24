@@ -871,7 +871,7 @@ var core = {
             success:function(data){
                 console.log(data,JSON.stringify(data));
                 var badString = JSON.stringify(data);
-                var goodString = badString.myString.slice(0, -1);
+                var goodString = badString.slice(0, -1);
                 goodString = goodString.substr(1);
                 core.traverseJSON(false,'',goodString);
             }
