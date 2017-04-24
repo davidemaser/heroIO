@@ -4,10 +4,10 @@
     "version": "4.1",
     "author": "David Maser",
     "licensing": "MIT",
-    "revision": "8",
+    "revision": "5",
     "downloadlink": "https://drive.google.com/file/d/0B4onXKnKkE6AY0JiVlZ3bG9scmM/view?usp=sharing",
     "semantic": {
-      "build": 3,
+      "build": 10,
       "language": [
         "js",
         "jquery",
@@ -898,6 +898,26 @@
           },
           {
             "item": "Add translations to seperate JSON config files",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          }
+        ]
+      },
+      {
+        "version": "4.1",
+        "date": "04/24/2017",
+        "failsafe": "minor",
+        "author": "David Maser",
+        "codeblocks": [
+          {
+            "item": "Add the possibility of loading JSON directly from TLH assets",
+            "revision": "minor",
+            "impact": "global",
+            "codestatus": "working"
+          },
+          {
+            "item": "Add the possibility of loading JSON directly from Altitude-Sports assets",
             "revision": "major",
             "impact": "global",
             "codestatus": "working"
