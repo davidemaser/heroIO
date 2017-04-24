@@ -878,8 +878,8 @@ var core = {
             }
         })
     },
-    traverseJSON: function (storage, nodeName) {
-        if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '') {
+    traverseJSON: function (storage, nodeName, fromAJAX) {
+        if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '' && fromAJAX === undefined) {
             if (storage === false) {
                 var ctc = $(app.objects.b + ' textarea').val();
                 if (ctc === '') {
@@ -905,6 +905,36 @@ var core = {
                 core.addItems();
             }
             for (var i = 0; i < len; i++) {
+                formArray.push(obj[i]);
+            }
+            core.jsonToForm(formArray);
+            core.panelAlert('Data Translated To Form', 'good');
+        } else if (fromAJAX !== '') {
+            if (storage === false) {
+                ctc = fromAJAX;
+                if (ctc === '') {
+                    core.panelAlert('Form Does Not Contain JSON Data', 'error');
+                }
+            } else if (storage === true && nodeName !== '') {
+                if (localStorage.getItem('pgb_SavedNode_' + nodeName) !== undefined && localStorage.getItem('pgb_SavedNode_' + nodeName) !== null && localStorage.getItem('pgb_SavedNode_' + nodeName) !== '') {
+                    ctc = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
+                } else {
+                    core.panelAlert('No Data Found In Local Storage', 'error');
+                }
+            }
+                prs = JSON.parse(ctc),
+                obj = prs.hero,
+                len = obj.length,
+                formItems = $(app.objects.cl).length,
+                formArray = [];
+            if (formItems < len) {
+                    build = true,
+                    bItems = len - formItems;
+            }
+            for (h = 0; h < bItems; h++) {
+                core.addItems();
+            }
+            for (i = 0; i < len; i++) {
                 formArray.push(obj[i]);
             }
             core.jsonToForm(formArray);
