@@ -22,7 +22,7 @@ const core = {
      * @constructor
      */
     panelAlert(mess, state){
-        let dispLeng;
+        let dispLeng = 10000;
         if (app.dialog === true) {
             const mPane = '.panel-body.bottom_level_bt';
             if (state === app.params.e) {
@@ -163,7 +163,7 @@ const core = {
         $(app.dom.b).append(pageData).on('click', '.btn-update.true', () => {
             location.reload();
         }).on('click', '.btn-update.false', () => {
-            $(this).parent().parent().parent().parent().remove();
+            $('.btn-update.false').parent().parent().parent().parent().remove();
             core.panelAlert('Version update stopped. The update prompt will reappear at the next update interval.', 'good');
         })
     },
@@ -713,7 +713,7 @@ const core = {
             if (elem === 'last') {
                 let a = $('.clonedInput:last').attr('id');
                 let b = a.replace('entry', '');
-                $(`#${a}`).slideUp('slow', () => {
+                $(`#${a}`).slideUp('slow', function(){
                     $(this).remove();
                     // if only one element remains, disable the "remove" button
                     if (elem - 1 === 1)
@@ -724,7 +724,7 @@ const core = {
                 $('.snapTo').find(`.gotoItem[${app.handlers.i}="${b}"]`).parent().remove();
                 core.scrollState('a');
             } else {
-                $(app.objects.e + elem).slideUp('slow', () => {
+                $(app.objects.e + elem).slideUp('slow', function() {
                     $(this).remove();
                     // if only one element remains, disable the "remove" button
                     if (elem - 1 === 1)
@@ -1031,7 +1031,7 @@ const core = {
     prepareJSON(meth, name, mode) {
         const c = [];
         if (mode === 'hero' || mode === '' || mode === null || mode === undefined) {
-            $('.clonedInput form fieldset[data-role="hero"]').each(() => {
+            $('.clonedInput form fieldset[data-role="hero"]').each(function(){
                 const a = $(this).serializeArray();
                 c.push(a);
             });
@@ -1041,7 +1041,7 @@ const core = {
                 core.outputJson(c, meth, name, 'hero');
             }
         } else if (mode === 'hello') {
-            $('.clonedInput form fieldset[data-role="hello"]').each(() => {
+            $('.clonedInput form fieldset[data-role="hello"]').each(function() {
                 const a = $(this).serializeArray();
                 c.push(a);
             });
@@ -1311,6 +1311,7 @@ const core = {
         const start = dt[0].value;
         const img = dt[9].value;
         const titleColor = dt[4].value;
+        let outputString;
         console.log(dt);
         if (lang === app.language.e) {
             let titleText = dt[2].value;
@@ -1329,9 +1330,9 @@ const core = {
         const sub = dt[16].value;
         const warningString = '<div class="preview_warning" title="The position and size of the background may display differently than on the live site.">Preview may differ from actual site render</div>';
         if (mode === 'small') {
-            let  outputString = '<div class="five columns jose pedro homepage_content event mini-spacers animated fadeIn delay-05s"><div id="event-active-today">';
+            outputString = '<div class="five columns jose pedro homepage_content event mini-spacers animated fadeIn delay-05s"><div id="event-active-today">';
         } else {
-            let outputString = '';
+            outputString = '';
         }
         outputString += `<div data-instance="slide-0" data-str="${img}"`;
         outputString += ' data-promote="true" id="slide-0" class="hero fwidth root-0"><div data-object-pos="false-false" class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -200px;" data-anchor-target="#slide-0"';
@@ -1446,10 +1447,10 @@ $(() => {
     $(app.objects.bo).on('click','.btnAdd',() => {
         core.addItems();
     }).on('click','.app_lang_toggle',() =>{
-        const lng = $(this).attr('data-set-lang');
+        const lng = $('.app_lang_toggle').attr('data-set-lang');
         core.languageManager(lng);
     }).on('click','.overlay_close',() =>{
-        $(this).parent().parent().hide();
+        $('.overlay_close').parent().parent().hide();
         $(app.objects.r).css('overflow','auto');
         $('.overlay_message').css('display','none')
     }).on('click','.select_content',() => {
@@ -1462,7 +1463,7 @@ $(() => {
             return false;
         });
     }).on('click','.gotoItem',() =>{
-        const a = $(this).data('item');
+        const a = $('.gotoItem').data('item');
         $(app.objects.r).animate({
             scrollTop: $(app.objects.e + a).offset().top-60
         }, app.animation.d.min);
@@ -1486,13 +1487,13 @@ $(() => {
         }
         $('.num_select').focus();
     }).on('click',app.objects.c,(e) =>{
-        const a = $(this).data('handler');
+        const a = $(app.objects.c).data('handler');
         core.validateImage('main',a);
         e.preventDefault();
     }).on('click','.multiquery_close',() =>{
-        $(this).parent().parent().hide();
+        $('.multiquery_close').parent().parent().hide();
     }).on('click','.check_alt_image',(e) =>{
-        const a = $(this).data('handler');
+        const a = $('.check_alt_image').data('handler');
         core.validateImage('alt',a);
         e.preventDefault();
     }).on('click','.overlay_validate',() => {
@@ -1502,19 +1503,19 @@ $(() => {
         core.panelAlert('Whitespace and line breaks have been removed.','good');
     }).on('click','.previewItem.large',(e) =>{
         $(app.objects.r).animate({ scrollTop: sPos }, app.animation.d.min).css('overflow','hidden');
-        const a = $(this).data('hero');
+        const a = $('.previewItem.large').data('hero');
         core.previewFeature(a,'large',pfLang);
         e.preventDefault();
     }).on('click','.previewItem.small',(e) =>{
         $(app.objects.r).animate({ scrollTop: sPos }, app.animation.d.min).css('overflow','hidden');
-        const a = $(this).data('hero');
+        const a = $('.previewItem.small').data('hero');
         core.previewFeature(a,'small',pfLang);
         e.preventDefault();
     }).on('click','.removeThisItem',() =>{
-        const a = $(this).data('item');
+        const a = $('.removeThisItem').data('item');
         core.deleteItems(a);
     }).on('click','.loadItem',() =>{
-        const a = $(this).attr(app.handlers.i);
+        const a = $('.loadItem').attr(app.handlers.i);
         core.traverseJSON(true,a);
     }).on('click','.copy-zone',() => {
         core.OpenInNewTab('https://github.com/davidemaser/heroIO');
@@ -1533,12 +1534,12 @@ $(() => {
         }
     }).on('click','.help_close',() =>{
         if($(app.objects.he).css('display') === 'block'){
-            $(this).parent().parent().hide();
+            $('.help_close').parent().parent().hide();
             $(app.objects.r).css('overflow','auto');
         }
     }).on('click','.renderer_close',() =>{
         if($(app.objects.h).css('display') === 'block'){
-            $(this).parent().parent().hide();
+            $('.renderer_close').parent().parent().hide();
             $(app.objects.r).css('overflow','auto');
             $(app.objects.h).find('.render_output').empty();
         }
@@ -1546,29 +1547,29 @@ $(() => {
         let a = $(app.dom.b).attr('data-nmode');
         if(a === 'hero'){
             $(app.dom.b).attr('data-nmode','hello');
-            $(this).attr('data-nmode','hello');
-            $(this).html('Switch to Hero Banner Mode');
+            $('.btnNmode').attr('data-nmode','hello');
+            $('.btnNmode').html('Switch to Hero Banner Mode');
             core.switchModes('hello')
         }else if(a === 'hello'){
             $(app.dom.b).attr('data-nmode','hero');
-            $(this).attr('data-nmode','hero');
-            $(this).html('Switch to Hello Bar Mode');
+            $('.btnNmode').attr('data-nmode','hero');
+            $('.btnNmode').html('Switch to Hello Bar Mode');
             core.switchModes('hero')
         }
     }).on('click','.btnDel',() => {
         core.deleteItems('last');
     }).on('click','.hideItem',(e) => {
-        core.cacheClickedItem($(this));
+        core.cacheClickedItem($('.hideItem'));
         e.preventDefault();
     }).on('click','.submit_json',() =>{
-        let a = $(this).attr('data-nmode');
+        let a = $('.submit_json').attr('data-nmode');
         core.prepareJSON('full',null,a);
     }).on('click','.translate_json',() => {
         $('.overlay_message').html('');
         $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow','hidden');
         $(app.objects.o).attr(app.handlers.r,'translate').css('display','block').find('#output_code').val('').attr('placeholder','Paste you code here');
     }).on('click','.translate_from_server',() =>{
-        let xPath = $(this).attr('tlh');
+        let xPath = $('.translate_from_server').attr('tlh');
         core.loadFromServer(xPath);
     }).on('click','.save_json',() => {
         if(app.save === true) {
@@ -1610,20 +1611,20 @@ $(() => {
         core.doLocalSave('reset');
         $(app.objects.l).hide();
         e.preventDefault();
-    }).on('click','input,select',() =>{
+    }).on('click','input,select',function(){
         $(this).attr('style','').attr('placeholder','');
         if($(this).parent().hasClass('input_holders')) {
             $(this).parent().find('.input_alerts').remove();
             $(this).unwrap();
         }
     }).on('click','.helpItem',() =>{
-        let a = $(this).data('target');
+        let a = $('.helpItem').data('target');
         core.jumpToHelper(a);
     }).on('click','.image_count',() =>{
-        $(this).attr('style','');
-        $(this).text('Shopify CDN');
+        $('.image_count').attr('style','');
+        $('.image_count').text('Shopify CDN');
     }).on('click','.btnSwitch',(e) =>{
-        pfLang = $(this).data('language');
+        pfLang = $('.btnSwitch').data('language');
         $('.btnSwitch').removeClass('view-active');
         $(`.btnSwitch[data-language="${pfLang}"]`).addClass('view-active');
         if($(app.objects.ro).children().not('.preview_warning').length > 0){
@@ -1632,9 +1633,9 @@ $(() => {
         core.panelAlert('Preview language changed','good');
         e.preventDefault();
     }).on('click','.panel-body.bottom_level_bt',() =>{
-        $(this).slideUp();
+        $('.panel-body.bottom_level_bt').slideUp();
     }).on('click','.show_me_how',() =>{
-        let a = $(this).data('target')-1;
+        let a = $('.show_me_how').data('target')-1;
         $(app.objects.r).animate({ scrollTop: 0 },{duration:app.animation.d.min,
             complete() {
                 $(app.objects.he).show();
@@ -1646,7 +1647,7 @@ $(() => {
             opacity: 1
         }, app.animation.d.min);
     }).on('click','.settings_toggle',(e) =>{
-        let a = $(this).data('theme');
+        let a = $('.settings_toggle').data('theme');
         $('html').attr(app.handlers.t,a);
         if(window.localStorage) {
             localStorage.setItem('pgb_Theme', a);
@@ -1654,9 +1655,9 @@ $(() => {
         core.panelAlert('Theme Settings Updated','good');
         e.preventDefault();
     }).on('click','.moveUpThisItem',(fn) =>{
-        let a = $(this).data('item');
+        let a = $('.moveUpThisItem').data('item');
         let b = a-1;
-        let c = $(this).parent().parent().parent().parent().parent().parent();
+        let c = $('.moveUpThisItem').parent().parent().parent().parent().parent().parent();
         let d = $(c).closest(app.objects.cl).prev();
         let e = $(c).data('split');
         $(c).attr(app.handlers.s,(e-1));
@@ -1665,14 +1666,14 @@ $(() => {
             scrollTop: $(app.objects.e + a).offset().top-60
         }, app.animation.d.min);
         //$(d).closest(app.objects.cl).prev();
-        $(this).parent().parent().parent().find('.reordered').remove();
-        $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+        $('.moveUpThisItem').parent().parent().parent().find('.reordered').remove();
+        $('.moveUpThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
         core.panelAlert('Item Order Changed','good');
         fn.preventDefault();
     }).on('click','.moveDownThisItem',(fn) =>{
-        let a = $(this).data('item');
+        let a = $('.moveDownThisItem').data('item');
         let b = a-1;
-        let c = $(this).parent().parent().parent().parent().parent().parent();
+        let c = $('.moveDownThisItem').parent().parent().parent().parent().parent().parent();
         let d = $(c).closest(app.objects.cl).next();
         let e = $(c).data('split');
         let f = $(d).attr('id');
@@ -1682,23 +1683,23 @@ $(() => {
             $(app.objects.r).animate({
                 scrollTop: $(app.objects.e + a).offset().top - 60
             }, app.animation.d.min);
-            $(this).parent().parent().parent().find('.reordered').remove();
-            $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+            $('.moveDownThisItem').parent().parent().parent().find('.reordered').remove();
+            $('.moveDownThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
             core.panelAlert('Item Order Changed','good');
         }else{
             core.panelAlert('If I move down any further, I\'ll be off the page.','error');
         }
         fn.preventDefault();
     }).on('click','.batsToggle',() =>{
-        if($(this).attr('data-status') === 'active') {
+        if($('.batsToggle').attr('data-status') === 'active') {
             core.killBats();
-        }else if($(this).attr('data-status') === 'allGone') {
+        }else if($('.batsToggle').attr('data-status') === 'allGone') {
             for(i=0;i<4;i++) {
                 core.launchBats();
             }
             $('.batsToggle').attr('data-status','active').html('Kill The Bats');
         }
-    }).on('keyup','input',() =>{
+    }).on('keyup','input',function(){
         let a = $(this).val().length;
         if($(this).hasClass('objTitleEN') || $(this).hasClass('objTitleFR') || $(this).hasClass('objTextEN') || $(this).hasClass('objTextFR')){
             let compLen = 35;
@@ -1721,38 +1722,38 @@ $(() => {
         }
     }).on('keyup','.num_select',(e) =>{
         if(e.keyCode === 13){
-            $(this).trigger("enterKey");
-            core.addMulti($(this).val());
-            $(this).parent().parent().parent().parent().hide();
+            $('.num_select').trigger("enterKey");
+            core.addMulti($('.num_select').val());
+            $('.num_select').parent().parent().parent().parent().hide();
         }
     }).on('keyup','.lsl_select',(e) =>{
         if(e.keyCode === 13){
-            $(this).trigger("enterKey");
-            core.prepareJSON('save',$(this).val());
-            $(this).parent().parent().parent().parent().hide();
+            $('.lsl_select').trigger("enterKey");
+            core.prepareJSON('save',$('.lsl_select').val());
+            $('.lsl_select').parent().parent().parent().parent().hide();
             core.setHeadSec();
         }
-    }).on('keyup',`${app.objects.o}[${app.handlers.r}="translate"] #output_code`,(e) =>{
+    }).on('keyup',`${app.objects.o}[${app.handlers.r}="translate"] #output_code`,function(e){
         if(e.keyCode === 45){
             $(this).trigger("enterKey");
             core.traverseJSON(false);
             e.preventDefault();
         }
     }).on('change','.objHeroSticky',() =>{
-        let a = $(this).val();
+        let a = $('.objHeroSticky').val();
         if(a === 'true'){
-            $(this).parent().parent().find('.objHeroPromote option[value="true"]').attr('selected',false);
+            $('.objHeroSticky').parent().parent().find('.objHeroPromote option[value="true"]').attr('selected',false);
         }else if(a === 'false'){
-            //$(this).parent().parent().find('.objHeroPromote option[value="false"]').attr('selected',true);
+            //$('.objHeroSticky').parent().parent().find('.objHeroPromote option[value="false"]').attr('selected',true);
         }
     }).on('change','.objButtonPopup',() =>{
-        let a = $(this).val();
+        let a = $('.objButtonPopup').val();
         if(a === 'true'){
-            $(this).parent().parent().find('.objButtonPopupLink').attr('style','');
+            $('.objButtonPopup').parent().parent().find('.objButtonPopupLink').attr('style','');
         }else if(a === 'false'){
-            $(this).parent().parent().find('.objButtonPopupLink').css('opacity',0.3);
+            $('.objButtonPopup').parent().parent().find('.objButtonPopupLink').css('opacity',0.3);
         }
-    }).on('change','.input_radio',() =>{
+    }).on('change','.input_radio',function(){
         let a = $(this).parent().parent().parent().parent().parent().attr('id').replace('entry','');
         if($(this).val()==='true'){
             $(this).parent().parent().css('border-left','6px solid #68B81F');
@@ -1765,8 +1766,8 @@ $(() => {
         }
     }).on('change','.lsOptions',() =>{
         try {
-            if ($(this).val() !== "" || $(this).val() !== "undefined" || $(this).val() !== undefined || $(this).val() !== "null" || $(this).val() !== null) {
-                let a = $(this).val();
+            if ($('.lsOptions').val() !== "" || $('.lsOptions').val() !== "undefined" || $('.lsOptions').val() !== undefined || $('.lsOptions').val() !== "null" || $('.lsOptions').val() !== null) {
+                let a = $('.lsOptions').val();
                 core.traverseJSON(true, a);
                 $('#loadandsave-zone').css('display','none');
             } else {
@@ -1776,7 +1777,7 @@ $(() => {
 
         }
     }).on('click','.addConditions',() =>{
-        let $targetObject = $(this).parent().parent().parent().parent().parent().parent().find('.form-group.option-selection');
+        let $targetObject = $('.addConditions').parent().parent().parent().parent().parent().parent().find('.form-group.option-selection');
         let $targetStatus = $targetObject.css('display');
         if($targetStatus === 'none'){
             $targetObject.css('display','table');

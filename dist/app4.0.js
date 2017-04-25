@@ -24,11 +24,12 @@ var core = {
      * @constructor
      */
     panelAlert: function panelAlert(mess, state) {
+        var dispLeng = 10000;
         if (app.dialog === true) {
             var mPane = '.panel-body.bottom_level_bt';
             if (state === app.params.e) {
                 $(mPane).find(app.objects.g).removeClass('allGood').removeClass('glyphicon-ok').addClass('allBad').addClass('glyphicon-remove');
-                var _dispLeng = app.animation.d.max;
+                dispLeng = app.animation.d.max;
             } else if (state === app.params.g) {
                 $(mPane).find(app.objects.g).removeClass('allBad').removeClass('glyphicon-remove').addClass('allGood').addClass('glyphicon-ok');
                 dispLeng = 10000;
@@ -162,14 +163,12 @@ var core = {
      * @constructor
      */
     initVersionUpdate: function initVersionUpdate() {
-        var _this = this;
-
         $('.init-update').remove();
         var pageData = '<div class="init-update"><div class="blackify_overlay"><div class="prompt-update"><div class="prompt-icon"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></div><div class="prompt-message">A newer version of the PageBuilder app has been detected. Do you want to load the newer version now? <br><br>Make sure you save all your work before answering YES.</div><div class="prompt-choice"><button type="button" class="btn btn-update true" data-toggle="dropdown" aria-expanded="false">YES</button><button type="button" class="btn btn-update false" data-toggle="dropdown" aria-expanded="false">NO</button></div></div></div></div>';
         $(app.dom.b).append(pageData).on('click', '.btn-update.true', function () {
             location.reload();
         }).on('click', '.btn-update.false', function () {
-            $(_this).parent().parent().parent().parent().remove();
+            $('.btn-update.false').parent().parent().parent().parent().remove();
             core.panelAlert('Version update stopped. The update prompt will reappear at the next update interval.', 'good');
         });
     },
@@ -727,8 +726,6 @@ var core = {
      * @constructor
      */
     deleteItems: function deleteItems(elem) {
-        var _this2 = this;
-
         if ($(app.objects.cl).length > 1) {
             if ($(app.objects.o).css('display') === 'block') {
                 $(app.objects.o).css('display', 'none');
@@ -738,7 +735,7 @@ var core = {
                 var a = $('.clonedInput:last').attr('id');
                 var _b2 = a.replace('entry', '');
                 $('#' + a).slideUp('slow', function () {
-                    $(_this2).remove();
+                    $(this).remove();
                     // if only one element remains, disable the "remove" button
                     if (elem - 1 === 1) $('.btnDel').attr('disabled', true);
                     // enable the "add" button
@@ -748,7 +745,7 @@ var core = {
                 core.scrollState('a');
             } else {
                 $(app.objects.e + elem).slideUp('slow', function () {
-                    $(_this2).remove();
+                    $(this).remove();
                     // if only one element remains, disable the "remove" button
                     if (elem - 1 === 1) $('.btnDel').attr('disabled', true);
                     // enable the "add" button
@@ -1056,12 +1053,10 @@ var core = {
      * @constructor
      */
     prepareJSON: function prepareJSON(meth, name, mode) {
-        var _this3 = this;
-
         var c = [];
         if (mode === 'hero' || mode === '' || mode === null || mode === undefined) {
             $('.clonedInput form fieldset[data-role="hero"]').each(function () {
-                var a = $(_this3).serializeArray();
+                var a = $(this).serializeArray();
                 c.push(a);
             });
             if (meth === 'full') {
@@ -1071,7 +1066,7 @@ var core = {
             }
         } else if (mode === 'hello') {
             $('.clonedInput form fieldset[data-role="hello"]').each(function () {
-                var a = $(_this3).serializeArray();
+                var a = $(this).serializeArray();
                 c.push(a);
             });
             core.outputJson(c, 'full', null, 'hello');
@@ -1344,6 +1339,7 @@ var core = {
         var start = dt[0].value;
         var img = dt[9].value;
         var titleColor = dt[4].value;
+        var outputString = void 0;
         console.log(dt);
         if (lang === app.language.e) {
             var _titleText = dt[2].value;
@@ -1362,9 +1358,9 @@ var core = {
         var sub = dt[16].value;
         var warningString = '<div class="preview_warning" title="The position and size of the background may display differently than on the live site.">Preview may differ from actual site render</div>';
         if (mode === 'small') {
-            var _outputString = '<div class="five columns jose pedro homepage_content event mini-spacers animated fadeIn delay-05s"><div id="event-active-today">';
+            outputString = '<div class="five columns jose pedro homepage_content event mini-spacers animated fadeIn delay-05s"><div id="event-active-today">';
         } else {
-            var _outputString2 = '';
+            outputString = '';
         }
         outputString += '<div data-instance="slide-0" data-str="' + img + '"';
         outputString += ' data-promote="true" id="slide-0" class="hero fwidth root-0"><div data-object-pos="false-false" class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -200px;" data-anchor-target="#slide-0"';
@@ -1465,10 +1461,10 @@ $(function () {
     $(app.objects.bo).on('click', '.btnAdd', function () {
         core.addItems();
     }).on('click', '.app_lang_toggle', function () {
-        var lng = $(undefined).attr('data-set-lang');
+        var lng = $('.app_lang_toggle').attr('data-set-lang');
         core.languageManager(lng);
     }).on('click', '.overlay_close', function () {
-        $(undefined).parent().parent().hide();
+        $('.overlay_close').parent().parent().hide();
         $(app.objects.r).css('overflow', 'auto');
         $('.overlay_message').css('display', 'none');
     }).on('click', '.select_content', function () {
@@ -1481,7 +1477,7 @@ $(function () {
             return false;
         });
     }).on('click', '.gotoItem', function () {
-        var a = $(undefined).data('item');
+        var a = $('.gotoItem').data('item');
         $(app.objects.r).animate({
             scrollTop: $(app.objects.e + a).offset().top - 60
         }, app.animation.d.min);
@@ -1505,13 +1501,13 @@ $(function () {
         }
         $('.num_select').focus();
     }).on('click', app.objects.c, function (e) {
-        var a = $(undefined).data('handler');
+        var a = $(app.objects.c).data('handler');
         core.validateImage('main', a);
         e.preventDefault();
     }).on('click', '.multiquery_close', function () {
-        $(undefined).parent().parent().hide();
+        $('.multiquery_close').parent().parent().hide();
     }).on('click', '.check_alt_image', function (e) {
-        var a = $(undefined).data('handler');
+        var a = $('.check_alt_image').data('handler');
         core.validateImage('alt', a);
         e.preventDefault();
     }).on('click', '.overlay_validate', function () {
@@ -1521,19 +1517,19 @@ $(function () {
         core.panelAlert('Whitespace and line breaks have been removed.', 'good');
     }).on('click', '.previewItem.large', function (e) {
         $(app.objects.r).animate({ scrollTop: sPos }, app.animation.d.min).css('overflow', 'hidden');
-        var a = $(undefined).data('hero');
+        var a = $('.previewItem.large').data('hero');
         core.previewFeature(a, 'large', pfLang);
         e.preventDefault();
     }).on('click', '.previewItem.small', function (e) {
         $(app.objects.r).animate({ scrollTop: sPos }, app.animation.d.min).css('overflow', 'hidden');
-        var a = $(undefined).data('hero');
+        var a = $('.previewItem.small').data('hero');
         core.previewFeature(a, 'small', pfLang);
         e.preventDefault();
     }).on('click', '.removeThisItem', function () {
-        var a = $(undefined).data('item');
+        var a = $('.removeThisItem').data('item');
         core.deleteItems(a);
     }).on('click', '.loadItem', function () {
-        var a = $(undefined).attr(app.handlers.i);
+        var a = $('.loadItem').attr(app.handlers.i);
         core.traverseJSON(true, a);
     }).on('click', '.copy-zone', function () {
         core.OpenInNewTab('https://github.com/davidemaser/heroIO');
@@ -1552,12 +1548,12 @@ $(function () {
         }
     }).on('click', '.help_close', function () {
         if ($(app.objects.he).css('display') === 'block') {
-            $(undefined).parent().parent().hide();
+            $('.help_close').parent().parent().hide();
             $(app.objects.r).css('overflow', 'auto');
         }
     }).on('click', '.renderer_close', function () {
         if ($(app.objects.h).css('display') === 'block') {
-            $(undefined).parent().parent().hide();
+            $('.renderer_close').parent().parent().hide();
             $(app.objects.r).css('overflow', 'auto');
             $(app.objects.h).find('.render_output').empty();
         }
@@ -1565,29 +1561,29 @@ $(function () {
         var a = $(app.dom.b).attr('data-nmode');
         if (a === 'hero') {
             $(app.dom.b).attr('data-nmode', 'hello');
-            $(undefined).attr('data-nmode', 'hello');
-            $(undefined).html('Switch to Hero Banner Mode');
+            $('.btnNmode').attr('data-nmode', 'hello');
+            $('.btnNmode').html('Switch to Hero Banner Mode');
             core.switchModes('hello');
         } else if (a === 'hello') {
             $(app.dom.b).attr('data-nmode', 'hero');
-            $(undefined).attr('data-nmode', 'hero');
-            $(undefined).html('Switch to Hello Bar Mode');
+            $('.btnNmode').attr('data-nmode', 'hero');
+            $('.btnNmode').html('Switch to Hello Bar Mode');
             core.switchModes('hero');
         }
     }).on('click', '.btnDel', function () {
         core.deleteItems('last');
     }).on('click', '.hideItem', function (e) {
-        core.cacheClickedItem($(undefined));
+        core.cacheClickedItem($('.hideItem'));
         e.preventDefault();
     }).on('click', '.submit_json', function () {
-        var a = $(undefined).attr('data-nmode');
+        var a = $('.submit_json').attr('data-nmode');
         core.prepareJSON('full', null, a);
     }).on('click', '.translate_json', function () {
         $('.overlay_message').html('');
         $(app.objects.r).animate({ scrollTop: 0 }, app.animation.d.min).css('overflow', 'hidden');
         $(app.objects.o).attr(app.handlers.r, 'translate').css('display', 'block').find('#output_code').val('').attr('placeholder', 'Paste you code here');
     }).on('click', '.translate_from_server', function () {
-        var xPath = $(undefined).attr('tlh');
+        var xPath = $('.translate_from_server').attr('tlh');
         core.loadFromServer(xPath);
     }).on('click', '.save_json', function () {
         if (app.save === true) {
@@ -1630,19 +1626,19 @@ $(function () {
         $(app.objects.l).hide();
         e.preventDefault();
     }).on('click', 'input,select', function () {
-        $(undefined).attr('style', '').attr('placeholder', '');
-        if ($(undefined).parent().hasClass('input_holders')) {
-            $(undefined).parent().find('.input_alerts').remove();
-            $(undefined).unwrap();
+        $(this).attr('style', '').attr('placeholder', '');
+        if ($(this).parent().hasClass('input_holders')) {
+            $(this).parent().find('.input_alerts').remove();
+            $(this).unwrap();
         }
     }).on('click', '.helpItem', function () {
-        var a = $(undefined).data('target');
+        var a = $('.helpItem').data('target');
         core.jumpToHelper(a);
     }).on('click', '.image_count', function () {
-        $(undefined).attr('style', '');
-        $(undefined).text('Shopify CDN');
+        $('.image_count').attr('style', '');
+        $('.image_count').text('Shopify CDN');
     }).on('click', '.btnSwitch', function (e) {
-        pfLang = $(undefined).data('language');
+        pfLang = $('.btnSwitch').data('language');
         $('.btnSwitch').removeClass('view-active');
         $('.btnSwitch[data-language="' + pfLang + '"]').addClass('view-active');
         if ($(app.objects.ro).children().not('.preview_warning').length > 0) {
@@ -1651,9 +1647,9 @@ $(function () {
         core.panelAlert('Preview language changed', 'good');
         e.preventDefault();
     }).on('click', '.panel-body.bottom_level_bt', function () {
-        $(undefined).slideUp();
+        $('.panel-body.bottom_level_bt').slideUp();
     }).on('click', '.show_me_how', function () {
-        var a = $(undefined).data('target') - 1;
+        var a = $('.show_me_how').data('target') - 1;
         $(app.objects.r).animate({ scrollTop: 0 }, { duration: app.animation.d.min,
             complete: function complete() {
                 $(app.objects.he).show();
@@ -1665,7 +1661,7 @@ $(function () {
             opacity: 1
         }, app.animation.d.min);
     }).on('click', '.settings_toggle', function (e) {
-        var a = $(undefined).data('theme');
+        var a = $('.settings_toggle').data('theme');
         $('html').attr(app.handlers.t, a);
         if (window.localStorage) {
             localStorage.setItem('pgb_Theme', a);
@@ -1673,9 +1669,9 @@ $(function () {
         core.panelAlert('Theme Settings Updated', 'good');
         e.preventDefault();
     }).on('click', '.moveUpThisItem', function (fn) {
-        var a = $(undefined).data('item');
+        var a = $('.moveUpThisItem').data('item');
         var b = a - 1;
-        var c = $(undefined).parent().parent().parent().parent().parent().parent();
+        var c = $('.moveUpThisItem').parent().parent().parent().parent().parent().parent();
         var d = $(c).closest(app.objects.cl).prev();
         var e = $(c).data('split');
         $(c).attr(app.handlers.s, e - 1);
@@ -1684,14 +1680,14 @@ $(function () {
             scrollTop: $(app.objects.e + a).offset().top - 60
         }, app.animation.d.min);
         //$(d).closest(app.objects.cl).prev();
-        $(undefined).parent().parent().parent().find('.reordered').remove();
-        $(undefined).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+        $('.moveUpThisItem').parent().parent().parent().find('.reordered').remove();
+        $('.moveUpThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
         core.panelAlert('Item Order Changed', 'good');
         fn.preventDefault();
     }).on('click', '.moveDownThisItem', function (fn) {
-        var a = $(undefined).data('item');
+        var a = $('.moveDownThisItem').data('item');
         var b = a - 1;
-        var c = $(undefined).parent().parent().parent().parent().parent().parent();
+        var c = $('.moveDownThisItem').parent().parent().parent().parent().parent().parent();
         var d = $(c).closest(app.objects.cl).next();
         var e = $(c).data('split');
         var f = $(d).attr('id');
@@ -1701,91 +1697,91 @@ $(function () {
             $(app.objects.r).animate({
                 scrollTop: $(app.objects.e + a).offset().top - 60
             }, app.animation.d.min);
-            $(undefined).parent().parent().parent().find('.reordered').remove();
-            $(undefined).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+            $('.moveDownThisItem').parent().parent().parent().find('.reordered').remove();
+            $('.moveDownThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
             core.panelAlert('Item Order Changed', 'good');
         } else {
             core.panelAlert('If I move down any further, I\'ll be off the page.', 'error');
         }
         fn.preventDefault();
     }).on('click', '.batsToggle', function () {
-        if ($(undefined).attr('data-status') === 'active') {
+        if ($('.batsToggle').attr('data-status') === 'active') {
             core.killBats();
-        } else if ($(undefined).attr('data-status') === 'allGone') {
+        } else if ($('.batsToggle').attr('data-status') === 'allGone') {
             for (i = 0; i < 4; i++) {
                 core.launchBats();
             }
             $('.batsToggle').attr('data-status', 'active').html('Kill The Bats');
         }
     }).on('keyup', 'input', function () {
-        var a = $(undefined).val().length;
-        if ($(undefined).hasClass('objTitleEN') || $(undefined).hasClass('objTitleFR') || $(undefined).hasClass('objTextEN') || $(undefined).hasClass('objTextFR')) {
+        var a = $(this).val().length;
+        if ($(this).hasClass('objTitleEN') || $(this).hasClass('objTitleFR') || $(this).hasClass('objTextEN') || $(this).hasClass('objTextFR')) {
             var _compLen = 35;
-        } else if ($(undefined).hasClass('objButtonEN') || $(undefined).hasClass('objButtonFR')) {
+        } else if ($(this).hasClass('objButtonEN') || $(this).hasClass('objButtonFR')) {
             compLen = 15;
         }
         if (a > compLen) {
-            if ($(undefined).parent().attr('class') !== 'input_holders') {
-                $(undefined).wrap('<div class="input_holders"></div>').parent().append('<div class="input_alerts" title="The length of your text may be too long for the hero banner container. Make sure to check that it displays correctly."><span class="glyphicon glyphicon-exclamation-sign"></span></div>');
-                $(undefined).focus();
+            if ($(this).parent().attr('class') !== 'input_holders') {
+                $(this).wrap('<div class="input_holders"></div>').parent().append('<div class="input_alerts" title="The length of your text may be too long for the hero banner container. Make sure to check that it displays correctly."><span class="glyphicon glyphicon-exclamation-sign"></span></div>');
+                $(this).focus();
             }
         } else {
             if (a <= compLen) {
-                if ($(undefined).parent().attr('class') === 'input_holders') {
-                    $(undefined).parent().find('.input_alerts').remove();
-                    $(undefined).unwrap();
-                    $(undefined).focus();
+                if ($(this).parent().attr('class') === 'input_holders') {
+                    $(this).parent().find('.input_alerts').remove();
+                    $(this).unwrap();
+                    $(this).focus();
                 }
             }
         }
     }).on('keyup', '.num_select', function (e) {
         if (e.keyCode === 13) {
-            $(undefined).trigger("enterKey");
-            core.addMulti($(undefined).val());
-            $(undefined).parent().parent().parent().parent().hide();
+            $('.num_select').trigger("enterKey");
+            core.addMulti($('.num_select').val());
+            $('.num_select').parent().parent().parent().parent().hide();
         }
     }).on('keyup', '.lsl_select', function (e) {
         if (e.keyCode === 13) {
-            $(undefined).trigger("enterKey");
-            core.prepareJSON('save', $(undefined).val());
-            $(undefined).parent().parent().parent().parent().hide();
+            $('.lsl_select').trigger("enterKey");
+            core.prepareJSON('save', $('.lsl_select').val());
+            $('.lsl_select').parent().parent().parent().parent().hide();
             core.setHeadSec();
         }
     }).on('keyup', app.objects.o + '[' + app.handlers.r + '="translate"] #output_code', function (e) {
         if (e.keyCode === 45) {
-            $(undefined).trigger("enterKey");
+            $(this).trigger("enterKey");
             core.traverseJSON(false);
             e.preventDefault();
         }
     }).on('change', '.objHeroSticky', function () {
-        var a = $(undefined).val();
+        var a = $('.objHeroSticky').val();
         if (a === 'true') {
-            $(undefined).parent().parent().find('.objHeroPromote option[value="true"]').attr('selected', false);
+            $('.objHeroSticky').parent().parent().find('.objHeroPromote option[value="true"]').attr('selected', false);
         } else if (a === 'false') {
-            //$(this).parent().parent().find('.objHeroPromote option[value="false"]').attr('selected',true);
+            //$('.objHeroSticky').parent().parent().find('.objHeroPromote option[value="false"]').attr('selected',true);
         }
     }).on('change', '.objButtonPopup', function () {
-        var a = $(undefined).val();
+        var a = $('.objButtonPopup').val();
         if (a === 'true') {
-            $(undefined).parent().parent().find('.objButtonPopupLink').attr('style', '');
+            $('.objButtonPopup').parent().parent().find('.objButtonPopupLink').attr('style', '');
         } else if (a === 'false') {
-            $(undefined).parent().parent().find('.objButtonPopupLink').css('opacity', 0.3);
+            $('.objButtonPopup').parent().parent().find('.objButtonPopupLink').css('opacity', 0.3);
         }
     }).on('change', '.input_radio', function () {
-        var a = $(undefined).parent().parent().parent().parent().parent().attr('id').replace('entry', '');
-        if ($(undefined).val() === 'true') {
-            $(undefined).parent().parent().css('border-left', '6px solid #68B81F');
-            $(undefined).parent().parent().parent().parent().find('h2').find('span').removeClass('label-danger').addClass('label-default');
+        var a = $(this).parent().parent().parent().parent().parent().attr('id').replace('entry', '');
+        if ($(this).val() === 'true') {
+            $(this).parent().parent().css('border-left', '6px solid #68B81F');
+            $(this).parent().parent().parent().parent().find('h2').find('span').removeClass('label-danger').addClass('label-default');
             $('.gotoItem[' + app.handlers.i + '="' + a + '"]').removeClass('redout').attr('title', '');
         } else {
-            $(undefined).parent().parent().css('border-left', '6px solid #FD0000');
-            $(undefined).parent().parent().parent().parent().find('h2').find('span').removeClass('label-default').addClass('label-danger');
+            $(this).parent().parent().css('border-left', '6px solid #FD0000');
+            $(this).parent().parent().parent().parent().find('h2').find('span').removeClass('label-default').addClass('label-danger');
             $('.gotoItem[' + app.handlers.i + '="' + a + '"]').addClass('redout').attr('title', 'This Hero entry is not activated');
         }
     }).on('change', '.lsOptions', function () {
         try {
-            if ($(undefined).val() !== "" || $(undefined).val() !== "undefined" || $(undefined).val() !== undefined || $(undefined).val() !== "null" || $(undefined).val() !== null) {
-                var a = $(undefined).val();
+            if ($('.lsOptions').val() !== "" || $('.lsOptions').val() !== "undefined" || $('.lsOptions').val() !== undefined || $('.lsOptions').val() !== "null" || $('.lsOptions').val() !== null) {
+                var a = $('.lsOptions').val();
                 core.traverseJSON(true, a);
                 $('#loadandsave-zone').css('display', 'none');
             } else {
@@ -1793,7 +1789,7 @@ $(function () {
             }
         } catch (e) {}
     }).on('click', '.addConditions', function () {
-        var $targetObject = $(undefined).parent().parent().parent().parent().parent().parent().find('.form-group.option-selection');
+        var $targetObject = $('.addConditions').parent().parent().parent().parent().parent().parent().find('.form-group.option-selection');
         var $targetStatus = $targetObject.css('display');
         if ($targetStatus === 'none') {
             $targetObject.css('display', 'table');
