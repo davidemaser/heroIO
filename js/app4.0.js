@@ -938,10 +938,10 @@ const core = {
                 var build = true,
                     bItems = len - formItems;
             }
-            for (h = 0; h < bItems; h++) {
+            for (let h = 0; h < bItems; h++) {
                 core.addItems();
             }
-            for (i = 0; i < len; i++) {
+            for (let i = 0; i < len; i++) {
                 formArray.push(obj[i]);
             }
             core.jsonToForm(formArray);

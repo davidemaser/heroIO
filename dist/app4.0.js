@@ -124,10 +124,10 @@ var core = {
                     var errorLen = data.node.section[2].errors.length;
                     var helpLen = data.node.section[3].help.length;
                     var lngContainer = [];
-                    for (var _i = 0; _i < actionLen; _i++) {
+                    for (var i = 0; i < actionLen; i++) {
                         lngContainer.push({
-                            objID: data.node.section[0].actions[_i].id,
-                            objTran: data.node.section[0].actions[_i].translate
+                            objID: data.node.section[0].actions[i].id,
+                            objTran: data.node.section[0].actions[i].translate
                         });
                     }
                     for (var j = 0; j < loadLen; j++) {
@@ -203,19 +203,19 @@ var core = {
                 htmlBlock += '<fieldset>';
                 var blockContent = dataBlock.block;
                 var blockLen = blockContent.length;
-                for (var _i2 = 0; _i2 < blockLen; _i2++) {
-                    if (blockContent[_i2].display !== 'custom') {
-                        if (_i2 % 2 === 0 || _i2 === 0) {
-                            if (blockContent[_i2].wrap_group === true) {
-                                htmlBlock += '<div class="' + blockContent[_i2].wrap_group_class + '">';
+                for (var i = 0; i < blockLen; i++) {
+                    if (blockContent[i].display !== 'custom') {
+                        if (i % 2 === 0 || i === 0) {
+                            if (blockContent[i].wrap_group === true) {
+                                htmlBlock += '<div class="' + blockContent[i].wrap_group_class + '">';
                             }
                             htmlBlock += '<div class="form-group">';
                             var blocker = ' lItem';
                         } else {
                             blocker = '';
                         }
-                        if (blockContent[_i2].display !== 'empty') {
-                            switch (blockContent[_i2].display) {
+                        if (blockContent[i].display !== 'empty') {
+                            switch (blockContent[i].display) {
                                 case "full":
                                     var _line = '';
                                     blocker = '';
@@ -225,115 +225,115 @@ var core = {
                                     break;
                             }
                             htmlBlock += '<div class="' + line + ' ' + blocker + '">';
-                            htmlBlock += '<label class="label_fn control-label" for="' + blockContent[_i2].obj_id + '">' + blockContent[_i2].label + '</label>';
-                            if (blockContent[_i2].wrap === true) {
-                                htmlBlock += '<div class="' + blockContent[_i2].wrap_class + '">';
+                            htmlBlock += '<label class="label_fn control-label" for="' + blockContent[i].obj_id + '">' + blockContent[i].label + '</label>';
+                            if (blockContent[i].wrap === true) {
+                                htmlBlock += '<div class="' + blockContent[i].wrap_class + '">';
                             }
-                            if (blockContent[_i2].inject_code !== '') {
-                                htmlBlock += blockContent[_i2].inject_code;
+                            if (blockContent[i].inject_code !== '') {
+                                htmlBlock += blockContent[i].inject_code;
                             }
-                            if (blockContent[_i2].input_obj === 'text') {
+                            if (blockContent[i].input_obj === 'text') {
                                 htmlBlock += '<input';
-                                if (blockContent[_i2].obj_id !== '') {
-                                    htmlBlock += ' id="' + blockContent[_i2].obj_id + '" name="' + blockContent[_i2].obj_id + '"';
+                                if (blockContent[i].obj_id !== '') {
+                                    htmlBlock += ' id="' + blockContent[i].obj_id + '" name="' + blockContent[i].obj_id + '"';
                                 }
-                                htmlBlock += ' type="text" placeholder="' + blockContent[_i2].placeholder + '" class="input_fn form-control';
-                                if (blockContent[_i2].class !== '') {
-                                    htmlBlock += ' ' + blockContent[_i2].class;
+                                htmlBlock += ' type="text" placeholder="' + blockContent[i].placeholder + '" class="input_fn form-control';
+                                if (blockContent[i].class !== '') {
+                                    htmlBlock += ' ' + blockContent[i].class;
                                 }
-                                if (blockContent[_i2].obj_label !== '') {
-                                    htmlBlock += ' ' + blockContent[_i2].obj_label;
+                                if (blockContent[i].obj_label !== '') {
+                                    htmlBlock += ' ' + blockContent[i].obj_label;
                                 }
                                 htmlBlock += '"';
-                                if (blockContent[_i2].options !== null) {
-                                    var opLen = blockContent[_i2].options.length;
+                                if (blockContent[i].options !== null) {
+                                    var opLen = blockContent[i].options.length;
                                     for (var j = 0; j < opLen; j++) {
-                                        htmlBlock += ' ' + blockContent[_i2].options[j].item + '="' + blockContent[_i2].options[j].value + '"';
+                                        htmlBlock += ' ' + blockContent[i].options[j].item + '="' + blockContent[i].options[j].value + '"';
                                     }
                                 }
-                                if (blockContent[_i2].data !== null) {
-                                    var dtLen = blockContent[_i2].data.length;
+                                if (blockContent[i].data !== null) {
+                                    var dtLen = blockContent[i].data.length;
                                     for (var k = 0; k < dtLen; k++) {
-                                        htmlBlock += ' data-' + blockContent[_i2].data[k].item + '="' + blockContent[_i2].data[k].value + '"';
+                                        htmlBlock += ' data-' + blockContent[i].data[k].item + '="' + blockContent[i].data[k].value + '"';
                                     }
                                 }
                                 htmlBlock += '>';
-                            } else if (blockContent[_i2].input_obj === 'radio') {
+                            } else if (blockContent[i].input_obj === 'radio') {
                                 htmlBlock += '<input';
                                 htmlBlock += ' type="radio"';
-                                if (blockContent[_i2].class !== '') {
-                                    htmlBlock += ' class="' + blockContent[_i2].class + '"';
+                                if (blockContent[i].class !== '') {
+                                    htmlBlock += ' class="' + blockContent[i].class + '"';
                                 }
-                                if (blockContent[_i2].obj_label !== '') {
-                                    htmlBlock += ' ' + blockContent[_i2].obj_label;
+                                if (blockContent[i].obj_label !== '') {
+                                    htmlBlock += ' ' + blockContent[i].obj_label;
                                 }
-                                if (blockContent[_i2].obj_id !== '') {
-                                    htmlBlock += ' id="' + blockContent[_i2].obj_id + '" name="' + blockContent[_i2].obj_id + '"';
+                                if (blockContent[i].obj_id !== '') {
+                                    htmlBlock += ' id="' + blockContent[i].obj_id + '" name="' + blockContent[i].obj_id + '"';
                                 }
-                                if (blockContent[_i2].options !== null) {
-                                    opLen = blockContent[_i2].options.length;
+                                if (blockContent[i].options !== null) {
+                                    opLen = blockContent[i].options.length;
                                     for (j = 0; j < opLen; j++) {
-                                        htmlBlock += ' ' + blockContent[_i2].options[j].item + '="' + blockContent[_i2].options[j].value + '"';
-                                        if (blockContent[_i2].options[j].default !== undefined) {
-                                            htmlBlock += ' ' + blockContent[_i2].options[j].default;
+                                        htmlBlock += ' ' + blockContent[i].options[j].item + '="' + blockContent[i].options[j].value + '"';
+                                        if (blockContent[i].options[j].default !== undefined) {
+                                            htmlBlock += ' ' + blockContent[i].options[j].default;
                                         }
                                     }
                                 }
-                                if (blockContent[_i2].data !== null) {
-                                    dtLen = blockContent[_i2].data.length;
+                                if (blockContent[i].data !== null) {
+                                    dtLen = blockContent[i].data.length;
                                     for (k = 0; k < dtLen; k++) {
-                                        htmlBlock += ' data-' + blockContent[_i2].data[k].item + '="' + blockContent[_i2].data[k].value + '"';
+                                        htmlBlock += ' data-' + blockContent[i].data[k].item + '="' + blockContent[i].data[k].value + '"';
                                     }
                                 }
                                 htmlBlock += '>';
-                            } else if (blockContent[_i2].input_obj === 'select') {
+                            } else if (blockContent[i].input_obj === 'select') {
                                 htmlBlock += '<select';
-                                if (blockContent[_i2].class !== '') {
-                                    htmlBlock += ' class="form-control ' + blockContent[_i2].class + '"';
+                                if (blockContent[i].class !== '') {
+                                    htmlBlock += ' class="form-control ' + blockContent[i].class + '"';
                                 }
-                                if (blockContent[_i2].obj_label !== '') {
-                                    htmlBlock += ' ' + blockContent[_i2].obj_label;
+                                if (blockContent[i].obj_label !== '') {
+                                    htmlBlock += ' ' + blockContent[i].obj_label;
                                 }
-                                if (blockContent[_i2].obj_id !== '') {
-                                    htmlBlock += ' id="' + blockContent[_i2].obj_id + '" name="' + blockContent[_i2].obj_id + '"';
-                                    if (blockContent[_i2].data !== null) {
-                                        dtLen = blockContent[_i2].data.length;
+                                if (blockContent[i].obj_id !== '') {
+                                    htmlBlock += ' id="' + blockContent[i].obj_id + '" name="' + blockContent[i].obj_id + '"';
+                                    if (blockContent[i].data !== null) {
+                                        dtLen = blockContent[i].data.length;
                                         for (k = 0; k < dtLen; k++) {
-                                            htmlBlock += ' data-' + blockContent[_i2].data[k].item + '="' + blockContent[_i2].data[k].value + '"';
+                                            htmlBlock += ' data-' + blockContent[i].data[k].item + '="' + blockContent[i].data[k].value + '"';
                                         }
                                     }
                                 }
                                 htmlBlock += '>';
-                                if (blockContent[_i2].options !== null) {
-                                    opLen = blockContent[_i2].options.length;
+                                if (blockContent[i].options !== null) {
+                                    opLen = blockContent[i].options.length;
                                     for (j = 0; j < opLen; j++) {
                                         htmlBlock += '<option';
-                                        htmlBlock += ' ' + blockContent[_i2].options[j].item + '="' + blockContent[_i2].options[j].value + '"';
-                                        if (blockContent[_i2].options[j].default !== undefined) {
-                                            htmlBlock += ' ' + blockContent[_i2].options[j].default;
+                                        htmlBlock += ' ' + blockContent[i].options[j].item + '="' + blockContent[i].options[j].value + '"';
+                                        if (blockContent[i].options[j].default !== undefined) {
+                                            htmlBlock += ' ' + blockContent[i].options[j].default;
                                         }
-                                        htmlBlock += '>' + blockContent[_i2].options[j].label;
+                                        htmlBlock += '>' + blockContent[i].options[j].label;
                                         htmlBlock += '</option>';
                                     }
                                 }
                                 htmlBlock += '</select>';
                             }
-                            if (blockContent[_i2].append !== '') {
-                                htmlBlock += blockContent[_i2].append;
+                            if (blockContent[i].append !== '') {
+                                htmlBlock += blockContent[i].append;
                             }
-                            if (blockContent[_i2].wrap === true) {
+                            if (blockContent[i].wrap === true) {
                                 htmlBlock += '</div>';
                             }
                             htmlBlock += '</div>';
                         }
-                        if (_i2 % 2 === 1) {
+                        if (i % 2 === 1) {
                             htmlBlock += '</div>';
-                            if (blockContent[_i2].wrap_group === true) {
+                            if (blockContent[i].wrap_group === true) {
                                 htmlBlock += '</div>';
                             }
                         }
                     } else {
-                        htmlBlock += blockContent[_i2].inject_code;
+                        htmlBlock += blockContent[i].inject_code;
                     }
                 }
                 htmlBlock += '</fieldset>';
@@ -393,14 +393,14 @@ var core = {
             type: app.methods.g,
             url: 'data/help.json',
             success: function success(data) {
-                for (var _h = 0; _h < data.items.length; _h++) {
-                    if (_h > 0) {
+                for (var h = 0; h < data.items.length; h++) {
+                    if (h > 0) {
                         var push = 'push_block';
                     } else {
                         push = '';
                     }
-                    $('.help-items').append('<li><a class="helpItem" data-target="' + _h + '">' + data.items[_h].title + '</a></li>');
-                    $('.help_panel_holder').append('<div class="help_item" id="hlp' + _h + '" data-helper="' + _h + '"><h4 class="' + push + '">' + data.items[_h].title + '</h4>' + data.items[_h].block + '</div>');
+                    $('.help-items').append('<li><a class="helpItem" data-target="' + h + '">' + data.items[h].title + '</a></li>');
+                    $('.help_panel_holder').append('<div class="help_item" id="hlp' + h + '" data-helper="' + h + '"><h4 class="' + push + '">' + data.items[h].title + '</h4>' + data.items[h].block + '</div>');
                 }
             },
             error: function error() {
@@ -425,9 +425,9 @@ var core = {
                 var a = localStorage.getItem(app.storage.n).split(',');
                 var long = a.length;
                 if (long > 1) {
-                    for (var _i3 = 0; _i3 < long; _i3++) {
-                        if (a[_i3] !== '') {
-                            $('.lsLoad').append('<li><a href="#" class="loadItem" ' + app.handlers.i + '="' + a[_i3] + '">' + a[_i3] + '</a></li>');
+                    for (var i = 0; i < long; i++) {
+                        if (a[i] !== '') {
+                            $('.lsLoad').append('<li><a href="#" class="loadItem" ' + app.handlers.i + '="' + a[i] + '">' + a[i] + '</a></li>');
                         }
                     }
                 } else {
@@ -528,8 +528,8 @@ var core = {
                 var bLen = _b.length;
                 $('.lsOptions').find('option').remove();
                 $(target).append('<option value="null">SELECT</option>');
-                for (var _i4 = 0; _i4 < bLen; _i4++) {
-                    $(target).append('<option value="' + _b[_i4] + '">' + _b[_i4] + '</option>');
+                for (var i = 0; i < bLen; i++) {
+                    $(target).append('<option value="' + _b[i] + '">' + _b[i] + '</option>');
                 }
             } else {
                 $(target).append('<option value="null">No Local Storage Found</option>');
@@ -548,8 +548,8 @@ var core = {
             $('#loadandsave-zone').attr('data-reason', 'save').css('display', 'block');
         } else if (method === 'reset') {
             localStorage.setItem('pgb_SavedNode_LS', "");
-            for (var _i5 = 0, len = localStorage.length; _i5 < len; _i5++) {
-                var key = localStorage.key(_i5);
+            for (var i = 0, len = localStorage.length; i < len; i++) {
+                var key = localStorage.key(i);
                 if (key.includes('pgb_SavedNode_') && !key.includes('pgb_SavedNode_LS')) {
                     localStorage.removeItem(key);
                 }
@@ -603,7 +603,7 @@ var core = {
      * @constructor
      */
     addMulti: function addMulti(num) {
-        for (var _i6 = 0; _i6 < num; _i6++) {
+        for (var i = 0; i < num; i++) {
             core.addItems();
         }
         core.panelAlert('Items Added', 'good');
@@ -788,34 +788,34 @@ var core = {
         var a = JSON.parse($(app.objects.o + '[' + app.handlers.r + '="output"]').find('textarea').val()).hero;
         var b = a.length;
         var c = 0;
-        for (var _i7 = 0; _i7 < b; _i7++) {
-            if (a[_i7].date.start === '') {
-                errorLog.push({ form: _i7 + 1, obj: "Start Date", prob: "No Value. FATAL", elem: "objStart", die: true });
+        for (var i = 0; i < b; i++) {
+            if (a[i].date.start === '') {
+                errorLog.push({ form: i + 1, obj: "Start Date", prob: "No Value. FATAL", elem: "objStart", die: true });
                 c++;
             }
-            if (a[_i7].date.end === '') {
-                errorLog.push({ form: _i7 + 1, obj: "End Date", prob: "No Value. FATAL", elem: "objEnd", die: true });
+            if (a[i].date.end === '') {
+                errorLog.push({ form: i + 1, obj: "End Date", prob: "No Value. FATAL", elem: "objEnd", die: true });
                 c++;
             }
-            if (a[_i7].title.en === '') {
-                errorLog.push({ form: _i7 + 1, obj: "English Title", prob: "No Value", elem: "objTitleEN", die: false });
+            if (a[i].title.en === '') {
+                errorLog.push({ form: i + 1, obj: "English Title", prob: "No Value", elem: "objTitleEN", die: false });
                 c++;
             }
-            if (a[_i7].title.fr === '') {
-                errorLog.push({ form: _i7 + 1, obj: "French Title", prob: "No Value", elem: "objTitleFR", die: false });
+            if (a[i].title.fr === '') {
+                errorLog.push({ form: i + 1, obj: "French Title", prob: "No Value", elem: "objTitleFR", die: false });
                 c++;
             }
-            if (a[_i7].text.en === '') {
-                errorLog.push({ form: _i7 + 1, obj: "English Text", prob: "No Value", elem: "objTextEN", die: false });
+            if (a[i].text.en === '') {
+                errorLog.push({ form: i + 1, obj: "English Text", prob: "No Value", elem: "objTextEN", die: false });
                 c++;
             }
-            if (a[_i7].text.fr === '') {
-                errorLog.push({ form: _i7 + 1, obj: "French Text", prob: "No Value", elem: "objTextFR", die: false });
+            if (a[i].text.fr === '') {
+                errorLog.push({ form: i + 1, obj: "French Text", prob: "No Value", elem: "objTextFR", die: false });
                 c++;
             }
-            if (a[_i7].button.label.en === '') {
+            if (a[i].button.label.en === '') {
                 errorLog.push({
-                    form: _i7 + 1,
+                    form: i + 1,
                     obj: "English Button Label",
                     prob: "No Value",
                     elem: "objButtonEN",
@@ -823,9 +823,9 @@ var core = {
                 });
                 c++;
             }
-            if (a[_i7].button.label.fr === '') {
+            if (a[i].button.label.fr === '') {
                 errorLog.push({
-                    form: _i7 + 1,
+                    form: i + 1,
                     obj: "French Button Label",
                     prob: "No Value",
                     elem: "objButtonFR",
@@ -833,12 +833,12 @@ var core = {
                 });
                 c++;
             }
-            if (a[_i7].button.url === '') {
-                errorLog.push({ form: _i7 + 1, obj: "Button URL", prob: "No Value", elem: "objButtonLink", die: false });
+            if (a[i].button.url === '') {
+                errorLog.push({ form: i + 1, obj: "Button URL", prob: "No Value", elem: "objButtonLink", die: false });
                 c++;
             }
-            if (a[_i7].image.url === '') {
-                errorLog.push({ form: _i7 + 1, obj: "Image URL", prob: "No Value", elem: "objImageMain", die: false });
+            if (a[i].image.url === '') {
+                errorLog.push({ form: i + 1, obj: "Image URL", prob: "No Value", elem: "objImageMain", die: false });
                 c++;
             }
         }
@@ -931,11 +931,11 @@ var core = {
                 var build = true,
                     bItems = len - formItems;
             }
-            for (var _h2 = 0; _h2 < bItems; _h2++) {
+            for (var h = 0; h < bItems; h++) {
                 core.addItems();
             }
-            for (var _i8 = 0; _i8 < len; _i8++) {
-                formArray.push(obj[_i8]);
+            for (var i = 0; i < len; i++) {
+                formArray.push(obj[i]);
             }
             core.jsonToForm(formArray);
             core.panelAlert('Data Translated To Form', 'good');
@@ -961,11 +961,11 @@ var core = {
                 var build = true,
                     bItems = _len - _formItems;
             }
-            for (h = 0; h < bItems; h++) {
+            for (var _h = 0; _h < bItems; _h++) {
                 core.addItems();
             }
-            for (i = 0; i < _len; i++) {
-                _formArray.push(_obj[i]);
+            for (var _i = 0; _i < _len; _i++) {
+                _formArray.push(_obj[_i]);
             }
             core.jsonToForm(_formArray);
             core.panelAlert('Data Translated To Form', 'good');
@@ -983,56 +983,56 @@ var core = {
      */
     jsonToForm: function jsonToForm(aCode) {
         var jsLen = aCode.length;
-        for (var _i9 = 0; _i9 < jsLen; _i9++) {
-            var jsForm = 'entry' + (_i9 + 1);
+        for (var i = 0; i < jsLen; i++) {
+            var jsForm = 'entry' + (i + 1);
             var formEl = '#' + jsForm;
-            $(formEl).find('.objStart').val(aCode[_i9].date.start);
-            $(formEl).find('.objEnd').val(aCode[_i9].date.end);
-            $(formEl).find('.objTitleEN').val(aCode[_i9].title.en);
-            $(formEl).find('.objTitleFR').val(aCode[_i9].title.fr);
-            $(formEl).find('.objTitleCol').val(aCode[_i9].title.color);
-            $(formEl).find('.objTextEN').val(aCode[_i9].text.en);
-            $(formEl).find('.objTextFR').val(aCode[_i9].text.fr);
+            $(formEl).find('.objStart').val(aCode[i].date.start);
+            $(formEl).find('.objEnd').val(aCode[i].date.end);
+            $(formEl).find('.objTitleEN').val(aCode[i].title.en);
+            $(formEl).find('.objTitleFR').val(aCode[i].title.fr);
+            $(formEl).find('.objTitleCol').val(aCode[i].title.color);
+            $(formEl).find('.objTextEN').val(aCode[i].text.en);
+            $(formEl).find('.objTextFR').val(aCode[i].text.fr);
             try {
-                if (aCode[_i9].conditions.en !== null && aCode[_i9].conditions.en !== undefined && aCode[_i9].conditions.en !== '') {
-                    $(formEl).find('.objConditionsEN').val(aCode[_i9].conditions.en);
+                if (aCode[i].conditions.en !== null && aCode[i].conditions.en !== undefined && aCode[i].conditions.en !== '') {
+                    $(formEl).find('.objConditionsEN').val(aCode[i].conditions.en);
                 } else {
                     $(formEl).find('.objConditionsEN').val('');
                 }
-                if (aCode[_i9].conditions.fr !== null && aCode[_i9].conditions.fr !== undefined && aCode[_i9].conditions.fr !== '') {
-                    $(formEl).find('.objConditionsFR').val(aCode[_i9].conditions.fr);
+                if (aCode[i].conditions.fr !== null && aCode[i].conditions.fr !== undefined && aCode[i].conditions.fr !== '') {
+                    $(formEl).find('.objConditionsFR').val(aCode[i].conditions.fr);
                 } else {
                     $(formEl).find('.objConditionsFR').val('');
                 }
             } catch (e) {
                 console.log(e);
             }
-            $(formEl).find('.objImageMain').val(aCode[_i9].image.url);
-            $(formEl).find('.objImageAlt').val(aCode[_i9].image.altUrl);
-            $(formEl).find('.objButtonEN').val(aCode[_i9].button.label.en);
-            $(formEl).find('.objButtonFR').val(aCode[_i9].button.label.fr);
-            $(formEl).find('.objButtonLink').val(aCode[_i9].button.url);
-            if (aCode[_i9].date.delay === true || aCode[_i9].date.delay === false) {
+            $(formEl).find('.objImageMain').val(aCode[i].image.url);
+            $(formEl).find('.objImageAlt').val(aCode[i].image.altUrl);
+            $(formEl).find('.objButtonEN').val(aCode[i].button.label.en);
+            $(formEl).find('.objButtonFR').val(aCode[i].button.label.fr);
+            $(formEl).find('.objButtonLink').val(aCode[i].button.url);
+            if (aCode[i].date.delay === true || aCode[i].date.delay === false) {
                 window.setTimeout(function () {
                     core.panelAlert('Some delay entries are not numerical. Make sure to set all delay entries to a numerical value manually.', 'error');
                 }, 2000);
-            } else if (aCode[_i9].date.delay === '' || aCode[_i9].date.delay === null || aCode[_i9].date.delay === undefined || aCode[_i9].date.delay === 'undefined') {
+            } else if (aCode[i].date.delay === '' || aCode[i].date.delay === null || aCode[i].date.delay === undefined || aCode[i].date.delay === 'undefined') {
                 $(formEl).find('.objDelay').val(0);
             } else {
-                $(formEl).find('.objDelay').val(aCode[_i9].date.delay);
+                $(formEl).find('.objDelay').val(aCode[i].date.delay);
             }
-            $(formEl).find('.objCountdownShow').val(aCode[_i9].showCountdown);
-            $(formEl).find('.objButtonPopup option[value="' + aCode[_i9].popUpLink + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objButtonPopupLink option[value="' + aCode[_i9].button.popUpLinkID + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objCountdownShow option[value="' + aCode[_i9].showCountdown + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objHeroSticky option[value="' + aCode[_i9].sticky + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objHeroTitleShow option[value="' + aCode[_i9].title.showTitle + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objHeroSubtitleShow option[value="' + aCode[_i9].text.showSubTitle + '"]').attr('selected', true).prop('selected', true);
-            $(formEl).find('.objHeroPromote option[value="' + aCode[_i9].promote + '"]').attr('selected', true).prop('selected', true);
-            if (aCode[_i9].active == true) {
+            $(formEl).find('.objCountdownShow').val(aCode[i].showCountdown);
+            $(formEl).find('.objButtonPopup option[value="' + aCode[i].popUpLink + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objButtonPopupLink option[value="' + aCode[i].button.popUpLinkID + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objCountdownShow option[value="' + aCode[i].showCountdown + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objHeroSticky option[value="' + aCode[i].sticky + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objHeroTitleShow option[value="' + aCode[i].title.showTitle + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objHeroSubtitleShow option[value="' + aCode[i].text.showSubTitle + '"]').attr('selected', true).prop('selected', true);
+            $(formEl).find('.objHeroPromote option[value="' + aCode[i].promote + '"]').attr('selected', true).prop('selected', true);
+            if (aCode[i].active == true) {
                 $(formEl).find('.mod-radio').find('input[type="radio"]').first().prop('checked', true);
                 $(formEl).find('.mod-radio').find('input[type="radio"]').last().prop('checked', false);
-            } else if (aCode[_i9].active == false) {
+            } else if (aCode[i].active == false) {
                 $(formEl).find('.mod-radio').css('border-left-width', '6px').css('border-left-style', 'solid').css('border-left-color', 'rgb(253, 0, 0)');
                 $(formEl).find('.mod-radio').find('input[type="radio"]').first().prop('checked', false);
                 $(formEl).find('.mod-radio').find('input[type="radio"]').last().prop('checked', true);
