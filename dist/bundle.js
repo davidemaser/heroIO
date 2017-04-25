@@ -1060,6 +1060,10 @@ var _validateJson2 = _interopRequireDefault(_validateJson);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ *
+ * @type {{server: {accepted: [*]}, lang: string, user: string, callback: boolean, export: string, dialog: boolean, save: boolean, listener: string, version: string, languageRoot: string, methods: {g: string, p: string}, dom: {b: string, h: string}, objects: {o: string, e: string, h: string, w: string, i: string, b: string, c: string, ca: string, he: string, hi: string, cl: string, r: string, bo: string, g: string, l: string, ls: string, ro: string, re: string, el: string, form: {l: string}}, handlers: {d: string, t: string, i: string, r: string, s: string}, params: {s: string, e: string, g: string}, storage: {t: string, n: string}, language: {e: string, f: string}, animation: {d: {min: number, max: number}}}}
+ */
 var app = {
     server: {
         accepted: [{
