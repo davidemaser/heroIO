@@ -1463,8 +1463,8 @@ $(() => {
             $this.unbind("mouseup");
             return false;
         });
-    }).on('click','.gotoItem',() =>{
-        const a = $('.gotoItem').data('item');
+    }).on('click','.gotoItem',function(){
+        const a = $(this).data('item');
         $(app.objects.r).animate({
             scrollTop: $(app.objects.e + a).offset().top-60
         }, app.animation.d.min);
@@ -1572,7 +1572,7 @@ $(() => {
     }).on('click','.translate_from_server',() =>{
         let xPath = $('.translate_from_server').attr('tlh');
         core.loadFromServer(xPath);
-    }).on('click','.save_json',() => {
+    }).on('click','.save_json',function(){
         if(app.save === true) {
             core.doLocalSave();
         }else{
@@ -1647,18 +1647,18 @@ $(() => {
         $(app.objects.hi).animate({
             opacity: 1
         }, app.animation.d.min);
-    }).on('click','.settings_toggle',(e) =>{
-        let a = $('.settings_toggle').data('theme');
+    }).on('click','.settings_toggle',function(e){
+        let a = $(this).attr('data-theme');
         $('html').attr(app.handlers.t,a);
         if(window.localStorage) {
             localStorage.setItem('pgb_Theme', a);
         }
         core.panelAlert('Theme Settings Updated','good');
         e.preventDefault();
-    }).on('click','.moveUpThisItem',(fn) =>{
-        let a = $('.moveUpThisItem').data('item');
+    }).on('click','.moveUpThisItem',function(fn){
+        let a = $(this).data('item');
         let b = a-1;
-        let c = $('.moveUpThisItem').parent().parent().parent().parent().parent().parent();
+        let c = $(this).parent().parent().parent().parent().parent().parent();
         let d = $(c).closest(app.objects.cl).prev();
         let e = $(c).data('split');
         $(c).attr(app.handlers.s,(e-1));
@@ -1667,14 +1667,14 @@ $(() => {
             scrollTop: $(app.objects.e + a).offset().top-60
         }, app.animation.d.min);
         //$(d).closest(app.objects.cl).prev();
-        $('.moveUpThisItem').parent().parent().parent().find('.reordered').remove();
-        $('.moveUpThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+        $(this).parent().parent().parent().find('.reordered').remove();
+        $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
         core.panelAlert('Item Order Changed','good');
         fn.preventDefault();
-    }).on('click','.moveDownThisItem',(fn) =>{
-        let a = $('.moveDownThisItem').data('item');
+    }).on('click','.moveDownThisItem',function(fn){
+        let a = $(this).data('item');
         let b = a-1;
-        let c = $('.moveDownThisItem').parent().parent().parent().parent().parent().parent();
+        let c = $(this).parent().parent().parent().parent().parent().parent();
         let d = $(c).closest(app.objects.cl).next();
         let e = $(c).data('split');
         let f = $(d).attr('id');
@@ -1684,8 +1684,8 @@ $(() => {
             $(app.objects.r).animate({
                 scrollTop: $(app.objects.e + a).offset().top - 60
             }, app.animation.d.min);
-            $('.moveDownThisItem').parent().parent().parent().find('.reordered').remove();
-            $('.moveDownThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+            $(this).parent().parent().parent().find('.reordered').remove();
+            $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
             core.panelAlert('Item Order Changed','good');
         }else{
             core.panelAlert('If I move down any further, I\'ll be off the page.','error');

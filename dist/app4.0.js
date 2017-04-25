@@ -1479,7 +1479,7 @@ $(function () {
             return false;
         });
     }).on('click', '.gotoItem', function () {
-        var a = $('.gotoItem').data('item');
+        var a = $(this).data('item');
         $(app.objects.r).animate({
             scrollTop: $(app.objects.e + a).offset().top - 60
         }, app.animation.d.min);
@@ -1663,7 +1663,7 @@ $(function () {
             opacity: 1
         }, app.animation.d.min);
     }).on('click', '.settings_toggle', function (e) {
-        var a = $('.settings_toggle').data('theme');
+        var a = $(this).attr('data-theme');
         $('html').attr(app.handlers.t, a);
         if (window.localStorage) {
             localStorage.setItem('pgb_Theme', a);
@@ -1671,9 +1671,9 @@ $(function () {
         core.panelAlert('Theme Settings Updated', 'good');
         e.preventDefault();
     }).on('click', '.moveUpThisItem', function (fn) {
-        var a = $('.moveUpThisItem').data('item');
+        var a = $(this).data('item');
         var b = a - 1;
-        var c = $('.moveUpThisItem').parent().parent().parent().parent().parent().parent();
+        var c = $(this).parent().parent().parent().parent().parent().parent();
         var d = $(c).closest(app.objects.cl).prev();
         var e = $(c).data('split');
         $(c).attr(app.handlers.s, e - 1);
@@ -1682,14 +1682,14 @@ $(function () {
             scrollTop: $(app.objects.e + a).offset().top - 60
         }, app.animation.d.min);
         //$(d).closest(app.objects.cl).prev();
-        $('.moveUpThisItem').parent().parent().parent().find('.reordered').remove();
-        $('.moveUpThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+        $(this).parent().parent().parent().find('.reordered').remove();
+        $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
         core.panelAlert('Item Order Changed', 'good');
         fn.preventDefault();
     }).on('click', '.moveDownThisItem', function (fn) {
-        var a = $('.moveDownThisItem').data('item');
+        var a = $(this).data('item');
         var b = a - 1;
-        var c = $('.moveDownThisItem').parent().parent().parent().parent().parent().parent();
+        var c = $(this).parent().parent().parent().parent().parent().parent();
         var d = $(c).closest(app.objects.cl).next();
         var e = $(c).data('split');
         var f = $(d).attr('id');
@@ -1699,8 +1699,8 @@ $(function () {
             $(app.objects.r).animate({
                 scrollTop: $(app.objects.e + a).offset().top - 60
             }, app.animation.d.min);
-            $('.moveDownThisItem').parent().parent().parent().find('.reordered').remove();
-            $('.moveDownThisItem').parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
+            $(this).parent().parent().parent().find('.reordered').remove();
+            $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
             core.panelAlert('Item Order Changed', 'good');
         } else {
             core.panelAlert('If I move down any further, I\'ll be off the page.', 'error');
