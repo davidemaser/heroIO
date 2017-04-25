@@ -1634,7 +1634,7 @@ $(function () {
             $(this).unwrap();
         }
     }).on('click', '.helpItem', function () {
-        var a = $('.helpItem').data('target');
+        var a = $(this).data('target');
         core.jumpToHelper(a);
     }).on('click', '.image_count', function () {
         $('.image_count').attr('style', '');

@@ -1618,8 +1618,8 @@ $(() => {
             $(this).parent().find('.input_alerts').remove();
             $(this).unwrap();
         }
-    }).on('click','.helpItem',() =>{
-        let a = $('.helpItem').data('target');
+    }).on('click','.helpItem',function(){
+        let a = $(this).data('target');
         core.jumpToHelper(a);
     }).on('click','.image_count',() =>{
         $('.image_count').attr('style','');
