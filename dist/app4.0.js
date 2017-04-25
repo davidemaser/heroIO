@@ -85,17 +85,18 @@ var core = {
      * @constructor
      */
     languageManager: function languageManager(lng, init) {
+        var newLang = void 0;
         lng = $(app.dom.h).attr('data-language') || lng;
         switch (lng) {
             case "en_EN":
-                var _newLang = 'fr_FR';
-                $('.app_lang_toggle').attr('data-set-lang', _newLang);
-                init !== true ? $(app.dom.h).attr('data-language', _newLang) : null;
+                newLang = 'fr_FR';
+                $('.app_lang_toggle').attr('data-set-lang', newLang);
+                init !== true ? $(app.dom.h).attr('data-language', newLang) : null;
                 break;
             case "fr_FR":
-                _newLang = 'en_EN';
-                $('.app_lang_toggle').attr('data-set-lang', _newLang);
-                init !== true ? $(app.dom.h).attr('data-language', _newLang) : null;
+                newLang = 'en_EN';
+                $('.app_lang_toggle').attr('data-set-lang', newLang);
+                init !== true ? $(app.dom.h).attr('data-language', newLang) : null;
                 break;
         }
         /**

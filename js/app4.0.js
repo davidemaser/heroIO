@@ -81,10 +81,11 @@ const core = {
      * @constructor
      */
     languageManager(lng, init) {
+        let newLang;
         lng = $(app.dom.h).attr('data-language') || lng;
         switch (lng) {
             case "en_EN":
-                let newLang = 'fr_FR';
+                newLang = 'fr_FR';
                 $('.app_lang_toggle').attr('data-set-lang',newLang);
                 init !== true ? $(app.dom.h).attr('data-language',newLang):null;
                 break;
