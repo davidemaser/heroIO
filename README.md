@@ -6,4 +6,4 @@ Help for this webapp can be accessed directly from the app menu
 
 This app will be deprecated shortly in favor of a React.js version. 
 
-NOTE: Version 4.0 of this app is scripted using ES6 compliant javascript. This requires the scripts be built prior to being served in production. All required dependencies are in package.json. Create a preflight via webpack using Gulp and build using npm build. 
+NOTE: Version 4.0 of this app is scripted using ES6 compliant javascript. This requires the scripts be built prior to being served in production. All required dependencies are in package.json. Create a preflight via webpack using Gulp and build using npm run build. 

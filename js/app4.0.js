@@ -1790,8 +1790,9 @@ $(() => {
         }
     }).on('keyup','input',function(){
         let a = $(this).val().length;
+        let compLen;
         if($(this).hasClass('objTitleEN') || $(this).hasClass('objTitleFR') || $(this).hasClass('objTextEN') || $(this).hasClass('objTextFR')){
-            let compLen = 35;
+            compLen = 35;
         }else if($(this).hasClass('objButtonEN') || $(this).hasClass('objButtonFR')){
             compLen = 15;
         }

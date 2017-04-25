@@ -2858,8 +2858,9 @@ $(function () {
         }
     }).on('keyup', 'input', function () {
         var a = $(this).val().length;
+        var compLen = void 0;
         if ($(this).hasClass('objTitleEN') || $(this).hasClass('objTitleFR') || $(this).hasClass('objTextEN') || $(this).hasClass('objTextFR')) {
-            var _compLen = 35;
+            compLen = 35;
         } else if ($(this).hasClass('objButtonEN') || $(this).hasClass('objButtonFR')) {
             compLen = 15;
         }
