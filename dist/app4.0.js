@@ -1,14 +1,19 @@
 'use strict';
 
-/*
- * Wwebapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
- */
-var pfLang = app.lang;
+var _globals = require('../dist/globals');
 
-var pfHero = 0;
+var _globals2 = _interopRequireDefault(_globals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var pfHero = 0; /*
+                 * Webapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
+                 */
+
 var pfMode = app.params.s;
 var pfExport = 'hero';
 var sPos = 0;
+var pfLang = app.lang;
 /**
  *
  * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, openInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
@@ -1575,7 +1580,7 @@ $(function () {
     }).on('click', '.btnDel', function () {
         core.deleteItems('last');
     }).on('click', '.hideItem', function (e) {
-        core.cacheClickedItem($('.hideItem'));
+        core.cacheClickedItem($(this));
         e.preventDefault();
     }).on('click', '.submit_json', function () {
         var a = $('.submit_json').attr('data-nmode');

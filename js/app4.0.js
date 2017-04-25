@@ -1,12 +1,96 @@
 /*
- * Wwebapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
+ * Webapp created by David Maser for use on The Last Hunt site. Use outside of the Altitude-Sports domains is not allowed.
  */
-let pfLang = app.lang;
+
+import validator from '../assets/js/validate-json';
+
+const app = {
+    server:{
+        accepted:[
+            {
+                alias:"tlh",
+                url:"https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json"
+            },
+            {
+                alias:"alti",
+                url:"https://cdn.shopify.com/s/files/1/1230/9376/t/2/assets/ALTI-banners.json"
+            }
+        ]
+    },
+    lang:"en_EN",
+    user:"guest",
+    callback:true,
+    export:"json",
+    dialog:true,
+    save:true,
+    listener:"window",
+    version:"assets/project/release.json",
+    languageRoot:"data/language/",
+    methods:{
+        g:"get",
+        p:"post"
+    },
+    dom:{
+        b:"body",
+        h:"html"
+    },
+    objects:{
+        o:"#output",
+        e:"#entry",
+        h:"#html-zone",
+        w:"#wrapper",
+        i:".input_holders",
+        b:".blackify_overlay",
+        c:".check_image",
+        ca:".check_alt_image",
+        he:"#help",
+        hi:".help_item",
+        cl:".clonedInput",
+        r:"html,body",
+        bo:"body",
+        g:".glyphicon",
+        l:".loadLsItems",
+        ls:"#loadandsave-zone",
+        ro:".render_output",
+        re:".reordered",
+        el:".errorList",
+        form:{
+            l:"schema/layout.json"
+        }
+    },
+    handlers:{
+        d:'data-handler',
+        t:'data-theme',
+        i:'data-item',
+        r:'data-reason',
+        s:'data-split'
+    },
+    params:{
+        s:'small',
+        e:'error',
+        g:'good'
+    },
+    storage:{
+        t:'pgb_Theme',
+        n:'pgb_SavedNode_LS'
+    },
+    language:{
+        e:'en',
+        f:'fr'
+    },
+    animation:{
+        d:{
+            min:500,
+            max:5000
+        }
+    }
+};
 
 let pfHero = 0;
 let pfMode = app.params.s;
 let pfExport = 'hero';
 let sPos = 0;
+let pfLang = app.lang;
 /**
  *
  * @type {{panelAlert: core.panelAlert, getVersion: core.getVersion, languageManager: core.languageManager, initVersionUpdate: core.initVersionUpdate, tagNew: core.tagNew, initializeForm: core.initializeForm, switchModes: core.switchModes, initializeTheme: core.initializeTheme, initHelp: core.initHelp, setHeadSec: core.setHeadSec, launchBats: core.launchBats, killBats: core.killBats, resetItems: core.resetItems, choseLocalSave: core.choseLocalSave, doLocalSave: core.doLocalSave, scrollState: core.scrollState, openInNewTab: core.OpenInNewTab, addMulti: core.addMulti, jumpToHelper: core.jumpToHelper, saveNodeToLS: core.saveNodeToLS, addItems: core.addItems, deleteItems: core.deleteItems, validateJSON: core.validateJSON, errorHandler: core.errorHandler, registerErrorButtons: core.registerErrorButtons, traverseJSON: core.traverseJSON, jsonToForm: core.jsonToForm, prepareJSON: core.prepareJSON, outputJson: core.outputJson, urlExists: core.urlExists, validateImage: core.validateImage, previewFeature: core.previewFeature, loadAPIparams: core.loadAPIparams, planBify: core.planBify, cleanWhitespace: core.cleanWhitespace, cacheClickedItem: core.cacheClickedItem}}
@@ -1559,8 +1643,8 @@ $(() => {
         }
     }).on('click','.btnDel',() => {
         core.deleteItems('last');
-    }).on('click','.hideItem',(e) => {
-        core.cacheClickedItem($('.hideItem'));
+    }).on('click','.hideItem',function(e) {
+        core.cacheClickedItem($(this));
         e.preventDefault();
     }).on('click','.submit_json',() =>{
         let a = $('.submit_json').attr('data-nmode');

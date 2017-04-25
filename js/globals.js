@@ -1,7 +1,16 @@
-/**
- * Created by david-maser on 30/10/15.
- */
-var app = {
+const app = {
+    server:{
+        accepted:[
+            {
+                alias:"tlh",
+                url:"https://cdn.shopify.com/s/files/1/0050/3522/t/22/assets/banners.json"
+            },
+            {
+                alias:"alti",
+                url:"https://cdn.shopify.com/s/files/1/1230/9376/t/2/assets/ALTI-banners.json"
+            }
+        ]
+    },
     lang:"en_EN",
     user:"guest",
     callback:true,
