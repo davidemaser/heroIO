@@ -22,11 +22,12 @@ const core = {
      * @constructor
      */
     panelAlert(mess, state){
+        let dispLeng;
         if (app.dialog === true) {
             const mPane = '.panel-body.bottom_level_bt';
             if (state === app.params.e) {
                 $(mPane).find(app.objects.g).removeClass('allGood').removeClass('glyphicon-ok').addClass('allBad').addClass('glyphicon-remove');
-                let dispLeng = app.animation.d.max;
+                dispLeng = app.animation.d.max;
             } else if (state === app.params.g) {
                 $(mPane).find(app.objects.g).removeClass('allBad').removeClass('glyphicon-remove').addClass('allGood').addClass('glyphicon-ok');
                 dispLeng = 10000;
