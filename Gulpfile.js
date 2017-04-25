@@ -30,4 +30,4 @@ gulp.task('globals', function () {
         .pipe(babel())
         .pipe(gulp.dest('preflight'));
 });
-gulp.task('default', ['app', 'globals', 'doc']);
+gulp.task('default', ['app', 'globals', 'webpack', 'doc']);
