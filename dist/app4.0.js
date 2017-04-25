@@ -908,15 +908,16 @@ var core = {
         });
     },
     traverseJSON: function traverseJSON(storage, nodeName, fromAJAX) {
+        var ctc = void 0;
         if ($(app.objects.b + ' textarea').val() !== '' || localStorage.getItem('pgb_SavedNode') !== '' && fromAJAX === undefined) {
             if (storage === false) {
-                var _ctc = $(app.objects.b + ' textarea').val();
-                if (_ctc === '') {
+                ctc = $(app.objects.b + ' textarea').val();
+                if (ctc === '') {
                     core.panelAlert('Form Does Not Contain JSON Data', 'error');
                 }
             } else if (storage === true && nodeName !== '') {
                 if (localStorage.getItem('pgb_SavedNode_' + nodeName) !== undefined && localStorage.getItem('pgb_SavedNode_' + nodeName) !== null && localStorage.getItem('pgb_SavedNode_' + nodeName) !== '') {
-                    var _ctc2 = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
+                    ctc = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
                 } else {
                     core.panelAlert('No Data Found In Local Storage', 'error');
                 }
@@ -927,8 +928,8 @@ var core = {
             var formItems = $(app.objects.cl).length;
             var formArray = [];
             if (formItems < len) {
-                var _build = true;
-                var _bItems = len - formItems;
+                var build = true,
+                    bItems = len - formItems;
             }
             for (var _h2 = 0; _h2 < bItems; _h2++) {
                 core.addItems();
@@ -940,13 +941,13 @@ var core = {
             core.panelAlert('Data Translated To Form', 'good');
         } else if (fromAJAX !== '') {
             if (storage === false) {
-                var _ctc3 = fromAJAX;
-                if (_ctc3 === '') {
+                ctc = fromAJAX;
+                if (ctc === '') {
                     core.panelAlert('Form Does Not Contain JSON Data', 'error');
                 }
             } else if (storage === true && nodeName !== '') {
                 if (localStorage.getItem('pgb_SavedNode_' + nodeName) !== undefined && localStorage.getItem('pgb_SavedNode_' + nodeName) !== null && localStorage.getItem('pgb_SavedNode_' + nodeName) !== '') {
-                    var _ctc4 = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
+                    ctc = localStorage.getItem('pgb_SavedNode_' + nodeName).replace(',null', '');
                 } else {
                     core.panelAlert('No Data Found In Local Storage', 'error');
                 }
@@ -957,7 +958,8 @@ var core = {
             var _formItems = $(app.objects.cl).length;
             var _formArray = [];
             if (_formItems < _len) {
-                build = true, bItems = _len - _formItems;
+                var build = true,
+                    bItems = _len - _formItems;
             }
             for (h = 0; h < bItems; h++) {
                 core.addItems();

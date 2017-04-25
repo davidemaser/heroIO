@@ -885,15 +885,16 @@ const core = {
         })
     },
     traverseJSON(storage, nodeName, fromAJAX) {
+        let ctc;
         if ($(`${app.objects.b} textarea`).val() !== '' || localStorage.getItem('pgb_SavedNode') !== '' && fromAJAX === undefined) {
             if (storage === false) {
-                let ctc = $(`${app.objects.b} textarea`).val();
+                ctc = $(`${app.objects.b} textarea`).val();
                 if (ctc === '') {
                     core.panelAlert('Form Does Not Contain JSON Data', 'error');
                 }
             } else if (storage === true && nodeName !== '') {
                 if (localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== undefined && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== null && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== '') {
-                    let ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
+                    ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
                 } else {
                     core.panelAlert('No Data Found In Local Storage', 'error');
                 }
@@ -904,8 +905,8 @@ const core = {
             let formItems = $(app.objects.cl).length;
             let formArray = [];
             if (formItems < len) {
-                let build = true;
-                let bItems = len - formItems;
+                var build = true,
+                    bItems = len - formItems;
             }
             for (let h = 0; h < bItems; h++) {
                 core.addItems();
@@ -917,13 +918,13 @@ const core = {
             core.panelAlert('Data Translated To Form', 'good');
         } else if (fromAJAX !== '') {
             if (storage === false) {
-                let ctc = fromAJAX;
-                if (ctc === '') {
+                ctc = fromAJAX;
+                if(ctc === '') {
                     core.panelAlert('Form Does Not Contain JSON Data', 'error');
                 }
             } else if (storage === true && nodeName !== '') {
                 if (localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== undefined && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== null && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== '') {
-                    let ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
+                    ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
                 } else {
                     core.panelAlert('No Data Found In Local Storage', 'error');
                 }
@@ -934,7 +935,7 @@ const core = {
             let formItems = $(app.objects.cl).length;
             let formArray = [];
             if (formItems < len) {
-                build = true,
+                var build = true,
                     bItems = len - formItems;
             }
             for (h = 0; h < bItems; h++) {
