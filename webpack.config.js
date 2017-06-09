@@ -1,12 +1,49 @@
-/**
- * Created by DAVIM on 25/04/2017.
- */
-var path = require('path');
-
+let webpack = require('webpack');
+let HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
-    entry: './preflight/app4.0.js',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    }
+  entry: "./src/app.js",
+  watch:true,
+  watchOptions: {
+    aggregateTimeout: 500,
+    poll: 1000
+  },
+  output: {
+    path: __dirname + "/dist",
+    filename: "bundle.js"
+  },
+  module:{
+    rules:[
+      {
+        test: /\.scss$/,
+        use:[
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              includePaths: ["css/scss","css/styles"],
+              outputStyle: 'compressed'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin(
+      {
+        inject:'head',
+        cache:true,
+        hash:true
+      }
+    ),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery' })
+  ]
 };

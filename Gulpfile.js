@@ -23,11 +23,11 @@ gulp.task('app', function () {
 gulp.task('webpack', function () {
     return gulp.src('preflight/app4.0.js')
         .pipe(webpack( require('./webpack.config.js') ))
-        .pipe(gulp.dest('dist/bundle.js'));
+        .pipe(gulp.dest('dist',{ext:'.js'}));
 });
 gulp.task('globals', function () {
     return gulp.src('js/globals.js')
         .pipe(babel())
         .pipe(gulp.dest('preflight'));
 });
-gulp.task('default', ['app', 'globals', 'webpack', 'doc']);
+gulp.task('default', ['app', 'globals', 'webpack'/*, 'doc'*/]);
