@@ -31,18 +31,18 @@ export const Language = {
      * @param {Object} obj Object contains an array of language items picked up by html data attributes. This is used by the parent function
      * @constructor
      */
-    let translatePageItems = (obj) => {
+    function translatePageItems(obj){
       for (const o in obj) {
         $(`[data-lang-id="${obj[o].objID}"]`).html(obj[o].objTran);
       }
-    };
+    }
     try {
       if (init === true) {
         newLang = lng;
       }
       $.ajax({
         type: app.methods.g,
-        url: `data/language/${newLang}.json`,
+        url: `${app.languageRoot}${newLang}.json`,
         success(data) {
           const actionLen = data.node.section[0].actions.length;
           const loadLen = data.node.section[1].load.length;

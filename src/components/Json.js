@@ -1,17 +1,21 @@
 /**
  * Created by David Maser on 09/06/2017.
  */
+import './lib/validate-json';
 import {app} from './Config';
+import {Items} from './Items';
+import {Errors} from './Errors';
+import {Storage} from './Storage';
 export const Json = {
   validateJSON() {
     $("#output_code").validateJSON({
       compress: false,
       reformat: true,
       onSuccess: (json) => {
-        core.panelAlert('JSON Code is valid', 'good');
+        Errors.panelAlert('JSON Code is valid', 'good');
       },
       onError: (error) => {
-        core.panelAlert('A JSON error has been encountered. The line on which the error has occured is highlighted.', 'error');
+        Errors.panelAlert('A JSON error has been encountered. The line on which the error has occured is highlighted.', 'error');
       }
     })
   },
@@ -32,7 +36,7 @@ export const Json = {
         let badString = JSON.stringify(data);
         let goodString = badString.slice(0, -1);
         goodString = `{${goodString.substr(1)}}`;
-        core.traverseJSON(false, '', goodString);
+        Json.traverseJSON(false, '', goodString);
       }
     })
   },
@@ -42,13 +46,13 @@ export const Json = {
       if (storage === false) {
         ctc = $(`${app.objects.b} textarea`).val();
         if (ctc === '') {
-          this.panelAlert('Form Does Not Contain JSON Data', 'error');
+          Errors.panelAlert('Form Does Not Contain JSON Data', 'error');
         }
       } else if (storage === true && nodeName !== '') {
         if (localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== undefined && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== null && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== '') {
           ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
         } else {
-          this.panelAlert('No Data Found In Local Storage', 'error');
+          Errors.panelAlert('No Data Found In Local Storage', 'error');
         }
       }
       let prs = JSON.parse(ctc);
@@ -61,24 +65,24 @@ export const Json = {
           bItems = len - formItems;
       }
       for (let h = 0; h < bItems; h++) {
-        this.addItems();
+        Items.addItems();
       }
       for (let i = 0; i < len; i++) {
         formArray.push(obj[i]);
       }
       this.jsonToForm(formArray);
-      this.panelAlert('Data Translated To Form', 'good');
+      Errors.panelAlert('Data Translated To Form', 'good');
     } else if (fromAJAX !== '') {
       if (storage === false) {
         ctc = fromAJAX;
         if (ctc === '') {
-          core.panelAlert('Form Does Not Contain JSON Data', 'error');
+          Errors.panelAlert('Form Does Not Contain JSON Data', 'error');
         }
       } else if (storage === true && nodeName !== '') {
         if (localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== undefined && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== null && localStorage.getItem(`pgb_SavedNode_${nodeName}`) !== '') {
           ctc = localStorage.getItem(`pgb_SavedNode_${nodeName}`).replace(',null', '');
         } else {
-          core.panelAlert('No Data Found In Local Storage', 'error');
+          Errors.panelAlert('No Data Found In Local Storage', 'error');
         }
       }
       let prs = JSON.parse(ctc);
@@ -91,15 +95,15 @@ export const Json = {
           bItems = len - formItems;
       }
       for (let h = 0; h < bItems; h++) {
-        core.addItems();
+        Items.addItems();
       }
       for (let i = 0; i < len; i++) {
         formArray.push(obj[i]);
       }
-      core.jsonToForm(formArray);
-      core.panelAlert('Data Translated To Form', 'good');
+      this.jsonToForm(formArray);
+      Errors.panelAlert('Data Translated To Form', 'good');
     } else {
-      core.panelAlert('Please generate or paste JSON before using this function', 'error');
+      Errors.panelAlert('Please generate or paste JSON before using this function', 'error');
     }
   },
   /**
@@ -189,16 +193,16 @@ export const Json = {
         c.push(a);
       });
       if (meth === 'full') {
-        core.outputJson(c, meth, null, mode);
+        this.outputJson(c, meth, null, mode);
       } else if (meth === 'save') {
-        core.outputJson(c, meth, name, 'hero');
+        this.outputJson(c, meth, name, 'hero');
       }
     } else if (mode === 'hello') {
       $('.clonedInput form fieldset[data-role="hello"]').each(function () {
         const a = $(this).serializeArray();
         c.push(a);
       });
-      core.outputJson(c, 'full', null, 'hello');
+      this.outputJson(c, 'full', null, 'hello');
     }
   },
   /**
@@ -352,14 +356,14 @@ export const Json = {
         $(`${app.objects.o} textarea`).val(page_model);
         $(app.objects.r).animate({scrollTop: 0}, app.animation.d.min).css('overflow', 'hidden');
         if (mode === 'hero') {
-          core.errorHandler();
+          Errors.errorHandler();
         }
-        core.panelAlert('JSON Exported Successfuly', 'good');
+        Errors.panelAlert('JSON Exported Successfuly', 'good');
       } else {
-        core.saveNodeToLS(page_model, name);
+        Storage.saveNodeToLS(page_model, name);
       }
     } catch (e) {
-      core.panelAlert('An unknown error has occured. Please make sure all required fields are filled.', 'error');
+      Errors.panelAlert('An unknown error has occured. Please make sure all required fields are filled.', 'error');
     }
   }
 };

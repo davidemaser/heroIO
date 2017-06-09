@@ -2,11 +2,21 @@
  * Created by David Maser on 09/06/2017.
  */
 import {app} from '../components/Config';
+import {Utilities} from './Utilities';
+import {Items} from './Items';
+import {Json} from './Json';
+import {Preview} from './Preview';
+import {Language} from './Language';
+import {Validator} from './Validators';
+import {Init} from './Init';
+import {Storage} from './Storage';
+import {Errors} from './Errors';
+$(function(){
 $(app.objects.bo).on('click', '.btnAdd', () => {
-  core.addItems();
+  Items.addItems();
 }).on('click', '.app_lang_toggle', () => {
   const lng = $('.app_lang_toggle').attr('data-set-lang');
-  core.languageManager(lng);
+  Language.languageManager(lng);
 }).on('click', '.overlay_close', () => {
   $('.overlay_close').parent().parent().hide();
   $(app.objects.r).css('overflow', 'auto');
@@ -33,7 +43,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
     $(app.objects.he).css('display', 'none');
   }
 }).on('click', '.about_app,.version_number', e => {
-  window.open("release.html", "_blank", "scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
+  window.open("../release.html", "_blank", "scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
 }).on('click', '.btnAddMulti', () => {
   $('#query-zone').toggle();
   $(app.objects.r).animate({scrollTop: 0}, app.animation.d.min);
@@ -46,37 +56,37 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   $('.num_select').focus();
 }).on('click', app.objects.c, (e) => {
   const a = $(app.objects.c).data('handler');
-  core.validateImage('main', a);
+  Validator.validateImage('main', a);
   e.preventDefault();
 }).on('click', '.multiquery_close', () => {
   $('.multiquery_close').parent().parent().hide();
 }).on('click', '.check_alt_image', (e) => {
   const a = $('.check_alt_image').data('handler');
-  core.validateImage('alt', a);
+  Validator.validateImage('alt', a);
   e.preventDefault();
 }).on('click', '.overlay_validate', () => {
-  core.validateJSON();
+  Json.validateJSON();
 }).on('click', '.overlay_trim', () => {
-  core.cleanWhitespace();
-  core.panelAlert('Whitespace and line breaks have been removed.', 'good');
+  Utilities.cleanWhitespace();
+  Errors.panelAlert('Whitespace and line breaks have been removed.', 'good');
 }).on('click', '.previewItem.large', (e) => {
   $(app.objects.r).animate({scrollTop: sPos}, app.animation.d.min).css('overflow', 'hidden');
   const a = $('.previewItem.large').data('hero');
-  core.previewFeature(a, 'large', pfLang);
+  Preview.previewFeature(a, 'large', pfLang);
   e.preventDefault();
 }).on('click', '.previewItem.small', (e) => {
   $(app.objects.r).animate({scrollTop: sPos}, app.animation.d.min).css('overflow', 'hidden');
   const a = $('.previewItem.small').data('hero');
-  core.previewFeature(a, 'small', pfLang);
+  Preview.previewFeature(a, 'small', pfLang);
   e.preventDefault();
 }).on('click', '.removeThisItem', () => {
   const a = $('.removeThisItem').data('item');
-  core.deleteItems(a);
+  Items.deleteItems(a);
 }).on('click', '.loadItem', () => {
   const a = $('.loadItem').attr(app.handlers.i);
-  core.traverseJSON(true, a);
+  Json.traverseJSON(true, a);
 }).on('click', '.copy-zone', () => {
-  core.OpenInNewTab('https://github.com/davidemaser/heroIO');
+  Utilities.OpenInNewTab('https://github.com/davidemaser/heroIO');
 }).on('click', '.showHelp', () => {
   $(app.objects.he).toggle();
   if ($(app.objects.he).css('display') === 'block') {
@@ -107,48 +117,48 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
     $(app.dom.b).attr('data-nmode', 'hello');
     $('.btnNmode').attr('data-nmode', 'hello');
     $('.btnNmode').html('Switch to Hero Banner Mode');
-    core.switchModes('hello')
+    Init.switchModes('hello')
   } else if (a === 'hello') {
     $(app.dom.b).attr('data-nmode', 'hero');
     $('.btnNmode').attr('data-nmode', 'hero');
     $('.btnNmode').html('Switch to Hello Bar Mode');
-    core.switchModes('hero')
+    Init.switchModes('hero')
   }
 }).on('click', '.btnDel', () => {
-  core.deleteItems('last');
+  Items.deleteItems('last');
 }).on('click', '.hideItem', function (e) {
-  core.cacheClickedItem($(this));
+  Storage.cacheClickedItem($(this));
   e.preventDefault();
 }).on('click', '.submit_json', () => {
   let a = $('.submit_json').attr('data-nmode');
-  core.prepareJSON('full', null, a);
+  Json.prepareJSON('full', null, a);
 }).on('click', '.translate_json', () => {
   $('.overlay_message').html('');
   $(app.objects.r).animate({scrollTop: 0}, app.animation.d.min).css('overflow', 'hidden');
   $(app.objects.o).attr(app.handlers.r, 'translate').css('display', 'block').find('#output_code').val('').attr('placeholder', 'Paste you code here');
 }).on('click', '.translate_from_server', () => {
   let xPath = $('.translate_from_server').attr('tlh');
-  core.loadFromServer(xPath);
+  Json.loadFromServer(xPath);
 }).on('click', '.save_json', function () {
   if (app.save === true) {
-    core.doLocalSave();
+    Storage.doLocalSave();
   } else {
     confirm('The save to localstorage feature is disabled. Change the save value to true in the globals file.');
   }
 }).on('click', '.import_json', (e) => {
-  core.choseLocalSave();
+  Storage.choseLocalSave();
 }).on('click', '.planb_friendly', (e) => {
-  core.planBify();
+  Utilities.planBify();
   e.preventDefault();
 }).on('click', '.overlay_translate', () => {
-  core.traverseJSON(false);
+  Json.traverseJSON(false);
 }).on('click', '.errors_reset', () => {
   $('input,select').attr('style', '').attr('placeholder', '');
   $('.errorList').css('display', 'none');
   $(app.objects.r).css('overflow', 'auto');
   $(app.objects.i).find('.input_alerts').remove();
   $(app.objects.i).contents().unwrap();
-  core.panelAlert('Errors Reset', 'good');
+  Errors.panelAlert('Errors Reset', 'good');
 }).on('click', '.form_reset', e => {
   $(app.objects.r).animate({scrollTop: 0}, app.animation.d.min).css('overflow', 'hidden');
   $('.clonedInput:gt(0)').remove();
@@ -160,13 +170,13 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   $(app.objects.i).find('.input_alerts').remove();
   $(app.objects.i).contents().unwrap();
   $('.reordered').remove();
-  core.panelAlert('Form Reset To Default', 'good');
+  Errors.panelAlert('Form Reset To Default', 'good');
   e.preventDefault();
 }).on('click', '.itemize_reset', e => {
-  core.resetItems();
+  Items.resetItems();
   e.preventDefault();
 }).on('click', '.form_local_reset', e => {
-  core.doLocalSave('reset');
+  Storage.doLocalSave('reset');
   $(app.objects.l).hide();
   e.preventDefault();
 }).on('click', 'input,select', function () {
@@ -177,7 +187,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   }
 }).on('click', '.helpItem', function () {
   let a = $(this).data('target');
-  core.jumpToHelper(a);
+  Utilities.jumpToHelper(a);
 }).on('click', '.image_count', () => {
   $('.image_count').attr('style', '');
   $('.image_count').text('Shopify CDN');
@@ -186,9 +196,9 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   $('.btnSwitch').removeClass('view-active');
   $(`.btnSwitch[data-language="${pfLang}"]`).addClass('view-active');
   if ($(app.objects.ro).children().not('.preview_warning').length > 0) {
-    core.previewFeature(pfHero, pfMode, pfLang)
+    Preview.previewFeature(pfHero, pfMode, pfLang)
   }
-  core.panelAlert('Preview language changed', 'good');
+  Errors.panelAlert('Preview language changed', 'good');
   e.preventDefault();
 }).on('click', '.panel-body.bottom_level_bt', () => {
   $('.panel-body.bottom_level_bt').slideUp();
@@ -198,7 +208,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
     duration: app.animation.d.min,
     complete() {
       $(app.objects.he).show();
-      core.jumpToHelper(a);
+      Utilities.jumpToHelper(a);
     }
   }).css('overflow', 'hidden');
 }).on('click', '.helpItemReset', () => {
@@ -211,7 +221,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   if (window.localStorage) {
     localStorage.setItem('pgb_Theme', a);
   }
-  core.panelAlert('Theme Settings Updated', 'good');
+  Errors.panelAlert('Theme Settings Updated', 'good');
   e.preventDefault();
 }).on('click', '.moveUpThisItem', function (fn) {
   let a = $(this).data('item');
@@ -227,7 +237,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   //$(d).closest(app.objects.cl).prev();
   $(this).parent().parent().parent().find('.reordered').remove();
   $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
-  core.panelAlert('Item Order Changed', 'good');
+  Errors.panelAlert('Item Order Changed', 'good');
   fn.preventDefault();
 }).on('click', '.moveDownThisItem', function (fn) {
   let a = $(this).data('item');
@@ -244,20 +254,11 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
     }, app.animation.d.min);
     $(this).parent().parent().parent().find('.reordered').remove();
     $(this).parent().parent().parent().find('.btn.btn-info:not(.dropdown-toggle)').prepend('<span title="This entry has been moved from it\'s original position" class="glyphicon glyphicon-fullscreen reordered" aria-hidden="true"></span>');
-    core.panelAlert('Item Order Changed', 'good');
+    Errors.panelAlert('Item Order Changed', 'good');
   } else {
-    core.panelAlert('If I move down any further, I\'ll be off the page.', 'error');
+    Errors.panelAlert('If I move down any further, I\'ll be off the page.', 'error');
   }
   fn.preventDefault();
-}).on('click', '.batsToggle', () => {
-  if ($('.batsToggle').attr('data-status') === 'active') {
-    core.killBats();
-  } else if ($('.batsToggle').attr('data-status') === 'allGone') {
-    for (i = 0; i < 4; i++) {
-      core.launchBats();
-    }
-    $('.batsToggle').attr('data-status', 'active').html('Kill The Bats');
-  }
 }).on('keyup', 'input', function () {
   let a = $(this).val().length;
   let compLen;
@@ -283,20 +284,20 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
 }).on('keyup', '.num_select', (e) => {
   if (e.keyCode === 13) {
     $('.num_select').trigger("enterKey");
-    core.addMulti($('.num_select').val());
+    Items.addMulti($('.num_select').val());
     $('.num_select').parent().parent().parent().parent().hide();
   }
 }).on('keyup', '.lsl_select', (e) => {
   if (e.keyCode === 13) {
     $('.lsl_select').trigger("enterKey");
-    core.prepareJSON('save', $('.lsl_select').val());
+    Json.prepareJSON('save', $('.lsl_select').val());
     $('.lsl_select').parent().parent().parent().parent().hide();
-    core.setHeadSec();
+    Init.setHeadSec();
   }
 }).on('keyup', `${app.objects.o}[${app.handlers.r}="translate"] #output_code`, function (e) {
   if (e.keyCode === 45) {
     $(this).trigger("enterKey");
-    core.traverseJSON(false);
+    Json.traverseJSON(false);
     e.preventDefault();
   }
 }).on('change', '.objHeroSticky', () => {
@@ -328,7 +329,7 @@ $(app.objects.bo).on('click', '.btnAdd', () => {
   try {
     if ($('.lsOptions').val() !== "" || $('.lsOptions').val() !== "undefined" || $('.lsOptions').val() !== undefined || $('.lsOptions').val() !== "null" || $('.lsOptions').val() !== null) {
       let a = $('.lsOptions').val();
-      core.traverseJSON(true, a);
+      Json.traverseJSON(true, a);
       $('#loadandsave-zone').css('display', 'none');
     } else {
       panelAlert('Please select a valid data item from the dropdown', 'error');
@@ -352,20 +353,20 @@ $(window).on('scroll', () => {
     $('.copy-zone').fadeOut(app.animation.d.min);
   }
 }).on('resize', () => {
-  core.scrollState('a');
+  Utilities.scrollState('a');
 });
 $(document).on('keydown', e => {
   if (e.keyCode === 71 && e.ctrlKey) {
     let a = $('.submit_json').attr('data-nmode');
-    core.prepareJSON('full', null, a);
+    Json.prepareJSON('full', null, a);
     e.preventDefault();
   }
   if (e.keyCode === 82 && e.ctrlKey) {
-    core.deleteItems();
+    Items.deleteItems();
     e.preventDefault();
   }
   if (e.keyCode === 73 && e.ctrlKey && !e.altKey) {
-    core.addItems();
+    Items.addItems();
     e.preventDefault();
   }
   if (e.keyCode === 73 && e.ctrlKey && e.altKey) {
@@ -382,7 +383,7 @@ $(document).on('keydown', e => {
   }
   if (e.keyCode === 83 && e.ctrlKey && e.shiftKey) {
     if (app.save === true) {
-      core.doLocalSave();
+      Storage.doLocalSave();
     } else {
       confirm('The save to localstorage feature is disabled. Change the save value to true in the globals file.');
     }
@@ -394,7 +395,7 @@ $(document).on('keydown', e => {
     e.preventDefault();
   }
   if (e.keyCode === 45 && e.ctrlKey && e.altKey) {
-    core.choseLocalSave();
+    Storage.choseLocalSave();
   }
   if (e.keyCode === 69 && e.ctrlKey && e.altKey) {
     if (pfLang === app.language.e) {
@@ -405,26 +406,17 @@ $(document).on('keydown', e => {
     $('.btnSwitch').removeClass('view-active');
     $(`.btnSwitch[data-language="${pfLang}"]`).addClass('view-active');
     if ($(app.objects.ro).children().not('.preview_warning').length > 0) {
-      core.previewFeature(pfHero, pfMode, pfLang);
+      Preview.previewFeature(pfHero, pfMode, pfLang);
     }
-    core.panelAlert('Preview language changed', 'good');
+    Errors.panelAlert('Preview language changed', 'good');
     e.preventDefault();
   }
   if (e.keyCode === 191 && e.ctrlKey) {
-    window.open("release.html", "_blank", "scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
+    window.open("../release.html", "_blank", "scrollbars=no,resizable=no,height=600, width=800, status=yes, toolbar=no, menubar=no, location=no");
     e.preventDefault();
   }
 }).on('scroll', () => {
-  core.scrollState('b');
+  Utilities.scrollState('b');
   sPos = $(window).scrollTop();
 });
-let d = new Date();
-let dt = d.getDate();
-let dm = d.getMonth() + 1;
-if (dm === 10 && dt > 21) {
-  $('.main_nav').append('<li class="divider"></li><li><a href="#" class="batsToggle" data-status="active">Kill The Bats</a></li>');
-  let i;
-  for (i = 0; i < 4; i++) {
-    core.launchBats();
-  }
-}
+})

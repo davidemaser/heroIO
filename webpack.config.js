@@ -1,7 +1,8 @@
 let webpack = require('webpack');
 let HtmlWebPackPlugin = require('html-webpack-plugin');
+let path = require('path');
 module.exports = {
-  entry: "./src/app.js",
+  entry: './src/app.js',
   watch:true,
   watchOptions: {
     aggregateTimeout: 500,
@@ -20,22 +21,40 @@ module.exports = {
             loader: "style-loader"
           },
           {
-            loader: "css-loader"
+            loader: "css-loader",
+            options: {
+              alias: {
+                "../fonts/bootstrap": "bootstrap-sass/assets/fonts/bootstrap"
+              }
+            }
           },
           {
             loader: "sass-loader",
             options: {
-              includePaths: ["css/scss","css/styles"],
+              includePaths: [
+                path.resolve("./node_modules/bootstrap-sass/assets/stylesheets")
+              ],
               outputStyle: 'compressed'
             }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
+        use: [{
+          loader: "file-loader"
+        }]
       }
     ]
   },
   plugins: [
     new HtmlWebPackPlugin(
       {
+        template:'assets/templates/main.html',
         inject:'head',
         cache:true,
         hash:true
@@ -44,6 +63,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',
-      jquery: 'jquery' })
+      jquery:'jquery'
+    })
   ]
 };

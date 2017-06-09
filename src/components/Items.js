@@ -2,6 +2,8 @@
  * Created by David Maser on 09/06/2017.
  */
 import {app} from './Config';
+import {Utilities} from './Utilities';
+import {Errors} from './Errors';
 export const Items = {
   /**
    * Add new items to the form. Duplicates a
@@ -64,8 +66,8 @@ export const Items = {
     }, app.animation.d.min);
     $('.btn-group.bigboy:not(.helpMePlease)').last().find('ul').append(`<li class="divider" data-role="hero"></li><li><a class="removeThisItem" ${app.handlers.i}="${newNum}" href="javascript:;">Remove</a></li><li class="divider"></li><li><a class="moveUpThisItem" ${app.handlers.i}="${newNum}" href="javascript:;">Move Up<span class="glyphicon glyphicon-arrow-up"></span></a></li><li><a class="moveDownThisItem" ${app.handlers.i}="${newNum}" href="javascript:;">Move Down<span class="glyphicon glyphicon-arrow-down"></span></a></li><li class="divider" data-role="hero"></li><li data-role="hero"><a class="addConditions" data-hero="1" data-role="hero" data-lang-id="action17" data-version="3.2.1">Toggle Conditions</a></li><li data-role="hero"><a class="hideItem" data-hero="1" data-role="hero" data-lang-id="action18" data-version="3.2.1">Hide Item</a></li>`);
     $(app.objects.e + newNum).find('.mod-radio').find('input').first().prop('checked', true);
-    core.scrollState('a');
-    core.panelAlert('Item Added', 'good');
+    Utilities.scrollState('a');
+    Errors.panelAlert('Item Added', 'good');
   },
   /**
    * Adds multiple hero items to the current
@@ -75,9 +77,9 @@ export const Items = {
    */
   addMulti : (num) => {
     for (let i = 0; i < num; i++) {
-      core.addItems();
+      Items.addItems();
     }
-    core.panelAlert('Items Added', 'good');
+    Errors.panelAlert('Items Added', 'good');
   },
   /**
    * Delete items from the form instance and
@@ -104,7 +106,7 @@ export const Items = {
           $('.btnAdd').attr('disabled', false).prop('value', "add section");
         });
         $('.snapTo').find(`.gotoItem[${app.handlers.i}="${b}"]`).parent().remove();
-        core.scrollState('a');
+        Utilities.scrollState('a');
       } else {
         $(app.objects.e + elem).slideUp('slow', function () {
           $(this).remove();
@@ -115,9 +117,9 @@ export const Items = {
           $('.btnAdd').attr('disabled', false).prop('value', "add section");
         });
         $('.snapTo').find(`.gotoItem[${app.handlers.i}="${elem}"]`).parent().remove();
-        core.scrollState('a');
+        Utilities.scrollState('a');
       }
-      core.panelAlert('Last Item Removed', 'good');
+      Errors.panelAlert('Last Item Removed', 'good');
       return false; // Removes the last section you added
     }
   },
@@ -131,9 +133,9 @@ export const Items = {
     if ($(app.objects.re).length > 0) {
       $(app.objects.w).find(app.objects.cl).sort((a, b) => $(a).attr('id').replace('entry', '') - $(b).attr('id').replace('entry', '')).appendTo(app.objects.w);
       $(app.objects.re).remove();
-      core.panelAlert('Items reset to their original position', 'good');
+      Errors.panelAlert('Items reset to their original position', 'good');
     } else {
-      core.panelAlert('All items are in their original position', 'error');
+      Errors.panelAlert('All items are in their original position', 'error');
     }
   }
 };

@@ -16,7 +16,7 @@ export const Version = {
       location.reload();
     }).on('click', '.btn-update.false', () => {
       $('.btn-update.false').parent().parent().parent().parent().remove();
-      core.panelAlert('Version update stopped. The update prompt will reappear at the next update interval.', 'good');
+      this.panelAlert('Version update stopped. The update prompt will reappear at the next update interval.', 'good');
     })
   },
   /**
@@ -52,11 +52,12 @@ export const Version = {
             document.title = `Page Builder ${ver}`;
             $('.version_number').attr('title', `You are using version ${ver}, last updated ${lup}`).html(ver);
             $('html').attr('data-version', ver);
-            core.tagNew(ver);
+            Version.tagNew(ver);
+
           } else if (init === false) {
             let cur = $('html').attr('data-version');
             if (cur < ver || cur > ver) {
-              core.initVersionUpdate();
+              this.initVersionUpdate();
             }
           }
         }

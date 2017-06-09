@@ -176,13 +176,13 @@ export const Init ={
       $('*[data-role="hello"]').css('display', 'block');
       pfExport = 'hello';
       $('.submit_json').attr('data-nmode', 'hello');
-      core.panelAlert('Switched to Hello Banner Creation mode', 'good');
+      this.panelAlert('Switched to Hello Banner Creation mode', 'good');
     } else {
       $('*[data-role="hello"]').css('display', 'none');
       $('*[data-role="hero"]').attr('style', '');
       pfExport = 'hero';
       $('.submit_json').attr('data-nmode', 'hero');
-      core.panelAlert('Switched to Hero Banner Creation mode', 'good');
+      this.panelAlert('Switched to Hero Banner Creation mode', 'good');
     }
   },
   /**
@@ -210,7 +210,7 @@ export const Init ={
   initHelp() {
     $.ajax({
       type: app.methods.g,
-      url: 'data/help.json',
+      url: '../data/help.json',
       success: (data) => {
         let push = '';
         for (let h = 0; h < data.items.length; h++) {
@@ -224,7 +224,7 @@ export const Init ={
         }
       },
       error: () => {
-        core.panelAlert('Unable to load Help Contents from JSON source', 'error');
+        this.panelAlert('Unable to load Help Contents from JSON source', 'error');
       }
     });
   },

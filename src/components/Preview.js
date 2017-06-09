@@ -3,6 +3,7 @@
  */
 import {app} from './Config';
 export const Preview = {
+
   /**
    *
    * @param {String} heroItem
@@ -15,8 +16,7 @@ export const Preview = {
     const start = dt[0].value;
     const img = dt[9].value;
     const titleColor = dt[4].value;
-    let outputString;
-    console.log(dt);
+    let outputString,titleText,subTitleText,buttonLabel,endsLabel;
     if (lang === app.language.e) {
       let titleText = dt[2].value;
       let subTitleText = dt[5].value;
