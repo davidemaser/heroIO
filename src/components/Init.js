@@ -2,6 +2,7 @@
  * Created by David Maser on 09/06/2017.
  */
 import {app} from './Config';
+import {Errors} from './Errors';
 export const Init ={
   /**
    * creates the initial form instance by
@@ -171,18 +172,19 @@ export const Init ={
    * @constructor
    */
   switchModes: (va) => {
+    let pfExport;
     if (va === 'hello') {
       $('*[data-role="hero"]').css('display', 'none');
       $('*[data-role="hello"]').css('display', 'block');
-      pfExport = 'hello';
+      let pfExport = 'hello';
       $('.submit_json').attr('data-nmode', 'hello');
-      this.panelAlert('Switched to Hello Banner Creation mode', 'good');
+      Errors.panelAlert('Switched to Hello Banner Creation mode', 'good');
     } else {
       $('*[data-role="hello"]').css('display', 'none');
       $('*[data-role="hero"]').attr('style', '');
-      pfExport = 'hero';
+      let pfExport = 'hero';
       $('.submit_json').attr('data-nmode', 'hero');
-      this.panelAlert('Switched to Hero Banner Creation mode', 'good');
+      Errors.panelAlert('Switched to Hero Banner Creation mode', 'good');
     }
   },
   /**
@@ -224,7 +226,7 @@ export const Init ={
         }
       },
       error: () => {
-        this.panelAlert('Unable to load Help Contents from JSON source', 'error');
+        Errors.panelAlert('Unable to load Help Contents from JSON source', 'error');
       }
     });
   },

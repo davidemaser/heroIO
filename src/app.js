@@ -2,11 +2,12 @@
  * Created by David Maser on 09/06/2017.
  */
 import "../css/globals.css";
-import "../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
-import "../bower_components/bootstrap/dist/css/bootstrap.min.css";
-import '../bower_components/bootstrap/dist/js/bootstrap.min';
-import '../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min';
-import '../bower_components/moment/moment';
+import "../assets/lib/bootstrap-datetimepicker.min.css";
+import "../assets/lib/bootstrap.min.css";
+import '../assets/lib/bootstrap.min';
+import '../assets/lib/bootstrap-datetimepicker.min';
+import '../assets/fonts/webFont.css';
+//import 'moment'; let webpack resolve moment in the assets/lib folder
 import {app} from './components/Config';
 import {Init} from './components/Init';
 import {Version} from './components/Version';

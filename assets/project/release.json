@@ -1,13 +1,13 @@
 {
   "project": {
     "name": "Page Builder",
-    "version": "4.1",
+    "version": "5.0",
     "author": "David Maser",
     "licensing": "MIT",
-    "revision": "5",
+    "revision": "8",
     "downloadlink": "https://drive.google.com/file/d/0B4onXKnKkE6AY0JiVlZ3bG9scmM/view?usp=sharing",
     "semantic": {
-      "build": 10,
+      "build": 15,
       "language": [
         "js",
         "jquery",
@@ -15,7 +15,8 @@
         "css",
         "html",
         "md",
-        "coffee"
+        "webpack",
+        "babel"
       ],
       "externals": [
         "jquery",
@@ -24,8 +25,7 @@
         "versioning file",
         "moment",
         "bootstrap datetimepicker",
-        "validate json",
-        "Shopify API"
+        "validate json"
       ],
       "minified": true
     },
@@ -315,6 +315,18 @@
           "scoped": true,
           "version": "3.2.1",
           "candidate": "4.0",
+          "request": false
+        }
+      },
+      {
+        "line": "multi",
+        "file": "bundle.js",
+        "structure": "modify",
+        "utility": "Rewrite library and methods according to es6 specs",
+        "appstatus": {
+          "scoped": true,
+          "version": "4.1",
+          "candidate": "5.0",
           "request": false
         }
       }
@@ -918,6 +930,44 @@
           },
           {
             "item": "Add the possibility of loading JSON directly from Altitude-Sports assets",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          }
+        ]
+      },
+      {
+        "version": "5.0",
+        "date": "06/09/2017",
+        "failsafe": "major",
+        "author": "David Maser",
+        "codeblocks": [
+          {
+            "item": "Rescript app following es6 and bem module specifications",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          },
+          {
+            "item": "Integrate webpack and babel for es6 processing and bundle management",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          },
+          {
+            "item": "Distribute named components, classes and methods to NPM for global namespace access",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          },
+          {
+            "item": "Remove Gulp and NPM task runners",
+            "revision": "major",
+            "impact": "global",
+            "codestatus": "working"
+          },
+          {
+            "item": "Remove usages of Bower Components. Bundle locally with webpack-load-file",
             "revision": "major",
             "impact": "global",
             "codestatus": "working"
