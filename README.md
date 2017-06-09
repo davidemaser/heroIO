@@ -6,5 +6,7 @@ This version has been entirely rescripted using modular javascript syntax. This 
 and uses webpack to transpile and bundle the project code. 
 
 1- Execute npm install to download required dependencies
+
 2- Execute npm run build to execute the webpack build process
+
 3- All files required to run the app will be in the dist/ folder
