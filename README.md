@@ -1,9 +1,10 @@
-### Page Builder V4.0+
+### Page Builder V5.0+
 
-This is the new working directory for the latest PageBuilder 3.0+ iterations (JSON version).
+This is the working branch for version 5+ of the Hero Banner Builder tool. 
 
-Help for this webapp can be accessed directly from the app menu
+This version has been entirely rescripted using modular javascript syntax. This version is scripted using es6 specifications
+and uses webpack to transpile and bundle the project code. 
 
-This app will be deprecated shortly in favor of a React.js version. 
-
-NOTE: Version 4.0 of this app is scripted using ES6 compliant javascript. This requires the scripts be built prior to being served in production. All required dependencies are in package.json. Create a preflight via webpack using Gulp and build using npm run build. 
+1- Execute npm install to download required dependencies
+2- Execute npm run build to execute the webpack build process
+3- All files required to run the app will be in the dist/ folder
