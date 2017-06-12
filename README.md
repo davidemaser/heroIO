@@ -1,6 +1,6 @@
-# NOTE:
+# NOTE
 
-###Page builder V4.1 will be retired on the 1st of July 2017. Version 5, a lighter, more streamlined and more efficient Page Builder will replace it. Version 5 can be used as of now at https://davidemaser.github.io/heroIO-5.0/dist/
+### Page builder V4.1 will be retired on the 1st of July 2017. Version 5, a lighter, more streamlined and more efficient Page Builder will replace it. Version 5 can be used as of now at https://davidemaser.github.io/heroIO-5.0/dist/
 
 ### Page Builder V4.1+
 
