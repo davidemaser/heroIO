@@ -1,6 +1,7 @@
 let webpack = require('webpack');
 let HtmlWebPackPlugin = require('html-webpack-plugin');
 let path = require('path');
+let PROD = JSON.parse(process.env.PROD_ENV || '0');
 module.exports = {
   entry: './src/app.js',
   watch:true,
@@ -10,7 +11,7 @@ module.exports = {
   },
   output: {
     path: __dirname + "/dist",
-    filename: "bundle.js"
+    filename: PROD ? 'bundle.min.js' : 'bundle.js'
   },
   module:{
     rules:[
@@ -39,6 +40,16 @@ module.exports = {
           }
         ]
       },
+      /*{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }
+      },*/
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
@@ -51,19 +62,24 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebPackPlugin(
-      {
-        template:'assets/templates/main.html',
-        inject:'head',
-        cache:true,
-        hash:true
-      }
-    ),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery',
-      jquery:'jquery'
-    })
-  ]
+  plugins: PROD ?
+    [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false,minimize: true }
+      })
+    ] : [
+      new HtmlWebPackPlugin(
+        {
+          template:'assets/templates/main.html',
+          inject:'head',
+          cache:true,
+          hash:true
+        }
+      ),
+      new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery:'jquery'
+      })
+    ]
 };

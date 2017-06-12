@@ -4,7 +4,8 @@
   "description": "Hero banner builder",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "prod": "SET PROD_ENV=1 & webpack"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-stream": "^3.2.0"
