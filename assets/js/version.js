@@ -1,8 +1,8 @@
 /**
  * Created by david-maser on 04/06/15.
  */
-let global_v = '';
-const version = {
+var global_v = '';
+var version = {
     printVersion:function(ver){
         global_v = ver;
         console.log(ver);
@@ -17,9 +17,9 @@ const version = {
     loadVersion:function(){
         $.ajax({
             type:'GET',
-            url:"../assets/project/release.json",
+            url:"assets/project/release.json",
             success:function(data) {
-                let kdata = data.project,
+                var kdata = data.project,
                     se_version = kdata.version;
                 version.printVersion(se_version);
             },
@@ -31,11 +31,11 @@ const version = {
     },
     initChomper:function(){
         try {
-          let apiKey = 'ae8447SA90@18d',
+            var apiKey = 'ae8447SA90@18d',
                 blocks = [],
                 a = $('body').find('chomper');
             if (a.length > 0) {
-              let b = a.children();
+                var b = a.children();
                 version.chompCode(true, b);
             }
         }catch(e){
@@ -51,12 +51,12 @@ const version = {
         version.loadVersion();
         $.ajax({
             type:'GET',
-            url:"../assets/project/release.json",//use assets/project/release.json when on local drive
+            url:"assets/project/release.json",//use assets/project/release.json when on local drive
             success:function(data) {
-              let builder = ' <div class="object master">';
-              let imagearray = [];
-              let kdata = data.project;
-              let prj_name = kdata.name,
+                var builder = ' <div class="object master">';
+                var imagearray = [];
+                var kdata = data.project;
+                var prj_name = kdata.name,
                     prj_author = kdata.author,
                     prj_licensing = kdata.licensing,
                     prj_version = kdata.version,
@@ -66,7 +66,7 @@ const version = {
                     prj_errors = kdata.errors,
                     prj_updates = kdata.updates,
                     prj_history = kdata.history;
-              let vcontrol = prj_version;
+                var vcontrol = prj_version;
                 //checkVersion(vcontrol);
                 //setTimeout("console.log(global_v)",1000);
                 builder += '<div class="object title"><h2>App Name : '+prj_name+'</h2></div>';
@@ -79,26 +79,26 @@ const version = {
                 builder += '<div class="object download"><a class="version_check" target="_blank" href="'+prj_download+'" title="Download Page-Builder to your computer" data-version="'+prj_version+'"><h4><span class="label label-info"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></span></h4></a></div></div>'
                 builder += '<div class="object semantic">';
                 builder += '<div class="btn-group"><button type="button" class="btn btn-default">Languages</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu">';
-                for(let i=0; i<prj_semantic.language.length; i++)
+                for(var i=0; i<prj_semantic.language.length; i++)
                 {
                     builder += '<li><a tabindex="[i]" href="#">'+prj_semantic.language[i]+'</a></li>';
                 }
                 builder += '</ul></div>';
 
                 builder += '<div class="btn-group"><button type="button" class="btn btn-default">External Sources</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu">';
-                for(let j=0; j<prj_semantic.externals.length; j++)
+                for(var j=0; j<prj_semantic.externals.length; j++)
                 {
                     builder += '<li><a tabindex="[j]" href="#">'+prj_semantic.externals[j]+'</a></li>';
                 }
                 builder += '</ul></div>';
                 builder += '</div>';
                 builder += '<div class="panel panel-default"><div class="panel-heading">Errors <span class="badge">'+prj_errors.length+'</span><span class="partridge glyphicon glyphicon-option-vertical"></span></div>';
-                for(let k=0; k<prj_errors.length; k++) {
+                for(var k=0; k<prj_errors.length; k++) {
                     builder += '<div class="panel-body"><div class="object lineitem"><h4><span class="label label-danger line-error" title="Source Line">'+prj_errors[k].line+'</span></h4></div><div class="object lineitem">'+prj_errors[k].file+'</div><div class="object lineitem">'+prj_errors[k].issue+'</div><div class="object lineitem"><div class="btn-group"><button type="button" class="btn btn-default">Fixes</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"><li role="presentation"><a role="menuitem" tabindex="'+[k]+'" href="#">'+prj_errors[k].fix.solution+'</a></li><li role="presentation"><a role="menuitem" tabindex="'+[k]+'" href="#">Applied : '+prj_errors[k].fix.applied+'</a></li></ul></div></div></div>';            }
                 builder += '</div>';
 
                 builder += '<div class="panel panel-default"><div class="panel-heading">Updates <span class="badge">'+prj_updates.length+'</span><span class="partridge glyphicon glyphicon-option-vertical"></span></div>';
-                for(let i=0; i<prj_updates.length; i++) {
+                for(var i=0; i<prj_updates.length; i++) {
                     builder += '<div class="panel-body"><div class="object lineitem"><h4><span class="label label-primary line-update" title="Source Line">'+prj_updates[i].line+'</span></h4></div><div class="object lineitem">'+prj_updates[i].file+'</div><div class="object lineitem">'+prj_updates[i].structure+'</div><div class="object lineitem">'+prj_updates[i].utility+'</div><div class="object lineitem"><div class="btn-group"><button type="button" class="btn btn-default">Update Status</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"><li role="presentation"><a role="menuitem" href="#">Scoped : '+prj_updates[i].appstatus.scoped+'</a></li><li role="presentation"><a role="menuitem" href="#">Version : '+prj_updates[i].appstatus.version+'</a></li><li role="presentation"><a role="menuitem" href="#">Candidate : '+prj_updates[i].appstatus.candidate+'</a></li><li role="presentation"><a role="menuitem" href="#">Request : '+prj_updates[i].appstatus.request+'</a></li></ul></div>';                if(prj_updates[i].appstatus.scoped == true){
                         builder += '<div class="object checks"><span class="glyphicon glyphicon-ok-circle"></span></div>';
                     }
@@ -107,7 +107,7 @@ const version = {
                 builder += ' </div>';
                 //history
                 builder += '<div class="panel panel-default"><div class="panel-heading">History <span class="badge">'+prj_history.length+'</span><span class="partridge glyphicon glyphicon-option-horizontal"></span></div>';
-                for(let i=0; i<prj_history.length; i++) {
+                for(var i=0; i<prj_history.length; i++) {
                     builder += '<div class="panel-body topelement"><div class="object lineitem"><h4><span class="label label-primary line-update" title="Version">'+prj_history[i].version+'</span></h4></div><div class="object lineitem">'+prj_history[i].date+'</div>';
                     builder += '<div class="object lineitem">';
                     if(prj_history[i].failsafe == 'minor'){
@@ -139,7 +139,7 @@ const version = {
                 }
                 builder += '</div>';
 
-                for(let i=0; i<kdata.length; i++)
+                for(var i=0; i<kdata.length; i++)
                 {
                     imagearray.push(kdata[i]);
                 }
@@ -169,7 +169,7 @@ const version = {
                     }
                 });
                 $('.version_check').click(function(e){
-                  let sel = $(this).attr('data-version');
+                    var sel = $(this).attr('data-version');
                     if(version.checkDecadent(sel) == 0){
                         e.preventDefault();
                         $('body').prepend('<div class="alert alert-success updalert" role="alert"><span class="glyphicon glyphicon-remove-sign alert-collapse" aria-hidden="true"></span><strong>Up To Date</strong><br>You are currently running the latest version of Page Builder</div>');
